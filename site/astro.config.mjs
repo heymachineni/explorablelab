@@ -1,11 +1,10 @@
 import { defineConfig } from 'astro/config';
 
-// Vercel: site at root (/). Set SITE_URL in Vercel env for production canonical URLs.
+// Always serve from /. (Do not set BASE_PATH on Vercel — it breaks the homepage.)
 const site = process.env.SITE_URL ?? 'https://explorablelab.vercel.app';
-const base = process.env.BASE_PATH ?? '/';
 
 export default defineConfig({
   site,
-  base,
+  base: '/',
   output: 'static',
 });

@@ -1,0 +1,8 @@
+{
+  "name": "explorablelab",
+  "private": true,
+  "scripts": {
+    "build": "npm run build --prefix site",
+    "vercel-build": "npm run build --prefix site"
+  }
+}
