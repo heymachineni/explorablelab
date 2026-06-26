@@ -1,0 +1,203 @@
+{
+  "collections": [
+    {
+      "slug": "start-here-first-visit",
+      "title": "Start Here: First Visit",
+      "summary": "5 exhibits \u00b7 ~15 min",
+      "time_minutes": 15,
+      "emotional_arc": "curiosity \u2192 surprise \u2192 complicity \u2192 hope",
+      "stops": [
+        "parable-of-polygons",
+        "monty-hall-carnival",
+        "petrie-multiplier",
+        "schelling-segregation",
+        "evolution-of-trust"
+      ]
+    },
+    {
+      "slug": "paradoxes-everyone-should-play",
+      "title": "Paradoxes Everyone Should Play Once",
+      "summary": "8 exhibits \u00b7 ~25 min",
+      "time_minutes": 25,
+      "emotional_arc": "bet \u2192 wrong \u2192 learn",
+      "stops": [
+        "monty-hall-carnival",
+        "simpsons-paradox-university",
+        "newcomb-predictor",
+        "braess-roads",
+        "friendship-paradox-club",
+        "st-petersburg-paradox",
+        "two-envelope-paradox",
+        "birthday-paradox"
+      ]
+    },
+    {
+      "slug": "innocence-horror-hope",
+      "title": "Innocence \u2192 Horror \u2192 Hope",
+      "summary": "5 exhibits \u00b7 ~20 min",
+      "time_minutes": 20,
+      "emotional_arc": "warm \u2192 dread \u2192 agency",
+      "stops": [
+        "parable-of-polygons",
+        "we-become-what-we-behold",
+        "goodhart-school",
+        "commons-garden",
+        "evolution-of-trust"
+      ]
+    },
+    {
+      "slug": "why-groups-act-weird",
+      "title": "Why Groups Act Weird",
+      "summary": "6 exhibits \u00b7 ~20 min",
+      "time_minutes": 20,
+      "emotional_arc": "alone \u2192 together \u2192 strange",
+      "stops": [
+        "pluralistic-ignorance-pool",
+        "asch-conformity",
+        "standing-ovation",
+        "milgram-obedience",
+        "complex-contagion-protest",
+        "information-cascade-falls"
+      ]
+    },
+    {
+      "slug": "math-that-lies-to-you",
+      "title": "Math That Lies to You",
+      "summary": "7 exhibits \u00b7 ~30 min",
+      "time_minutes": 30,
+      "emotional_arc": "confidence \u2192 doubt \u2192 precision",
+      "stops": [
+        "simpsons-paradox-university",
+        "base-rate-hospital",
+        "ergodicity-street",
+        "friendship-paradox-club",
+        "monty-hall-carnival",
+        "p-hacking-lab",
+        "prosecutors-dna"
+      ]
+    },
+    {
+      "slug": "systems-that-shape-society",
+      "title": "Systems That Shape Society",
+      "summary": "8 exhibits \u00b7 ~35 min",
+      "time_minutes": 35,
+      "emotional_arc": "individual \u2192 structure \u2192 intervention",
+      "stops": [
+        "schelling-segregation",
+        "goodharts-law",
+        "ostrom-commons-design",
+        "braess-roads",
+        "commons-garden",
+        "cobra-farm",
+        "jane-jacobs-corner",
+        "metric-hydra"
+      ]
+    },
+    {
+      "slug": "steal-from-nicky-case",
+      "title": "Steal From Nicky Case",
+      "summary": "7 exhibits \u00b7 ~40 min",
+      "time_minutes": 40,
+      "emotional_arc": "watch \u2192 extract \u2192 apply",
+      "stops": [
+        "parable-of-polygons",
+        "evolution-of-trust",
+        "we-become-what-we-behold",
+        "to-build-a-better-ballot",
+        "loopy",
+        "agent-placement",
+        "but-chain"
+      ]
+    },
+    {
+      "slug": "trust-betrayal-forgiveness",
+      "title": "Trust, Betrayal, and Forgiveness",
+      "summary": "5 exhibits \u00b7 ~20 min",
+      "time_minutes": 20,
+      "emotional_arc": "cooperate \u2192 defect \u2192 repair",
+      "stops": [
+        "evolution-of-trust",
+        "iterated-prisoners-dilemma",
+        "commons-garden",
+        "ultimatum-game",
+        "prisoners-dilemma-tournament"
+      ]
+    },
+    {
+      "slug": "networks-youre-inside-of",
+      "title": "Networks You're Inside Of",
+      "summary": "6 exhibits \u00b7 ~25 min",
+      "time_minutes": 25,
+      "emotional_arc": "node \u2192 graph \u2192 illusion",
+      "stops": [
+        "wisdom-and-madness-of-crowds",
+        "majority-illusion",
+        "weak-tie-bridge",
+        "complex-contagion-protest",
+        "information-cascade-falls",
+        "friendship-paradox-club"
+      ]
+    },
+    {
+      "slug": "ideas-every-designer-should-understand",
+      "title": "Ideas Every Designer Should Understand",
+      "summary": "10 exhibits \u00b7 ~45 min",
+      "time_minutes": 45,
+      "emotional_arc": "pattern \u2192 principle \u2192 exhibit",
+      "stops": [
+        "agent-placement",
+        "but-chain",
+        "predict-then-reveal",
+        "comparison-view",
+        "sandbox-mode",
+        "role-as-system",
+        "emergence",
+        "goodharts-law",
+        "feedback-loops",
+        "threshold-models"
+      ]
+    },
+    {
+      "slug": "under-five-minutes",
+      "title": "Under 5 Minutes",
+      "summary": "6 exhibits \u00b7 ~5 min",
+      "time_minutes": 5,
+      "emotional_arc": "quick hits",
+      "stops": [
+        "we-become-what-we-behold",
+        "fireflies",
+        "cobra-farm",
+        "friendship-paradox-club",
+        "how-to-remember-anything-forever-ish",
+        "adventures-with-anxiety"
+      ]
+    },
+    {
+      "slug": "build-these-next-tier-s",
+      "title": "Build These Next (Tier S)",
+      "summary": "Build queue reference",
+      "time_minutes": 0,
+      "emotional_arc": "spec \u2192 build \u2192 ship",
+      "stops": [
+        "petrie-multiplier",
+        "ergodicity-street",
+        "percolation-city",
+        "majority-illusion",
+        "goodhart-school",
+        "simpsons-paradox-university",
+        "complex-contagion-protest",
+        "base-rate-hospital",
+        "braess-roads",
+        "pluralistic-ignorance-pool",
+        "sandpile-avalanche",
+        "commons-garden",
+        "maxwells-demon-box",
+        "jane-jacobs-corner",
+        "urban-percolation-equity",
+        "contagion-of-courage",
+        "ergodic-inequality",
+        "krebs-cycle-of-outrage"
+      ]
+    }
+  ]
+}

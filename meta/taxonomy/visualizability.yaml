@@ -1,0 +1,21 @@
+# Visualizability — how inherently visual is this idea?
+
+visualizability:
+  none:
+    label: None
+    description: Purely abstract; visual is decorative only
+  low:
+    label: Low
+    description: Static diagram sufficient
+  medium:
+    label: Medium
+    description: Animation or simple interaction helps
+  high:
+    label: High
+    description: Dynamic simulation is natural fit
+  essential:
+    label: Essential
+    description: Idea is meaningless without seeing it run
+
+# Map to scores.visual_potential:
+# none→1-2, low→3-4, medium→5-6, high→7-8, essential→9-10

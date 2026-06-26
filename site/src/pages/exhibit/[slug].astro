@@ -1,0 +1,243 @@
+---
+import MuseumLayout from '../../layouts/MuseumLayout.astro';
+import canonicalData from '../../data/canonical.json';
+import type { Exhibit } from '../../types';
+
+export function getStaticPaths() {
+  const exhibits = canonicalData.exhibits as Exhibit[];
+  return exhibits.map((exhibit) => ({
+    params: { slug: exhibit.slug },
+    props: { exhibit },
+  }));
+}
+
+interface Props {
+  exhibit: Exhibit;
+}
+
+const { exhibit } = Astro.props;
+const exhibits = canonicalData.exhibits as Exhibit[];
+const relatedExhibits = exhibit.related
+  .map((slug) => exhibits.find((e) => e.slug === slug))
+  .filter(Boolean) as Exhibit[];
+---
+
+<MuseumLayout title={exhibit.title} description={exhibit.summary}>
+  <article class="exhibit">
+    <header class="exhibit-header">
+      <div class="placard-meta">
+        <span class="type-badge">{exhibit.type}</span>
+        <span class="wing-badge">{exhibit.wing}</span>
+      </div>
+      <h1>{exhibit.title}</h1>
+      {exhibit.hook && <p class="hook">{exhibit.hook}</p>}
+      <p class="summary">{exhibit.summary}</p>
+    </header>
+
+    {exhibit.embedUrl && (
+      <section class="exhibit-play">
+        <div class="embed-frame">
+          <iframe src={exhibit.embedUrl} title={exhibit.title} loading="lazy" allow="fullscreen"></iframe>
+        </div>
+        <a href={exhibit.embedUrl} class="external-link" target="_blank" rel="noopener noreferrer">
+          Open in new tab ↗
+        </a>
+      </section>
+    )}
+
+    {!exhibit.embedUrl && exhibit.playUrl && (
+      <section class="exhibit-play">
+        <div class="embed-frame">
+          <iframe src={exhibit.playUrl} title={exhibit.title} loading="lazy" allow="fullscreen"></iframe>
+        </div>
+        <a href={exhibit.playUrl} class="external-link">
+          Open full screen →
+        </a>
+      </section>
+    )}
+
+    {!exhibit.embedUrl && !exhibit.playUrl && (
+      <section class="exhibit-placeholder">
+        <p>Interactive simulation coming soon. Explore related exhibits below.</p>
+      </section>
+    )}
+
+    {relatedExhibits.length > 0 && (
+      <section class="related">
+        <h2>You May Also Like</h2>
+        <div class="related-grid">
+          {relatedExhibits.slice(0, 3).map((rel) => (
+            <a href={`/exhibit/${rel.slug}`} class="related-card">
+              <span class="rel-type">{rel.type}</span>
+              <h3>{rel.title}</h3>
+              <p>{rel.hook ?? rel.summary}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <footer class="exhibit-footer">
+      <a href="/discover" class="share-btn">Send someone here → Surprise Me</a>
+    </footer>
+  </article>
+</MuseumLayout>
+
+<style>
+  .exhibit-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .placard-meta {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .type-badge,
+  .wing-badge {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+
+  .type-badge {
+    color: var(--accent);
+    border-color: rgba(224, 122, 95, 0.35);
+  }
+
+  .wing-badge {
+    color: var(--text-muted);
+  }
+
+  .exhibit-header h1 {
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .hook {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--accent);
+    margin: 0 0 0.75rem;
+  }
+
+  .summary {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 60ch;
+    margin: 0;
+  }
+
+  .exhibit-play {
+    margin-bottom: 2.5rem;
+  }
+
+  .embed-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    max-height: 560px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: #0d0a08;
+    box-shadow: var(--shadow);
+  }
+
+  .embed-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .external-link {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .exhibit-placeholder {
+    padding: 2.5rem;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    background: var(--bg-card);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    color: var(--text-muted);
+  }
+
+  .related h2 {
+    font-size: 1.35rem;
+    margin-bottom: 1rem;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .related-card {
+    padding: 1.25rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+  }
+
+  .related-card:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+
+  .rel-type {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+  }
+
+  .related-card h3 {
+    font-size: 1.05rem;
+    margin: 0.4rem 0;
+  }
+
+  .related-card p {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+
+  .exhibit-footer {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .share-btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--accent-soft);
+    border: 1px solid rgba(224, 122, 95, 0.3);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .share-btn:hover {
+    background: rgba(224, 122, 95, 0.25);
+    color: var(--text);
+  }
+</style>

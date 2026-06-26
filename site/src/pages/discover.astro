@@ -1,0 +1,132 @@
+---
+import MuseumLayout from '../layouts/MuseumLayout.astro';
+import canonicalData from '../data/canonical.json';
+import type { Exhibit } from '../types';
+
+const exhibits = canonicalData.exhibits as Exhibit[];
+const slugs = exhibits.map((e) => e.slug);
+---
+
+<MuseumLayout title="Discover" description="Surprise me — random canonical exhibit.">
+  <header class="page-header">
+    <h1>Discover</h1>
+    <p class="lead">Serendipity mode. One canonical exhibit, chosen at random.</p>
+  </header>
+
+  <section class="discover-stage">
+    <div class="portal" id="portal" aria-live="polite">
+      <span class="portal-icon">✦</span>
+      <p class="portal-text">Press the button. Follow the rabbit hole.</p>
+    </div>
+
+    <button type="button" class="surprise-btn" id="surprise-btn">
+      Surprise Me
+    </button>
+
+    <p class="hint">Picks from {slugs.length} canonical exhibits</p>
+  </section>
+
+  <script is:inline define:vars={{ exhibitSlugs: slugs }}>
+    const btn = document.getElementById('surprise-btn');
+    const portal = document.getElementById('portal');
+
+    btn?.addEventListener('click', () => {
+      if (!exhibitSlugs.length) return;
+      const slug = exhibitSlugs[Math.floor(Math.random() * exhibitSlugs.length)];
+      portal?.classList.add('spinning');
+      portal.innerHTML = '<span class="portal-icon">◈</span><p class="portal-text">Opening…</p>';
+      setTimeout(() => {
+        window.location.href = `/exhibit/${slug}`;
+      }, 600);
+    });
+  </script>
+</MuseumLayout>
+
+<style>
+  .page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .page-header h1 {
+    font-size: clamp(2rem, 5vw, 2.75rem);
+  }
+
+  .lead {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 36ch;
+    margin: 0 auto;
+  }
+
+  .discover-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 3rem 1rem;
+  }
+
+  .portal {
+    width: min(360px, 90vw);
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, var(--accent-soft), var(--bg-card));
+    transition: transform 0.6s ease, border-color 0.3s ease;
+  }
+
+  .portal.spinning {
+    transform: rotate(180deg) scale(0.95);
+    border-color: var(--accent);
+  }
+
+  .portal-icon {
+    font-size: 3rem;
+    color: var(--accent);
+  }
+
+  .portal-text {
+    margin: 0;
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 0 1.5rem;
+  }
+
+  .surprise-btn {
+    appearance: none;
+    cursor: pointer;
+    padding: 1rem 2.5rem;
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--bg);
+    background: var(--accent);
+    border: none;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 24px rgba(224, 122, 95, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .surprise-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(224, 122, 95, 0.45);
+  }
+
+  .surprise-btn:active {
+    transform: translateY(0);
+  }
+
+  .hint {
+    font-size: 0.85rem;
+    color: rgba(196, 181, 165, 0.6);
+    margin: 0;
+  }
+</style>

@@ -1,0 +1,21 @@
+# Simulation types — use in tags or frontmatter simulation_type:
+
+simulation_types:
+  - agent-based
+  - cellular-automaton
+  - system-dynamics
+  - network-diffusion
+  - differential-equation
+  - monte-carlo
+  - game-theoretic-interaction
+  - optimization
+  - queueing
+  - cellular-potts
+  - particle-system
+  - cellular-oscillator
+  - branching-narrative
+  - bayesian-update
+  - market-simulation
+  - spatial-grid
+  - continuous-field
+  - hybrid

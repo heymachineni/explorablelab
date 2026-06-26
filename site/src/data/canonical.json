@@ -1,0 +1,1545 @@
+{
+  "exhibits": [
+    {
+      "slug": "parable-of-polygons",
+      "title": "Parable of the Polygons",
+      "summary": "Drag unhappy shapes; watch benign bias produce segregation \u2014 then undo it with anti-bias.",
+      "hook": "Drag unhappy shapes; watch benign bias produce segregation \u2014 then undo it with anti-bias.",
+      "type": "EXE",
+      "wing": "canon",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "emergence",
+        "threshold-models",
+        "agent-placement",
+        "parameter-slider",
+        "sandbox-mode",
+        "innocence-horror-hope"
+      ],
+      "embedUrl": "https://ncase.me/polygons/"
+    },
+    {
+      "slug": "evolution-of-trust",
+      "title": "Evolution of Trust",
+      "summary": "Play iterated Prisoner's Dilemma; watch cooperation evolve \u2014 and break under noise.",
+      "hook": "Play iterated Prisoner's Dilemma; watch cooperation evolve \u2014 and break under noise.",
+      "type": "EXE",
+      "wing": "canon",
+      "status": "canonical",
+      "related": [
+        "iterated-prisoners-dilemma",
+        "emergence",
+        "playable-game",
+        "but-chain",
+        "parameter-slider",
+        "sandbox-mode"
+      ],
+      "embedUrl": "https://ncase.me/trust/"
+    },
+    {
+      "slug": "we-become-what-we-behold",
+      "title": "We Become What We Behold",
+      "summary": "You are the camera. What you photograph causes the tragedy.",
+      "hook": "You are the camera. What you photograph causes the tragedy.",
+      "type": "EXE",
+      "wing": "canon",
+      "status": "canonical",
+      "related": [
+        "feedback-loops",
+        "information-cascades",
+        "role-as-system",
+        "innocence-horror-hope"
+      ],
+      "embedUrl": "https://ncase.me/social-media/"
+    },
+    {
+      "slug": "to-build-a-better-ballot",
+      "title": "To Build a Better Ballot",
+      "summary": "Same voters, six voting systems \u2014 six different winners.",
+      "hook": "Same voters, six voting systems \u2014 six different winners.",
+      "type": "EXE",
+      "wing": "canon",
+      "status": "canonical",
+      "related": [
+        "social-choice",
+        "comparison-view",
+        "ladder-of-abstraction",
+        "sandbox-mode"
+      ],
+      "embedUrl": "https://ncase.me/ballot/"
+    },
+    {
+      "slug": "loopy",
+      "title": "Loopy",
+      "summary": "Draw feedback loops; press play; watch circles close.",
+      "hook": "Draw feedback loops; press play; watch circles close.",
+      "type": "EXE",
+      "wing": "canon",
+      "status": "canonical",
+      "related": [
+        "feedback-loops",
+        "sandbox-mode"
+      ],
+      "embedUrl": "https://ncase.me/loopy/"
+    },
+    {
+      "slug": "fireflies",
+      "title": "Fireflies",
+      "summary": "Chaos synchronizes \u2014 no conductor required.",
+      "hook": "Chaos synchronizes \u2014 no conductor required.",
+      "type": "EXE",
+      "wing": "canon",
+      "status": "canonical",
+      "related": [
+        "emergence",
+        "parameter-slider",
+        "sandbox-mode"
+      ],
+      "embedUrl": "https://ncase.me/fireflies/"
+    },
+    {
+      "slug": "wisdom-and-madness-of-crowds",
+      "title": "Wisdom and/or Madness of Crowds",
+      "summary": "Same message, different network \u2014 opposite fate.",
+      "hook": "Same message, different network \u2014 opposite fate.",
+      "type": "EXE",
+      "wing": "canon",
+      "status": "canonical",
+      "related": [
+        "information-cascades",
+        "complex-contagion",
+        "graph-rewiring",
+        "comparison-view"
+      ],
+      "embedUrl": "https://ncase.me/crowds/"
+    },
+    {
+      "slug": "adventures-with-anxiety",
+      "title": "Adventures with Anxiety",
+      "summary": "Play as the anxiety voice \u2014 recognition, not instruction.",
+      "hook": "Play as the anxiety voice \u2014 recognition, not instruction.",
+      "type": "EXE",
+      "wing": "canon",
+      "status": "canonical",
+      "related": [
+        "feedback-loops",
+        "role-as-system",
+        "innocence-horror-hope"
+      ],
+      "embedUrl": "https://ncase.me/anxiety/"
+    },
+    {
+      "slug": "how-to-remember-anything-forever-ish",
+      "title": "How to Remember Anything Forever-ish",
+      "summary": "The explorable is the instrument \u2014 Orbit proves spacing while teaching it.",
+      "hook": "The explorable is the instrument \u2014 Orbit proves spacing while teaching it.",
+      "type": "EXE",
+      "wing": "canon",
+      "status": "canonical",
+      "related": [
+        "predict-then-reveal",
+        "sandbox-mode"
+      ],
+      "embedUrl": "https://ncase.me/remember/"
+    },
+    {
+      "slug": "petrie-multiplier",
+      "title": "Equal meanness",
+      "summary": "Equal meanness. Unequal harm.",
+      "hook": "Equal meanness. Unequal harm.",
+      "type": "SIM",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "agent-placement",
+        "parable-of-polygons"
+      ],
+      "playUrl": "/sims/petrie-multiplier/"
+    },
+    {
+      "slug": "ergodicity-street",
+      "title": "The average person doesn't exist",
+      "summary": "The average person doesn't exist.",
+      "hook": "The average person doesn't exist.",
+      "type": "SIM",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "agent-placement",
+        "parable-of-polygons"
+      ]
+    },
+    {
+      "slug": "percolation-city",
+      "title": "One more closed road killed the hospital",
+      "summary": "One more closed road killed the hospital.",
+      "hook": "One more closed road killed the hospital.",
+      "type": "SIM",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "agent-placement",
+        "parable-of-polygons"
+      ]
+    },
+    {
+      "slug": "majority-illusion",
+      "title": "Everyone you see agrees",
+      "summary": "Everyone you see agrees. That's the bug.",
+      "hook": "Everyone you see agrees. That's the bug.",
+      "type": "SIM",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "agent-placement",
+        "parable-of-polygons"
+      ]
+    },
+    {
+      "slug": "goodhart-school",
+      "title": "When the test became the target, learning died",
+      "summary": "When the test became the target, learning died.",
+      "hook": "When the test became the target, learning died.",
+      "type": "SIM",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "agent-placement",
+        "parable-of-polygons"
+      ]
+    },
+    {
+      "slug": "simpsons-paradox-university",
+      "title": "Every department improved",
+      "summary": "Every department improved. The university got worse.",
+      "hook": "Every department improved. The university got worse.",
+      "type": "SIM",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "agent-placement",
+        "parable-of-polygons"
+      ]
+    },
+    {
+      "slug": "complex-contagion-protest",
+      "title": "One person kneeling isn't a movement",
+      "summary": "One person kneeling isn't a movement. Ten might be.",
+      "hook": "One person kneeling isn't a movement. Ten might be.",
+      "type": "SIM",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "agent-placement",
+        "parable-of-polygons"
+      ]
+    },
+    {
+      "slug": "base-rate-hospital",
+      "title": "The test said positive",
+      "summary": "The test said positive. You're probably fine.",
+      "hook": "The test said positive. You're probably fine.",
+      "type": "SIM",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "agent-placement",
+        "parable-of-polygons"
+      ]
+    },
+    {
+      "slug": "braess-roads",
+      "title": "We added a highway",
+      "summary": "We added a highway. Traffic got worse.",
+      "hook": "We added a highway. Traffic got worse.",
+      "type": "SIM",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "agent-placement",
+        "parable-of-polygons"
+      ]
+    },
+    {
+      "slug": "pluralistic-ignorance-pool",
+      "title": "Nobody wanted to",
+      "summary": "Nobody wanted to. Everyone did.",
+      "hook": "Nobody wanted to. Everyone did.",
+      "type": "SIM",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "agent-placement",
+        "parable-of-polygons"
+      ]
+    },
+    {
+      "slug": "sandpile-avalanche",
+      "title": "Mountains of sand",
+      "summary": "Mountains of sand. Power-law avalanches.",
+      "hook": "Mountains of sand. Power-law avalanches.",
+      "type": "SIM",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "agent-placement",
+        "parable-of-polygons"
+      ]
+    },
+    {
+      "slug": "commons-garden",
+      "title": "Share the garden \u2014 or watch it die",
+      "summary": "Share the garden \u2014 or watch it die.",
+      "hook": "Share the garden \u2014 or watch it die.",
+      "type": "SIM",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "agent-placement",
+        "parable-of-polygons"
+      ]
+    },
+    {
+      "slug": "maxwells-demon-box",
+      "title": "Sort hot from cold \u2014 pay in entropy",
+      "summary": "Sort hot from cold \u2014 pay in entropy.",
+      "hook": "Sort hot from cold \u2014 pay in entropy.",
+      "type": "SIM",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "agent-placement",
+        "parable-of-polygons"
+      ]
+    },
+    {
+      "slug": "jane-jacobs-corner",
+      "title": "Four conditions for street life",
+      "summary": "Four conditions for street life.",
+      "hook": "Four conditions for street life.",
+      "type": "SIM",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "agent-placement",
+        "parable-of-polygons"
+      ]
+    },
+    {
+      "slug": "urban-percolation-equity",
+      "title": "Segregation disconnects services",
+      "summary": "Segregation disconnects services.",
+      "hook": "Segregation disconnects services.",
+      "type": "SIM",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "agent-placement",
+        "parable-of-polygons"
+      ]
+    },
+    {
+      "slug": "contagion-of-courage",
+      "title": "Bravery spreads differently than ideas",
+      "summary": "Bravery spreads differently than ideas.",
+      "hook": "Bravery spreads differently than ideas.",
+      "type": "SIM",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "agent-placement",
+        "parable-of-polygons"
+      ]
+    },
+    {
+      "slug": "ergodic-inequality",
+      "title": "Average wealth up",
+      "summary": "Average wealth up. You went bust.",
+      "hook": "Average wealth up. You went bust.",
+      "type": "SIM",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "agent-placement",
+        "parable-of-polygons"
+      ]
+    },
+    {
+      "slug": "krebs-cycle-of-outrage",
+      "title": "Outrage loops thicken pathways",
+      "summary": "Outrage loops thicken pathways.",
+      "hook": "Outrage loops thicken pathways.",
+      "type": "SIM",
+      "wing": "canon",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "agent-placement",
+        "parable-of-polygons"
+      ]
+    },
+    {
+      "slug": "schelling-segregation",
+      "title": "Schelling Segregation Model",
+      "summary": "Mild individual preference for similar neighbors produces dramatic macro-segregation.",
+      "hook": "Mild individual preference for similar neighbors produces dramatic macro-segregation.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "parable-of-polygons",
+        "emergence",
+        "threshold-models"
+      ]
+    },
+    {
+      "slug": "emergence",
+      "title": "Emergence",
+      "summary": "Local rules produce global patterns nobody designed.",
+      "hook": "Local rules produce global patterns nobody designed.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "fireflies",
+        "sandpile-avalanche",
+        "agent-placement"
+      ]
+    },
+    {
+      "slug": "threshold-models",
+      "title": "Threshold Models",
+      "summary": "People join when enough others have joined.",
+      "hook": "People join when enough others have joined.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "standing-ovation",
+        "complex-contagion-protest",
+        "1978-granovetter-threshold",
+        "schelling-segregation"
+      ]
+    },
+    {
+      "slug": "feedback-loops",
+      "title": "Feedback Loops",
+      "summary": "Output becomes input. Circles close.",
+      "hook": "Output becomes input. Circles close.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "loopy",
+        "we-become-what-we-behold",
+        "krebs-cycle-of-outrage",
+        "feedback-loop-circle"
+      ]
+    },
+    {
+      "slug": "percolation",
+      "title": "Percolation",
+      "summary": "Connectivity jumps at a critical point.",
+      "hook": "Connectivity jumps at a critical point.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "percolation-city",
+        "urban-percolation-equity",
+        "braess-roads",
+        "schelling-segregation"
+      ]
+    },
+    {
+      "slug": "goodharts-law",
+      "title": "Goodhart's Law",
+      "summary": "When a measure becomes a target, it ceases to be a good measure.",
+      "hook": "When a measure becomes a target, it ceases to be a good measure.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "goodhart-school",
+        "metric-hydra",
+        "cobra-farm",
+        "p-hacking-lab"
+      ]
+    },
+    {
+      "slug": "ostrom-commons-design",
+      "title": "Ostrom Commons Design",
+      "summary": "Communities can govern shared resources without tragedy.",
+      "hook": "Communities can govern shared resources without tragedy.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "commons-garden",
+        "2009-ostrom-commons",
+        "tragedy-of-the-commons",
+        "evolution-of-trust"
+      ]
+    },
+    {
+      "slug": "social-choice",
+      "title": "Social Choice",
+      "summary": "No voting system is perfect \u2014 Arrow proved it.",
+      "hook": "No voting system is perfect \u2014 Arrow proved it.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "to-build-a-better-ballot",
+        "stochastic-resonance-democracy",
+        "prisoners-dilemma",
+        "evolution-of-trust"
+      ]
+    },
+    {
+      "slug": "ergodicity",
+      "title": "Ergodicity",
+      "summary": "The ensemble average is not your average experience.",
+      "hook": "The ensemble average is not your average experience.",
+      "type": "THY",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "ergodicity-street",
+        "ergodic-inequality",
+        "st-petersburg-paradox",
+        "fat-tail-farm"
+      ]
+    },
+    {
+      "slug": "complex-contagion",
+      "title": "Complex Contagion",
+      "summary": "Some behaviors need multiple exposures to spread.",
+      "hook": "Some behaviors need multiple exposures to spread.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "complex-contagion-protest",
+        "contagion-of-courage",
+        "2007-centola-complex-contagion",
+        "wisdom-and-madness-of-crowds"
+      ]
+    },
+    {
+      "slug": "information-cascades",
+      "title": "Information Cascades",
+      "summary": "Follow the crowd; ignore private signal.",
+      "hook": "Follow the crowd; ignore private signal.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "information-cascade-falls",
+        "wisdom-and-madness-of-crowds",
+        "majority-illusion",
+        "we-become-what-we-behold"
+      ]
+    },
+    {
+      "slug": "iterated-prisoners-dilemma",
+      "title": "Iterated Prisoner's Dilemma",
+      "summary": "One-shot defection; repeated cooperation.",
+      "hook": "One-shot defection; repeated cooperation.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "evolution-of-trust",
+        "prisoners-dilemma",
+        "prisoners-dilemma-tournament",
+        "commons-garden"
+      ]
+    },
+    {
+      "slug": "agent-placement",
+      "title": "Agent Placement",
+      "summary": "You move one piece; the system moves the rest.",
+      "hook": "You move one piece; the system moves the rest.",
+      "type": "PAT",
+      "wing": "design",
+      "status": "canonical",
+      "related": [
+        "parable-of-polygons",
+        "schelling-segregation",
+        "sandbox-mode"
+      ]
+    },
+    {
+      "slug": "parameter-slider",
+      "title": "Parameter Slider",
+      "summary": "One dial, many worlds.",
+      "hook": "One dial, many worlds.",
+      "type": "PAT",
+      "wing": "design",
+      "status": "canonical",
+      "related": [
+        "fireflies",
+        "evolution-of-trust",
+        "parable-of-polygons"
+      ]
+    },
+    {
+      "slug": "sandbox-mode",
+      "title": "Sandbox Mode",
+      "summary": "Prove generality after the lesson.",
+      "hook": "Prove generality after the lesson.",
+      "type": "PAT",
+      "wing": "design",
+      "status": "canonical",
+      "related": [
+        "evolution-of-trust",
+        "to-build-a-better-ballot",
+        "loopy"
+      ]
+    },
+    {
+      "slug": "but-chain",
+      "title": "BUT-Chain",
+      "summary": "Yes\u2026 but\u2026 therefore\u2026 narrative ladder.",
+      "hook": "Yes\u2026 but\u2026 therefore\u2026 narrative ladder.",
+      "type": "PAT",
+      "wing": "design",
+      "status": "canonical",
+      "related": [
+        "evolution-of-trust",
+        "we-become-what-we-behold",
+        "but-chain-narrative"
+      ]
+    },
+    {
+      "slug": "predict-then-reveal",
+      "title": "Predict-Then-Reveal",
+      "summary": "Commit before the simulation runs.",
+      "hook": "Commit before the simulation runs.",
+      "type": "PAT",
+      "wing": "design",
+      "status": "canonical",
+      "related": [
+        "monty-hall-carnival",
+        "petrie-multiplier",
+        "how-to-remember-anything-forever-ish"
+      ]
+    },
+    {
+      "slug": "comparison-view",
+      "title": "Comparison View",
+      "summary": "Same inputs, side by side.",
+      "hook": "Same inputs, side by side.",
+      "type": "PAT",
+      "wing": "design",
+      "status": "canonical",
+      "related": [
+        "to-build-a-better-ballot",
+        "wisdom-and-madness-of-crowds",
+        "simpsons-paradox-university"
+      ]
+    },
+    {
+      "slug": "role-as-system",
+      "title": "Role-as-System",
+      "summary": "Play the antagonist, not the hero.",
+      "hook": "Play the antagonist, not the hero.",
+      "type": "PAT",
+      "wing": "design",
+      "status": "canonical",
+      "related": [
+        "adventures-with-anxiety",
+        "we-become-what-we-behold",
+        "innocence-horror-hope"
+      ]
+    },
+    {
+      "slug": "graph-rewiring",
+      "title": "Graph Rewiring",
+      "summary": "Drag edges; watch diffusion change.",
+      "hook": "Drag edges; watch diffusion change.",
+      "type": "PAT",
+      "wing": "design",
+      "status": "canonical",
+      "related": [
+        "wisdom-and-madness-of-crowds",
+        "weak-tie-bridge",
+        "majority-illusion"
+      ]
+    },
+    {
+      "slug": "ladder-of-abstraction",
+      "title": "Ladder of Abstraction",
+      "summary": "Manual \u2192 automated \u2192 parameterized.",
+      "hook": "Manual \u2192 automated \u2192 parameterized.",
+      "type": "PAT",
+      "wing": "design",
+      "status": "canonical",
+      "related": [
+        "parable-of-polygons",
+        "to-build-a-better-ballot",
+        "agent-placement"
+      ]
+    },
+    {
+      "slug": "playable-game",
+      "title": "Playable Game",
+      "summary": "Real stakes in a toy world.",
+      "hook": "Real stakes in a toy world.",
+      "type": "PAT",
+      "wing": "design",
+      "status": "canonical",
+      "related": [
+        "evolution-of-trust",
+        "ultimatum-game",
+        "newcomb-predictor"
+      ]
+    },
+    {
+      "slug": "innocence-horror-hope",
+      "title": "Innocence \u2192 Horror \u2192 Hope",
+      "summary": "Warm start, dread middle, agency end.",
+      "hook": "Warm start, dread middle, agency end.",
+      "type": "STR",
+      "wing": "design",
+      "status": "canonical",
+      "related": [
+        "parable-of-polygons",
+        "we-become-what-we-behold",
+        "goodhart-school"
+      ]
+    },
+    {
+      "slug": "echo-start-sandbox-end",
+      "title": "Echo Start, Sandbox End",
+      "summary": "Guided hook, open finish.",
+      "hook": "Guided hook, open finish.",
+      "type": "STR",
+      "wing": "design",
+      "status": "canonical",
+      "related": [
+        "how-to-remember-anything-forever-ish",
+        "sandbox-mode",
+        "predict-then-reveal"
+      ]
+    },
+    {
+      "slug": "neighborhood-grid",
+      "title": "Neighborhood Grid",
+      "summary": "Cells and local vision.",
+      "hook": "Cells and local vision.",
+      "type": "MET",
+      "wing": "design",
+      "status": "canonical",
+      "related": [
+        "parable-of-polygons",
+        "schelling-segregation",
+        "urban-percolation-equity"
+      ]
+    },
+    {
+      "slug": "feedback-loop-circle",
+      "title": "Feedback Loop Circle",
+      "summary": "Arrows that bite their tail.",
+      "hook": "Arrows that bite their tail.",
+      "type": "MET",
+      "wing": "design",
+      "status": "canonical",
+      "related": [
+        "loopy",
+        "feedback-loops",
+        "krebs-cycle-of-outrage"
+      ]
+    },
+    {
+      "slug": "but-chain-narrative",
+      "title": "BUT-Chain Narrative",
+      "summary": "Structured counterintuitive beats.",
+      "hook": "Structured counterintuitive beats.",
+      "type": "STR",
+      "wing": "design",
+      "status": "canonical",
+      "related": [
+        "but-chain",
+        "evolution-of-trust",
+        "innocence-horror-hope"
+      ]
+    },
+    {
+      "slug": "monty-hall-carnival",
+      "title": "Three doors. One car. Switch or stay?",
+      "summary": "Monty Hall \u2014 switching wins 2/3 of the time.",
+      "hook": "Monty Hall \u2014 switching wins 2/3 of the time.",
+      "type": "SIM",
+      "wing": "paradox",
+      "status": "canonical",
+      "related": [
+        "monty-hall",
+        "predict-then-reveal",
+        "base-rate-hospital"
+      ]
+    },
+    {
+      "slug": "newcomb-predictor",
+      "title": "The box knows what you'll do.",
+      "summary": "Newcomb's problem \u2014 one-boxers vs two-boxers.",
+      "hook": "Newcomb's problem \u2014 one-boxers vs two-boxers.",
+      "type": "SIM",
+      "wing": "paradox",
+      "status": "canonical",
+      "related": [
+        "newcomb-paradox",
+        "predict-then-reveal",
+        "evolution-of-trust"
+      ]
+    },
+    {
+      "slug": "simpsons-paradox-university",
+      "title": "Every department improved. The university got worse.",
+      "summary": "Simpson's paradox \u2014 aggregation reverses trends.",
+      "hook": "Simpson's paradox \u2014 aggregation reverses trends.",
+      "type": "SIM",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "simpsons-paradox",
+        "base-rate-hospital",
+        "p-hacking-lab"
+      ]
+    },
+    {
+      "slug": "friendship-paradox-club",
+      "title": "Your friends have more friends than you.",
+      "summary": "Friendship paradox \u2014 degree bias in sampling.",
+      "hook": "Friendship paradox \u2014 degree bias in sampling.",
+      "type": "SIM",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "friendship-paradox",
+        "majority-illusion",
+        "wisdom-and-madness-of-crowds"
+      ]
+    },
+    {
+      "slug": "standing-ovation",
+      "title": "When does one person stand?",
+      "summary": "Threshold cascade in an auditorium.",
+      "hook": "Threshold cascade in an auditorium.",
+      "type": "SIM",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "threshold-models",
+        "complex-contagion-protest",
+        "pluralistic-ignorance-pool"
+      ]
+    },
+    {
+      "slug": "weak-tie-bridge",
+      "title": "Your weak tie got you the job.",
+      "summary": "Granovetter bridges \u2014 strength of weak ties.",
+      "hook": "Granovetter bridges \u2014 strength of weak ties.",
+      "type": "SIM",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "wisdom-and-madness-of-crowds",
+        "information-cascade-falls",
+        "complex-contagion"
+      ]
+    },
+    {
+      "slug": "cobra-farm",
+      "title": "Pay for dead cobras. Breed cobras.",
+      "summary": "Perverse incentives \u2014 Goodhart in the wild.",
+      "hook": "Perverse incentives \u2014 Goodhart in the wild.",
+      "type": "SIM",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "goodharts-law",
+        "goodhart-school",
+        "metric-hydra"
+      ]
+    },
+    {
+      "slug": "braess-roads",
+      "title": "We added a highway. Traffic got worse.",
+      "summary": "Braess paradox \u2014 selfish routing.",
+      "hook": "Braess paradox \u2014 selfish routing.",
+      "type": "SIM",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "braess-paradox",
+        "percolation-city",
+        "social-choice"
+      ]
+    },
+    {
+      "slug": "information-cascade-falls",
+      "title": "Jump because others jumped.",
+      "summary": "Information cascade on a cliff edge.",
+      "hook": "Information cascade on a cliff edge.",
+      "type": "SIM",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "information-cascades",
+        "wisdom-and-madness-of-crowds",
+        "pluralistic-ignorance-pool"
+      ]
+    },
+    {
+      "slug": "base-rate-hospital",
+      "title": "The test said positive. You're probably fine.",
+      "summary": "Bayes with base rates \u2014 prevalence matters.",
+      "hook": "Bayes with base rates \u2014 prevalence matters.",
+      "type": "SIM",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "prosecutors-dna",
+        "monty-hall-carnival",
+        "bayesian-therapy"
+      ]
+    },
+    {
+      "slug": "p-hacking-lab",
+      "title": "Keep running tests until p < 0.05.",
+      "summary": "Multiple comparisons without correction.",
+      "hook": "Multiple comparisons without correction.",
+      "type": "SIM",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "goodharts-law",
+        "simpsons-paradox-university",
+        "metric-hydra"
+      ]
+    },
+    {
+      "slug": "prosecutors-dna",
+      "title": "One in a million match. Guilty?",
+      "summary": "Prosecutor's fallacy \u2014 conflating P(E|I) and P(I|E).",
+      "hook": "Prosecutor's fallacy \u2014 conflating P(E|I) and P(I|E).",
+      "type": "SIM",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "base-rate-hospital",
+        "monty-hall",
+        "bayesian-therapy"
+      ]
+    },
+    {
+      "slug": "fat-tail-farm",
+      "title": "Average yield looks fine. You went bankrupt.",
+      "summary": "Fat tails \u2014 mean hides ruin.",
+      "hook": "Fat tails \u2014 mean hides ruin.",
+      "type": "SIM",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "ergodicity-street",
+        "st-petersburg-paradox",
+        "ergodicity"
+      ]
+    },
+    {
+      "slug": "galton-board",
+      "title": "Random paths, normal pile.",
+      "summary": "Central limit theorem as peg board.",
+      "hook": "Central limit theorem as peg board.",
+      "type": "SIM",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "birthday-paradox",
+        "probability-statistics",
+        "base-rate-hospital"
+      ]
+    },
+    {
+      "slug": "parrondo-casino",
+      "title": "Two losing games. Win by alternating.",
+      "summary": "Parrondo's paradox \u2014 negative + negative = positive.",
+      "hook": "Parrondo's paradox \u2014 negative + negative = positive.",
+      "type": "SIM",
+      "wing": "paradox",
+      "status": "canonical",
+      "related": [
+        "st-petersburg-paradox",
+        "prisoners-dilemma",
+        "evolution-of-trust"
+      ]
+    },
+    {
+      "slug": "bayesian-therapy",
+      "title": "Update beliefs with evidence.",
+      "summary": "Bayes as interactive belief revision.",
+      "hook": "Bayes as interactive belief revision.",
+      "type": "SIM",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "base-rate-hospital",
+        "prosecutors-dna",
+        "monty-hall-carnival"
+      ]
+    },
+    {
+      "slug": "metric-hydra",
+      "title": "Cut one metric. Two grow back.",
+      "summary": "Goodhart hydra \u2014 metric gaming spawns proxies.",
+      "hook": "Goodhart hydra \u2014 metric gaming spawns proxies.",
+      "type": "SIM",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "goodhart-school",
+        "cobra-farm",
+        "goodharts-law"
+      ]
+    },
+    {
+      "slug": "stochastic-resonance-democracy",
+      "title": "Noise helps weak signals get heard.",
+      "summary": "Stochastic resonance in collective choice.",
+      "hook": "Stochastic resonance in collective choice.",
+      "type": "SIM",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "social-choice",
+        "to-build-a-better-ballot",
+        "information-cascades"
+      ]
+    },
+    {
+      "slug": "polya-culture-wars",
+      "title": "Minority becomes majority by chance.",
+      "summary": "P\u00f3lya urn \u2014 path-dependent culture.",
+      "hook": "P\u00f3lya urn \u2014 path-dependent culture.",
+      "type": "SIM",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "complex-contagion",
+        "wisdom-and-madness-of-crowds",
+        "schelling-segregation"
+      ]
+    },
+    {
+      "slug": "deffuant-polarization",
+      "title": "Opinions move; camps form.",
+      "summary": "Bounded confidence model \u2014 echo chambers emerge.",
+      "hook": "Bounded confidence model \u2014 echo chambers emerge.",
+      "type": "SIM",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "wisdom-and-madness-of-crowds",
+        "krebs-cycle-of-outrage",
+        "we-become-what-we-behold"
+      ]
+    },
+    {
+      "slug": "monty-hall",
+      "title": "Monty Hall Problem",
+      "summary": "Switch doors \u2014 counterintuitively, you should.",
+      "hook": "Switch doors \u2014 counterintuitively, you should.",
+      "type": "PAR",
+      "wing": "paradox",
+      "status": "canonical",
+      "related": [
+        "monty-hall-carnival",
+        "predict-then-reveal",
+        "base-rate-hospital"
+      ]
+    },
+    {
+      "slug": "simpsons-paradox",
+      "title": "Simpson's Paradox",
+      "summary": "Trends reverse when you stratify.",
+      "hook": "Trends reverse when you stratify.",
+      "type": "PAR",
+      "wing": "paradox",
+      "status": "canonical",
+      "related": [
+        "simpsons-paradox-university",
+        "p-hacking-lab",
+        "base-rate-hospital"
+      ]
+    },
+    {
+      "slug": "st-petersburg-paradox",
+      "title": "St. Petersburg Paradox",
+      "summary": "Infinite expected value, finite willingness to pay.",
+      "hook": "Infinite expected value, finite willingness to pay.",
+      "type": "PAR",
+      "wing": "paradox",
+      "status": "canonical",
+      "related": [
+        "fat-tail-farm",
+        "ergodicity",
+        "ergodicity-street"
+      ]
+    },
+    {
+      "slug": "two-envelope-paradox",
+      "title": "Two Envelope Paradox",
+      "summary": "Should you switch? Both answers seem valid.",
+      "hook": "Should you switch? Both answers seem valid.",
+      "type": "PAR",
+      "wing": "paradox",
+      "status": "canonical",
+      "related": [
+        "st-petersburg-paradox",
+        "newcomb-paradox",
+        "bayesian-therapy"
+      ]
+    },
+    {
+      "slug": "sleeping-beauty",
+      "title": "Sleeping Beauty Problem",
+      "summary": "How much do you update on waking?",
+      "hook": "How much do you update on waking?",
+      "type": "PAR",
+      "wing": "paradox",
+      "status": "canonical",
+      "related": [
+        "newcomb-paradox",
+        "bayesian-therapy",
+        "predict-then-reveal"
+      ]
+    },
+    {
+      "slug": "newcomb-paradox",
+      "title": "Newcomb's Paradox",
+      "summary": "Free will vs prediction.",
+      "hook": "Free will vs prediction.",
+      "type": "PAR",
+      "wing": "paradox",
+      "status": "canonical",
+      "related": [
+        "newcomb-predictor",
+        "predict-then-reveal",
+        "evolution-of-trust"
+      ]
+    },
+    {
+      "slug": "prisoners-dilemma",
+      "title": "Prisoner's Dilemma",
+      "summary": "Individual rationality, collective disaster.",
+      "hook": "Individual rationality, collective disaster.",
+      "type": "PAR",
+      "wing": "paradox",
+      "status": "canonical",
+      "related": [
+        "evolution-of-trust",
+        "iterated-prisoners-dilemma",
+        "commons-garden"
+      ]
+    },
+    {
+      "slug": "tragedy-of-the-commons",
+      "title": "Tragedy of the Commons",
+      "summary": "Shared resource, private incentive to overuse.",
+      "hook": "Shared resource, private incentive to overuse.",
+      "type": "PAR",
+      "wing": "paradox",
+      "status": "canonical",
+      "related": [
+        "commons-garden",
+        "ostrom-commons-design",
+        "2009-ostrom-commons"
+      ]
+    },
+    {
+      "slug": "braess-paradox",
+      "title": "Braess Paradox",
+      "summary": "More capacity, worse flow.",
+      "hook": "More capacity, worse flow.",
+      "type": "PAR",
+      "wing": "paradox",
+      "status": "canonical",
+      "related": [
+        "braess-roads",
+        "percolation-city",
+        "social-choice"
+      ]
+    },
+    {
+      "slug": "friendship-paradox",
+      "title": "Friendship Paradox",
+      "summary": "Most people have fewer friends than their friends do.",
+      "hook": "Most people have fewer friends than their friends do.",
+      "type": "PAR",
+      "wing": "paradox",
+      "status": "canonical",
+      "related": [
+        "friendship-paradox-club",
+        "majority-illusion",
+        "wisdom-and-madness-of-crowds"
+      ]
+    },
+    {
+      "slug": "birthday-paradox",
+      "title": "Birthday Paradox",
+      "summary": "23 people \u2014 50% chance of a shared birthday.",
+      "hook": "23 people \u2014 50% chance of a shared birthday.",
+      "type": "PAR",
+      "wing": "paradox",
+      "status": "canonical",
+      "related": [
+        "galton-board",
+        "probability-statistics",
+        "monty-hall"
+      ]
+    },
+    {
+      "slug": "unexpected-hanging",
+      "title": "Unexpected Hanging",
+      "summary": "Logic eats itself on surprise.",
+      "hook": "Logic eats itself on surprise.",
+      "type": "PAR",
+      "wing": "paradox",
+      "status": "canonical",
+      "related": [
+        "predict-then-reveal",
+        "newcomb-paradox",
+        "sleeping-beauty"
+      ]
+    },
+    {
+      "slug": "milgram-obedience",
+      "title": "Milgram Obedience Experiments",
+      "summary": "Authority overrides conscience \u2014 in a lab.",
+      "hook": "Authority overrides conscience \u2014 in a lab.",
+      "type": "EXP",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "asch-conformity",
+        "stanford-prison-experiment",
+        "pluralistic-ignorance-pool"
+      ]
+    },
+    {
+      "slug": "asch-conformity",
+      "title": "Asch Conformity Experiments",
+      "summary": "Wrong answers become contagious.",
+      "hook": "Wrong answers become contagious.",
+      "type": "EXP",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "milgram-obedience",
+        "pluralistic-ignorance-pool",
+        "standing-ovation"
+      ]
+    },
+    {
+      "slug": "stanford-prison-experiment",
+      "title": "Stanford Prison Experiment",
+      "summary": "Roles reshape behavior \u2014 controversial but iconic.",
+      "hook": "Roles reshape behavior \u2014 controversial but iconic.",
+      "type": "EXP",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "milgram-obedience",
+        "role-as-system",
+        "we-become-what-we-behold"
+      ]
+    },
+    {
+      "slug": "wason-selection-task",
+      "title": "Wason Selection Task",
+      "summary": "We confirm; we don't falsify.",
+      "hook": "We confirm; we don't falsify.",
+      "type": "EXP",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "invisible-gorilla",
+        "cognitive-science",
+        "base-rate-hospital"
+      ]
+    },
+    {
+      "slug": "invisible-gorilla",
+      "title": "Invisible Gorilla",
+      "summary": "Attention is narrow; you miss the obvious.",
+      "hook": "Attention is narrow; you miss the obvious.",
+      "type": "EXP",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "wason-selection-task",
+        "cognitive-science",
+        "we-become-what-we-behold"
+      ]
+    },
+    {
+      "slug": "ultimatum-game",
+      "title": "Ultimatum Game",
+      "summary": "Fairness beats pure payoff maximization.",
+      "hook": "Fairness beats pure payoff maximization.",
+      "type": "EXP",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "evolution-of-trust",
+        "prisoners-dilemma-tournament",
+        "commons-garden"
+      ]
+    },
+    {
+      "slug": "marshmallow-test",
+      "title": "Marshmallow Test",
+      "summary": "Delay of gratification \u2014 and later nuance.",
+      "hook": "Delay of gratification \u2014 and later nuance.",
+      "type": "EXP",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "feedback-loops",
+        "cognitive-science",
+        "evolution-of-trust"
+      ]
+    },
+    {
+      "slug": "stroop-experiment",
+      "title": "Stroop Experiment",
+      "summary": "Automatic reading interferes with naming color.",
+      "hook": "Automatic reading interferes with naming color.",
+      "type": "EXP",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "cognitive-science",
+        "invisible-gorilla",
+        "wason-selection-task"
+      ]
+    },
+    {
+      "slug": "centola-complex-contagion",
+      "title": "Centola Complex Contagion",
+      "summary": "Online health behavior needs reinforced exposure.",
+      "hook": "Online health behavior needs reinforced exposure.",
+      "type": "EXP",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "complex-contagion",
+        "2007-centola-complex-contagion",
+        "complex-contagion-protest"
+      ]
+    },
+    {
+      "slug": "prisoners-dilemma-tournament",
+      "title": "Prisoner's Dilemma Tournament",
+      "summary": "Axelrod's iterated games \u2014 cooperation wins.",
+      "hook": "Axelrod's iterated games \u2014 cooperation wins.",
+      "type": "EXP",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "evolution-of-trust",
+        "iterated-prisoners-dilemma",
+        "prisoners-dilemma"
+      ]
+    },
+    {
+      "slug": "2013-petrie-harassment-multiplier",
+      "title": "Petrie Harassment Multiplier (2013)",
+      "summary": "Equal per-capita harassment rates still produce unequal harm across groups.",
+      "hook": "Equal per-capita harassment rates still produce unequal harm across groups.",
+      "type": "PAP",
+      "wing": "evidence",
+      "status": "canonical",
+      "related": [
+        "petrie-multiplier",
+        "complex-systems",
+        "social-science"
+      ]
+    },
+    {
+      "slug": "1978-granovetter-threshold",
+      "title": "Granovetter Threshold (1978)",
+      "summary": "Threshold models of collective behavior.",
+      "hook": "Threshold models of collective behavior.",
+      "type": "PAP",
+      "wing": "evidence",
+      "status": "canonical",
+      "related": [
+        "threshold-models",
+        "standing-ovation",
+        "complex-contagion-protest"
+      ]
+    },
+    {
+      "slug": "2007-centola-complex-contagion",
+      "title": "Centola Complex Contagion (2007)",
+      "summary": "Empirical evidence for complex contagion online.",
+      "hook": "Empirical evidence for complex contagion online.",
+      "type": "PAP",
+      "wing": "evidence",
+      "status": "canonical",
+      "related": [
+        "complex-contagion",
+        "centola-complex-contagion",
+        "complex-contagion-protest"
+      ]
+    },
+    {
+      "slug": "schelling-1971-dynamic-models",
+      "title": "Schelling Dynamic Models (1971)",
+      "summary": "Micromotives and macro-segregation.",
+      "hook": "Micromotives and macro-segregation.",
+      "type": "PAP",
+      "wing": "evidence",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "parable-of-polygons",
+        "micromotives-and-macrobehavior"
+      ]
+    },
+    {
+      "slug": "2009-ostrom-commons",
+      "title": "Nobel: Ostrom Commons (2009)",
+      "summary": "Governing the commons \u2014 design principles.",
+      "hook": "Governing the commons \u2014 design principles.",
+      "type": "PAP",
+      "wing": "evidence",
+      "status": "canonical",
+      "related": [
+        "ostrom-commons-design",
+        "commons-garden",
+        "tragedy-of-the-commons"
+      ]
+    },
+    {
+      "slug": "micromotives-and-macrobehavior",
+      "title": "Micromotives and Macrobehavior",
+      "summary": "Schelling's classic \u2014 segregation, sorting, tipping.",
+      "hook": "Schelling's classic \u2014 segregation, sorting, tipping.",
+      "type": "BOK",
+      "wing": "book",
+      "status": "canonical",
+      "related": [
+        "schelling-segregation",
+        "schelling-1971-dynamic-models",
+        "parable-of-polygons"
+      ]
+    },
+    {
+      "slug": "explorable-explanations",
+      "title": "Explorable Explanations",
+      "summary": "The medium Bret Victor named \u2014 learn by manipulating.",
+      "hook": "The medium Bret Victor named \u2014 learn by manipulating.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "nicky-case",
+        "agent-placement",
+        "predict-then-reveal"
+      ]
+    },
+    {
+      "slug": "complex-systems",
+      "title": "Complex Systems",
+      "summary": "Emergence, networks, feedback \u2014 the systems wing.",
+      "hook": "Emergence, networks, feedback \u2014 the systems wing.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "emergence",
+        "schelling-segregation",
+        "feedback-loops"
+      ]
+    },
+    {
+      "slug": "game-theory",
+      "title": "Game Theory",
+      "summary": "Strategic interaction \u2014 cooperation and defection.",
+      "hook": "Strategic interaction \u2014 cooperation and defection.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "evolution-of-trust",
+        "prisoners-dilemma",
+        "social-choice"
+      ]
+    },
+    {
+      "slug": "probability-statistics",
+      "title": "Probability & Statistics",
+      "summary": "Uncertainty, base rates, paradoxes.",
+      "hook": "Uncertainty, base rates, paradoxes.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "monty-hall",
+        "base-rate-hospital",
+        "birthday-paradox"
+      ]
+    },
+    {
+      "slug": "cognitive-science",
+      "title": "Cognitive Science",
+      "summary": "How minds decide, attend, and err.",
+      "hook": "How minds decide, attend, and err.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "invisible-gorilla",
+        "wason-selection-task",
+        "adventures-with-anxiety"
+      ]
+    },
+    {
+      "slug": "nicky-case",
+      "title": "Nicky Case",
+      "summary": "Gallery of Masters anchor \u2014 nine canon explorables.",
+      "hook": "Gallery of Masters anchor \u2014 nine canon explorables.",
+      "type": "DSN",
+      "wing": "designer",
+      "status": "canonical",
+      "related": [
+        "parable-of-polygons",
+        "evolution-of-trust",
+        "we-become-what-we-behold"
+      ]
+    }
+  ]
+}

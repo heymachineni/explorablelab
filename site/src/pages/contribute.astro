@@ -1,0 +1,185 @@
+---
+import MuseumLayout from '../layouts/MuseumLayout.astro';
+
+const repoBase = 'https://github.com/heymachineni/explorablelab/blob/main';
+
+const workshopLinks = [
+  {
+    title: 'E.C.H.O. Studio',
+    desc: 'Interactive design worksheet — Hook, Engine, Control, Outcome gap.',
+    href: '/studio/echo',
+    external: false,
+  },
+  {
+    title: 'Contributing Guide',
+    desc: 'How to promote exhibits, write collections, and join the workshop.',
+    href: `${repoBase}/CONTRIBUTING.md`,
+  },
+  {
+    title: 'Agent Guide',
+    desc: 'AI-assisted workflows for canonical edits only — no bulk generation.',
+    href: `${repoBase}/AGENT_GUIDE.md`,
+  },
+  {
+    title: 'Canonical Registry',
+    desc: 'The 105 slugs that define the museum floor.',
+    href: `${repoBase}/meta/CANONICAL-REGISTRY.md`,
+  },
+  {
+    title: 'Product Spec',
+    desc: 'Vision, IA, and governance for ExplorableLab.',
+    href: `${repoBase}/PRODUCT-SPEC.md`,
+  },
+  {
+    title: 'Design Bible',
+    desc: 'EXPLORABLE_EXPLANATIONS_RESEARCH.md — patterns, autopsies, E.C.H.O.',
+    href: `${repoBase}/EXPLORABLE_EXPLANATIONS_RESEARCH.md`,
+  },
+  {
+    title: 'Tier S Build Queue',
+    desc: '18 simulations to build next — start with Petrie Multiplier.',
+    href: `${repoBase}/indices/by-score/tier-s.md`,
+  },
+];
+---
+
+<MuseumLayout title="Contribute" description="Join the workshop — curate, build, and promote exhibits.">
+  <header class="page-header">
+    <h1>Contribute</h1>
+    <p class="lead">
+      ExplorableLab has two layers: the <strong>museum floor</strong> (public) and the <strong>workshop</strong> (contributors).
+      All new effort goes to canonical promotion, collections, and built interactives.
+    </p>
+  </header>
+
+  <section class="workshop-intro">
+    <h2>Workshop Docs</h2>
+    <p>Markdown remains source of truth. The site is a viewer. Link paths below point to the GitHub repository workshop docs.</p>
+  </section>
+
+  <div class="links-grid">
+    {workshopLinks.map((link) => (
+      <a
+        href={link.href}
+        class="doc-card"
+        target={link.external === false ? undefined : '_blank'}
+        rel={link.external === false ? undefined : 'noopener noreferrer'}
+      >
+        <h3>{link.title}</h3>
+        <p>{link.desc}</p>
+        <span class="arrow">{link.external === false ? 'Open →' : 'Read on GitHub ↗'}</span>
+      </a>
+    ))}
+  </div>
+
+  <section class="rhythm">
+    <h2>Weekly Rhythm</h2>
+    <ul>
+      <li>1 canonical promotion</li>
+      <li>1 collection touch-up</li>
+      <li>Graph link fixes on canonical set only</li>
+    </ul>
+  </section>
+</MuseumLayout>
+
+<style>
+  .page-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .page-header h1 {
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    margin-bottom: 0.75rem;
+  }
+
+  .lead {
+    color: var(--text-muted);
+    max-width: 58ch;
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
+
+  .lead strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .workshop-intro {
+    margin-bottom: 1.5rem;
+  }
+
+  .workshop-intro h2 {
+    font-size: 1.35rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .workshop-intro p {
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .doc-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    min-height: 160px;
+    transition: border-color 0.2s ease;
+  }
+
+  .doc-card:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+
+  .doc-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .doc-card p {
+    flex: 1;
+    margin: 0 0 1rem;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .arrow {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .rhythm {
+    padding: 1.5rem 1.75rem;
+    background: var(--accent-soft);
+    border: 1px solid rgba(224, 122, 95, 0.25);
+    border-radius: var(--radius);
+  }
+
+  .rhythm h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .rhythm ul {
+    margin: 0;
+    padding-left: 1.25rem;
+    color: var(--text-muted);
+  }
+
+  .rhythm li {
+    margin-bottom: 0.35rem;
+  }
+</style>

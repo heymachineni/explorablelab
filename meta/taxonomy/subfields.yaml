@@ -1,0 +1,83 @@
+# Subfields
+
+# Reference by field id from fields.yaml
+# Use in frontmatter: subfields: [agent-based-modeling]
+
+subfields:
+  # complex-systems
+  agent-based-modeling: { field: complex-systems, label: Agent-Based Modeling }
+  network-science: { field: complex-systems, label: Network Science }
+  chaos-theory: { field: complex-systems, label: Chaos Theory }
+  cybernetics: { field: complex-systems, label: Cybernetics }
+  systems-dynamics: { field: complex-systems, label: Systems Dynamics }
+
+  # game-theory
+  cooperation: { field: game-theory, label: Cooperation }
+  mechanism-design: { field: game-theory, label: Mechanism Design }
+  evolutionary-game-theory: { field: game-theory, label: Evolutionary Game Theory }
+  signaling: { field: game-theory, label: Signaling Games }
+
+  # mathematics / probability
+  probability-statistics: { field: mathematics, label: Probability & Statistics }
+  graph-theory: { field: mathematics, label: Graph Theory }
+  dynamical-systems: { field: mathematics, label: Dynamical Systems }
+  bayesian-inference: { field: mathematics, label: Bayesian Inference }
+
+  # social-science
+  sociology: { field: social-science, label: Sociology }
+  urban-sociology: { field: social-science, label: Urban Sociology }
+  political-science-sub: { field: social-science, label: Political Science }
+  anthropology: { field: social-science, label: Anthropology }
+  linguistics: { field: social-science, label: Linguistics }
+
+  # cognitive-science
+  memory: { field: cognitive-science, label: Memory }
+  perception: { field: cognitive-science, label: Perception }
+  decision-making: { field: cognitive-science, label: Decision Making }
+  cognitive-bias: { field: cognitive-science, label: Cognitive Bias }
+  learning-sciences: { field: cognitive-science, label: Learning Sciences }
+
+  # engineering
+  control-theory: { field: engineering, label: Control Theory }
+  operations-research: { field: engineering, label: Operations Research }
+  queueing-theory: { field: engineering, label: Queueing Theory }
+  systems-engineering: { field: engineering, label: Systems Engineering }
+
+  # computer-science
+  information-theory: { field: computer-science, label: Information Theory }
+  human-computer-interaction: { field: computer-science, label: HCI }
+  artificial-intelligence: { field: computer-science, label: Artificial Intelligence }
+  distributed-systems: { field: computer-science, label: Distributed Systems }
+
+  # design
+  interaction-design: { field: design, label: Interaction Design }
+  urban-design: { field: design, label: Urban Design }
+  game-design: { field: design, label: Game Design }
+  explorable-explanations: { field: design, label: Explorable Explanations }
+
+  # biology
+  evolution: { field: biology, label: Evolution }
+  ecology: { field: biology, label: Ecology }
+  neuroscience: { field: biology, label: Neuroscience }
+  epidemiology: { field: biology, label: Epidemiology }
+
+  # philosophy
+  ethics: { field: philosophy, label: Ethics }
+  political-philosophy: { field: philosophy, label: Political Philosophy }
+  epistemology: { field: philosophy, label: Epistemology }
+
+  # semiotics
+  media-studies: { field: semiotics, label: Media Studies }
+  rhetoric: { field: semiotics, label: Rhetoric }
+
+  # music
+  music-theory: { field: music, label: Music Theory }
+  psychoacoustics: { field: music, label: Psychoacoustics }
+
+  # education
+  educational-psychology: { field: education, label: Educational Psychology }
+  pedagogy: { field: education, label: Pedagogy }
+
+  # history-of-science
+  paradigm-shift: { field: history-of-science, label: Paradigm Shift }
+  scientific-revolution: { field: history-of-science, label: Scientific Revolution }

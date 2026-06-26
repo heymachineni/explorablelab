@@ -1,0 +1,200 @@
+---
+import MuseumLayout from '../../layouts/MuseumLayout.astro';
+---
+
+<MuseumLayout title="E.C.H.O. Studio" description="Design worksheet for new explorables — Hook, Engine, Control, Outcome gap.">
+  <header class="page-header">
+    <h1>E.C.H.O. Studio</h1>
+    <p class="lead">
+      <strong>E</strong>motion hook · <strong>C</strong>ore engine · <strong>H</strong>uman control · <strong>O</strong>utcome gap
+    </p>
+  </header>
+
+  <section class="worksheet">
+    <p class="intro">Fill this before you build. If you can't name the outcome gap, you're writing an article.</p>
+
+    <form class="echo-form" id="echo-form">
+      <label>
+        <span class="label-tag">H — Hook</span>
+        One sentence that creates stakes?
+        <textarea name="hook" rows="2" placeholder="Equal meanness. Unequal harm."></textarea>
+      </label>
+      <label>
+        <span class="label-tag">E — Engine</span>
+        What system runs?
+        <textarea name="engine" rows="3" placeholder="Random pairwise interactions at equal per-capita rates…"></textarea>
+      </label>
+      <label>
+        <span class="label-tag">C — Control</span>
+        What does the user adjust? (Name each slider)
+        <textarea name="control" rows="2" placeholder="Minority share, harassment rate, population size"></textarea>
+      </label>
+      <label>
+        <span class="label-tag">O — Outcome gap</span>
+        What will they predict vs what will happen?
+        <textarea name="outcome" rows="3" placeholder="They predict fair totals. They get 3× harm on minority."></textarea>
+      </label>
+      <button type="button" class="save-btn" id="save-echo">Save draft locally</button>
+    </form>
+
+    <div class="example">
+      <h2>Exemplar: Petrie Multiplier</h2>
+      <table>
+        <thead><tr><th>Element</th><th>Spec</th></tr></thead>
+        <tbody>
+          <tr><td>Hook</td><td>Equal meanness. Unequal harm.</td></tr>
+          <tr><td>Engine</td><td>Pairwise harassment lottery</td></tr>
+          <tr><td>Control</td><td>Minority %, rate, N</td></tr>
+          <tr><td>Outcome gap</td><td>Fair rates → unfair totals (combinatorics)</td></tr>
+        </tbody>
+      </table>
+      <a href="/exhibit/petrie-multiplier" class="example-link">Play the exhibit →</a>
+    </div>
+  </section>
+
+  <section class="research-mode">
+    <h2>Research Mode</h2>
+    <p>Contributors: toggle to browse the full workshop corpus (5,400+ nodes). Museum visitors stay on the canonical floor.</p>
+    <label class="toggle-row">
+      <input type="checkbox" id="research-toggle" />
+      <span>Show workshop links in footer</span>
+    </label>
+  </section>
+
+  <script is:inline>
+    const form = document.getElementById('echo-form');
+    const key = 'explorablelab-echo-draft';
+    const saved = localStorage.getItem(key);
+    if (saved && form) {
+      try {
+        const data = JSON.parse(saved);
+        for (const [k, v] of Object.entries(data)) {
+          const el = form.elements.namedItem(k);
+          if (el && 'value' in el) el.value = v;
+        }
+      } catch (_) {}
+    }
+    document.getElementById('save-echo')?.addEventListener('click', () => {
+      if (!form) return;
+      const data = Object.fromEntries(new FormData(form));
+      localStorage.setItem(key, JSON.stringify(data));
+      alert('E.C.H.O. draft saved in this browser.');
+    });
+    const rt = document.getElementById('research-toggle');
+    rt?.addEventListener('change', () => {
+      localStorage.setItem('explorablelab-research-mode', rt.checked ? '1' : '0');
+    });
+    if (localStorage.getItem('explorablelab-research-mode') === '1' && rt) rt.checked = true;
+  </script>
+</MuseumLayout>
+
+<style>
+  .page-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .page-header h1 {
+    font-size: clamp(2rem, 5vw, 2.75rem);
+  }
+
+  .lead {
+    color: var(--text-muted);
+    font-family: var(--serif);
+    font-size: 1.2rem;
+  }
+
+  .intro {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .echo-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .echo-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  .label-tag {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  textarea {
+    font-family: var(--sans);
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    resize: vertical;
+  }
+
+  .save-btn {
+    align-self: flex-start;
+    appearance: none;
+    cursor: pointer;
+    padding: 0.75rem 1.5rem;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: var(--radius);
+    font-weight: 600;
+  }
+
+  .example {
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .example table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+  }
+
+  .example th,
+  .example td {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .example-link {
+    font-weight: 600;
+  }
+
+  .research-mode {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+  }
+
+  .research-mode p {
+    color: var(--text-muted);
+    margin: 0 0 1rem;
+  }
+
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+  }
+</style>

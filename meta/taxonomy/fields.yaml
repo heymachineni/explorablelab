@@ -1,0 +1,105 @@
+# Fields (top-level disciplines)
+
+# Use in frontmatter: fields: [complex-systems, game-theory]
+# Max 3 fields per page. Pick primary first.
+
+fields:
+  - id: mathematics
+    label: Mathematics
+    subfields: [probability-statistics, graph-theory, dynamical-systems, logic, geometry, number-theory, topology]
+
+  - id: physics
+    label: Physics
+    subfields: [thermodynamics, statistical-mechanics, quantum-mechanics, classical-mechanics, electromagnetism, astrophysics, condensed-matter]
+
+  - id: chemistry
+    label: Chemistry
+    subfields: [physical-chemistry, biochemistry, molecular-biology]
+
+  - id: biology
+    label: Biology
+    subfields: [evolution, ecology, genetics, neuroscience, cell-biology, epidemiology]
+
+  - id: social-science
+    label: Social Science
+    subfields: [sociology, anthropology, political-science, economics, psychology, linguistics]
+
+  - id: complex-systems
+    label: Complex Systems
+    subfields: [agent-based-modeling, network-science, chaos-theory, cybernetics, systems-dynamics]
+
+  - id: game-theory
+    label: Game Theory
+    subfields: [cooperation, mechanism-design, evolutionary-game-theory, signaling]
+
+  - id: cognitive-science
+    label: Cognitive Science
+    subfields: [memory, perception, decision-making, learning-sciences, cognitive-bias]
+
+  - id: computer-science
+    label: Computer Science
+    subfields: [algorithms, information-theory, artificial-intelligence, human-computer-interaction, distributed-systems]
+
+  - id: philosophy
+    label: Philosophy
+    subfields: [ethics, epistemology, philosophy-of-science, political-philosophy, logic-paradox]
+
+  - id: engineering
+    label: Engineering
+    subfields: [control-theory, operations-research, systems-engineering, queueing-theory, signal-processing]
+
+  - id: design
+    label: Design
+    subfields: [interaction-design, urban-design, architecture, game-design, explorable-explanations]
+
+  - id: history-of-science
+    label: History of Science
+    subfields: [scientific-revolution, paradigm-shift, replication]
+
+  - id: medicine
+    label: Medicine & Public Health
+    subfields: [epidemiology, diagnostic-reasoning, health-policy]
+
+  - id: environmental-science
+    label: Environmental Science
+    subfields: [climate, conservation, resource-management]
+
+  - id: semiotics
+    label: Semiotics & Communication
+    subfields: [media-studies, rhetoric, information-design]
+
+  - id: music
+    label: Music & Audio
+    subfields: [music-theory, psychoacoustics]
+
+  - id: education
+    label: Education
+    subfields: [educational-psychology, pedagogy, assessment]
+
+  - id: economics
+    label: Economics
+    subfields: [behavioral-economics, microeconomics, macroeconomics, econometrics, development]
+
+  - id: anthropology
+    label: Anthropology
+    subfields: [cultural-anthropology, social-anthropology, economic-anthropology]
+
+  - id: political-science
+    label: Political Science
+    subfields: [social-choice, comparative-politics, international-relations, public-policy]
+
+  - id: decision-science
+    label: Decision Science
+    subfields: [decision-analysis, behavioral-decision, risk-analysis]
+
+  - id: ecology
+    label: Ecology
+    subfields: [population-ecology, community-ecology, conservation-biology, trophic-dynamics]
+
+  - id: neuroscience
+    label: Neuroscience
+    subfields: [computational-neuroscience, cognitive-neuroscience, plasticity]
+
+  - id: architecture
+    label: Architecture & Built Environment
+    subfields: [urbanism, space-syntax, pattern-language]

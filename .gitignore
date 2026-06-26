@@ -1,0 +1,22 @@
+# Dependencies & build
+site/node_modules/
+site/dist/
+site/.astro/
+
+# OS & editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+*.log
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/

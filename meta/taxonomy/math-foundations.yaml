@@ -1,0 +1,18 @@
+# Mathematical foundations — use in frontmatter: math: [probability, graph-theory]
+
+math_foundations:
+  - probability
+  - statistics
+  - graph-theory
+  - dynamical-systems
+  - differential-equations
+  - linear-algebra
+  - game-theory-formal
+  - information-theory
+  - set-theory
+  - logic
+  - calculus
+  - stochastic-processes
+  - optimization
+  - topology
+  - category-theory

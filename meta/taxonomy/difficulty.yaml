@@ -1,0 +1,15 @@
+# Difficulty levels
+
+difficulty:
+  introductory:
+    label: Introductory
+    description: Curious reader 14+; no formal prerequisites
+  intermediate:
+    label: Intermediate
+    description: Some prior concepts or basic math
+  advanced:
+    label: Advanced
+    description: Undergraduate major level
+  research:
+    label: Research
+    description: Graduate or specialist

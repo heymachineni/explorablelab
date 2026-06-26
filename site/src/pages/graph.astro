@@ -1,0 +1,248 @@
+---
+import MuseumLayout from '../layouts/MuseumLayout.astro';
+import canonicalData from '../data/canonical.json';
+import type { Exhibit } from '../types';
+
+const exhibits = canonicalData.exhibits as Exhibit[];
+
+interface GraphNode {
+  slug: string;
+  title: string;
+  x: number;
+  y: number;
+}
+
+interface GraphEdge {
+  from: string;
+  to: string;
+}
+
+const nodes: GraphNode[] = exhibits.map((e, i) => {
+  const angle = (i / exhibits.length) * Math.PI * 2;
+  const radius = 0.32 + (i % 3) * 0.06;
+  return {
+    slug: e.slug,
+    title: e.title,
+    x: 0.5 + Math.cos(angle) * radius,
+    y: 0.5 + Math.sin(angle) * radius,
+  };
+});
+
+const slugSet = new Set(exhibits.map((e) => e.slug));
+const edges: GraphEdge[] = [];
+
+for (const exhibit of exhibits) {
+  for (const rel of exhibit.related) {
+    if (slugSet.has(rel) && exhibit.slug < rel) {
+      edges.push({ from: exhibit.slug, to: rel });
+    }
+  }
+}
+
+const graphData = { nodes, edges };
+---
+
+<MuseumLayout title="Constellation" description="Canonical exhibits as a graph of related ideas.">
+  <header class="page-header">
+    <h1>Constellation</h1>
+    <p class="lead">Canonical nodes as stars — edges from related exhibits. Click a dot to visit.</p>
+  </header>
+
+  <div class="graph-container">
+    <canvas id="graph-canvas" width="960" height="640" aria-label="Constellation graph of exhibits"></canvas>
+    <p class="graph-legend">{nodes.length} exhibits · {edges.length} connections</p>
+    <div class="graph-actions">
+      <button type="button" class="graph-btn" id="rabbit-btn">Rabbit Hole →</button>
+      <button type="button" class="graph-btn secondary" id="trail-btn">Save to Trail</button>
+    </div>
+    <p class="trail-note" id="trail-note" hidden></p>
+  </div>
+
+  <script is:inline define:vars={{ graphData }}>
+    const canvas = document.getElementById('graph-canvas');
+    if (!canvas) throw new Error('Canvas not found');
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) throw new Error('2D context unavailable');
+
+    const dpr = window.devicePixelRatio || 1;
+    let width = canvas.clientWidth;
+    let height = Math.min(640, width * 0.66);
+
+    function resize() {
+      width = canvas.parentElement?.clientWidth ?? 960;
+      height = Math.min(640, width * 0.66);
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      draw();
+    }
+
+    const nodeMap = new Map(graphData.nodes.map((n) => [n.slug, n]));
+
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+
+      ctx.fillStyle = '#1a1410';
+      ctx.fillRect(0, 0, width, height);
+
+      for (const edge of graphData.edges) {
+        const a = nodeMap.get(edge.from);
+        const b = nodeMap.get(edge.to);
+        if (!a || !b) continue;
+        ctx.beginPath();
+        ctx.moveTo(a.x * width, a.y * height);
+        ctx.lineTo(b.x * width, b.y * height);
+        ctx.strokeStyle = 'rgba(224, 122, 95, 0.18)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
+      for (const node of graphData.nodes) {
+        const px = node.x * width;
+        const py = node.y * height;
+        ctx.beginPath();
+        ctx.arc(px, py, 5, 0, Math.PI * 2);
+        ctx.fillStyle = '#e07a5f';
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(px, py, 10, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(224, 122, 95, 0.15)';
+        ctx.fill();
+      }
+    }
+
+    canvas.addEventListener('click', (ev) => {
+      const rect = canvas.getBoundingClientRect();
+      const mx = ev.clientX - rect.left;
+      const my = ev.clientY - rect.top;
+
+      for (const node of graphData.nodes) {
+        const px = node.x * width;
+        const py = node.y * height;
+        const dist = Math.hypot(mx - px, my - py);
+        if (dist < 16) {
+          window.location.href = `/exhibit/${node.slug}`;
+          return;
+        }
+      }
+    });
+
+    canvas.addEventListener('mousemove', (ev) => {
+      const rect = canvas.getBoundingClientRect();
+      const mx = ev.clientX - rect.left;
+      const my = ev.clientY - rect.top;
+      let hovering = false;
+      for (const node of graphData.nodes) {
+        const px = node.x * width;
+        const py = node.y * height;
+        if (Math.hypot(mx - px, my - py) < 16) {
+          hovering = true;
+          canvas.title = node.title;
+          break;
+        }
+      }
+      canvas.style.cursor = hovering ? 'pointer' : 'default';
+      if (!hovering) canvas.title = '';
+    });
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    document.getElementById('rabbit-btn')?.addEventListener('click', () => {
+      if (!graphData.nodes.length) return;
+      const start = graphData.nodes[Math.floor(Math.random() * graphData.nodes.length)];
+      const edge = graphData.edges.find((e) => e.from === start.slug || e.to === start.slug);
+      const next = edge ? (edge.from === start.slug ? edge.to : edge.from) : start.slug;
+      window.location.href = `/exhibit/${next}`;
+    });
+
+    document.getElementById('trail-btn')?.addEventListener('click', () => {
+      const key = 'explorablelab-trail';
+      const trail = JSON.parse(localStorage.getItem(key) || '[]');
+      const slug = graphData.nodes[Math.floor(Math.random() * graphData.nodes.length)]?.slug;
+      if (slug && !trail.includes(slug)) trail.push(slug);
+      localStorage.setItem(key, JSON.stringify(trail.slice(-20)));
+      const note = document.getElementById('trail-note');
+      if (note) {
+        note.hidden = false;
+        note.textContent = `Trail saved (${trail.length} exhibits). Open Discover to continue.`;
+      }
+    });
+  </script>
+</MuseumLayout>
+
+<style>
+  .page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .page-header h1 {
+    font-size: clamp(2rem, 5vw, 2.75rem);
+  }
+
+  .lead {
+    color: var(--text-muted);
+    max-width: 42ch;
+    margin: 0 auto;
+  }
+
+  .graph-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    box-shadow: var(--shadow);
+  }
+
+  #graph-canvas {
+    display: block;
+    width: 100%;
+    border-radius: calc(var(--radius) - 2px);
+    cursor: default;
+  }
+
+  .graph-legend {
+    text-align: center;
+    margin: 0.75rem 0 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .graph-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .graph-btn {
+    appearance: none;
+    cursor: pointer;
+    padding: 0.6rem 1.25rem;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: var(--radius);
+    border: none;
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  .graph-btn.secondary {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .trail-note {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0.75rem 0 0;
+  }
+</style>
