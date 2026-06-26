@@ -170,7 +170,8 @@
         "schelling-segregation",
         "agent-placement",
         "parable-of-polygons"
-      ]
+      ],
+      "playUrl": "/sims/ergodicity-street/"
     },
     {
       "slug": "percolation-city",

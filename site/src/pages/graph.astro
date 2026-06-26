@@ -40,6 +40,7 @@ for (const exhibit of exhibits) {
 }
 
 const graphData = { nodes, edges };
+const exhibitOptions = exhibits.map((e) => ({ slug: e.slug, title: e.title }));
 ---
 
 <MuseumLayout title="Constellation" description="Canonical exhibits as a graph of related ideas.">
@@ -58,7 +59,35 @@ const graphData = { nodes, edges };
     <p class="trail-note" id="trail-note" hidden></p>
   </div>
 
-  <script is:inline define:vars={{ graphData }}>
+  <section class="compare-section">
+    <h2>Compare Mode</h2>
+    <p class="compare-lead">Pick two exhibits — see them side by side.</p>
+    <div class="compare-picks">
+      <label>
+        Exhibit A
+        <select id="compare-a">
+          {exhibitOptions.map((e) => (
+            <option value={e.slug}>{e.title}</option>
+          ))}
+        </select>
+      </label>
+      <label>
+        Exhibit B
+        <select id="compare-b">
+          {exhibitOptions.map((e, i) => (
+            <option value={e.slug} selected={i === 1}>{e.title}</option>
+          ))}
+        </select>
+      </label>
+      <button type="button" class="graph-btn" id="compare-btn">Compare →</button>
+    </div>
+    <div class="compare-panel" id="compare-panel" hidden>
+      <div class="compare-col" id="compare-col-a"></div>
+      <div class="compare-col" id="compare-col-b"></div>
+    </div>
+  </section>
+
+  <script is:inline define:vars={{ graphData, exhibitCatalog: exhibits }}>
     const canvas = document.getElementById('graph-canvas');
     if (!canvas) throw new Error('Canvas not found');
 
@@ -171,6 +200,38 @@ const graphData = { nodes, edges };
         note.textContent = `Trail saved (${trail.length} exhibits). Open Discover to continue.`;
       }
     });
+
+    const catalogMap = new Map(exhibitCatalog.map((e) => [e.slug, e]));
+
+    function renderCompareCol(el, exhibit) {
+      if (!exhibit) {
+        el.innerHTML = '<p>Exhibit not found.</p>';
+        return;
+      }
+      const play = exhibit.embedUrl
+        ? `<iframe src="${exhibit.embedUrl}" title="${exhibit.title}" loading="lazy"></iframe>`
+        : exhibit.playUrl
+          ? `<iframe src="${exhibit.playUrl}" title="${exhibit.title}" loading="lazy"></iframe>`
+          : `<p class="no-play">${exhibit.summary}</p>`;
+      el.innerHTML = `
+        <span class="cmp-type">${exhibit.type} · ${exhibit.wing}</span>
+        <h3><a href="/exhibit/${exhibit.slug}">${exhibit.title}</a></h3>
+        <p>${exhibit.hook ?? exhibit.summary}</p>
+        <div class="cmp-embed">${play}</div>
+        <a href="/exhibit/${exhibit.slug}" class="cmp-link">Open exhibit →</a>
+      `;
+    }
+
+    document.getElementById('compare-btn')?.addEventListener('click', () => {
+      const a = document.getElementById('compare-a')?.value;
+      const b = document.getElementById('compare-b')?.value;
+      const panel = document.getElementById('compare-panel');
+      if (!a || !b || !panel) return;
+      renderCompareCol(document.getElementById('compare-col-a'), catalogMap.get(a));
+      renderCompareCol(document.getElementById('compare-col-b'), catalogMap.get(b));
+      panel.hidden = false;
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
   </script>
 </MuseumLayout>
 
@@ -244,5 +305,114 @@ const graphData = { nodes, edges };
     font-size: 0.85rem;
     color: var(--text-muted);
     margin: 0.75rem 0 0;
+  }
+
+  .compare-section {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .compare-section h2 {
+    font-size: 1.35rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .compare-lead {
+    color: var(--text-muted);
+    margin: 0 0 1.25rem;
+  }
+
+  .compare-picks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+    margin-bottom: 1.5rem;
+  }
+
+  .compare-picks label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .compare-picks select {
+    min-width: 200px;
+    padding: 0.5rem 0.75rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: var(--sans);
+  }
+
+  .compare-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .compare-col {
+    padding: 1.25rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .cmp-type {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+
+  .compare-col h3 {
+    font-size: 1.1rem;
+    margin: 0.4rem 0;
+  }
+
+  .compare-col p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin: 0 0 0.75rem;
+  }
+
+  .cmp-embed {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    background: #0d0a08;
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+  }
+
+  .cmp-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .no-play {
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .cmp-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .compare-panel {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

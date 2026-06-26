@@ -44,7 +44,7 @@ Full build spec: [`EXPLORABLE_EXPLANATIONS_RESEARCH.md`](../../EXPLORABLE_EXPLAN
 | Status | Notes |
 |--------|-------|
 | Spec | ✅ Canonical |
-| Prototype | ⬜ Queue |
+| Prototype | ✅ `/sims/ergodicity-street/` |
 | Ship | Tier S priority |
 
 ## Related exhibits

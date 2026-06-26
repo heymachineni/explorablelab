@@ -356,6 +356,11 @@ TIER_S = {
     "krebs-cycle-of-outrage": ("Outrage loops thicken pathways.", "WBWWB × Hebbian hybrid.", "canon", 8.6),
 }
 
+NATIVE_SIMS = {
+    "petrie-multiplier": "/sims/petrie-multiplier/",
+    "ergodicity-street": "/sims/ergodicity-street/",
+}
+
 COLLECTIONS = [
     ("start-here-first-visit", "Start Here: First Visit", 15, "curiosity → surprise → complicity → hope",
      ["parable-of-polygons", "monty-hall-carnival", "petrie-multiplier", "schelling-segregation", "evolution-of-trust"]),
@@ -533,7 +538,7 @@ Full build spec: [`EXPLORABLE_EXPLANATIONS_RESEARCH.md`](../../EXPLORABLE_EXPLAN
 | Status | Notes |
 |--------|-------|
 | Spec | ✅ Canonical |
-| Prototype | {'✅ `/sims/petrie-multiplier/`' if slug == 'petrie-multiplier' else '⬜ Queue'} |
+| Prototype | {'✅ `' + NATIVE_SIMS[slug] + '`' if slug in NATIVE_SIMS else '⬜ Queue'} |
 | Ship | Tier S priority |
 
 ## Related exhibits
@@ -622,7 +627,7 @@ def export_site_data():
         ))
     for slug, (tagline, _, wing, _comp) in TIER_S.items():
         title = tagline.split(".")[0] if "." in tagline else slug.replace("-", " ").title()
-        play = "/sims/petrie-multiplier/" if slug == "petrie-multiplier" else None
+        play = NATIVE_SIMS.get(slug)
         exhibits.append(build_export_entry(
             slug, title, tagline, "simulation-concept", wing,
             ["schelling-segregation", "agent-placement", "parable-of-polygons"],

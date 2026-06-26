@@ -44,11 +44,15 @@ Open [http://localhost:4321](http://localhost:4321).
 - Scoped component styles — no external CSS frameworks
 - Museum palette: `#1a1410` bg · `#f5ebe0` text · `#e07a5f` accent
 
-## Deploy
+## Deploy (Vercel)
 
-**Live (GitHub Pages):** [https://heymachineni.github.io/explorablelab/](https://heymachineni.github.io/explorablelab/)
+**Recommended:** [Vercel](https://vercel.com) — free for personal projects. Full steps in [`DEPLOY.md`](../DEPLOY.md).
 
-Pushes to `main` run [`.github/workflows/deploy-pages.yml`](../.github/workflows/deploy-pages.yml).
+1. Import [github.com/heymachineni/explorablelab](https://github.com/heymachineni/explorablelab)
+2. Set **Root Directory** → `site`
+3. Deploy
+
+Auto-redeploys on every push to `main`.
 
 ```bash
 npm run build   # output in dist/
@@ -56,4 +60,4 @@ npm run build   # output in dist/
 
 ### Astro version
 
-Pinned to **Astro 5.x** (`^5.18.2`). `npm outdated` may show Astro 7.x — that is a major upgrade; stay on 5.x until a deliberate migration.
+Pinned to **Astro 5.x** (`^5.18.2`). Astro 7.x is a major upgrade — stay on 5.x until a deliberate migration.

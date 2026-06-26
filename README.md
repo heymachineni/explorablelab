@@ -28,7 +28,8 @@ Public surface: [`meta/CANONICAL-REGISTRY.md`](meta/CANONICAL-REGISTRY.md)
 | **Museum floor (105 slugs)** | [`meta/CANONICAL-REGISTRY.md`](meta/CANONICAL-REGISTRY.md) |
 | **Collections** | [`indices/collections/`](indices/collections/) |
 | **Run the site (local)** | [`site/README.md`](site/README.md) |
-| **Live site** | [heymachineni.github.io/explorablelab](https://heymachineni.github.io/explorablelab/) |
+| **Live site** | Deploy on [Vercel](DEPLOY.md) (free tier) |
+| **Deploy guide** | [`DEPLOY.md`](DEPLOY.md) |
 | **Design bible** | [`EXPLORABLE_EXPLANATIONS_RESEARCH.md`](EXPLORABLE_EXPLANATIONS_RESEARCH.md) |
 | **Build Tier S sims** | [`indices/by-score/tier-s.md`](indices/by-score/tier-s.md) |
 | **Contribute (workshop)** | [`CONTRIBUTING.md`](CONTRIBUTING.md) · [`AGENT_GUIDE.md`](AGENT_GUIDE.md) |
