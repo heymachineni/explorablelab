@@ -25,166 +25,60 @@ function resolveStop(slug: string) {
 ---
 
 <MuseumLayout title={collection.title} description={collection.summary}>
-  <article class="collection-page">
-    <header class="collection-header">
-      <p class="collection-label">Collection</p>
-      <h1>{collection.title}</h1>
-      <p class="summary">{collection.summary}</p>
-      <div class="meta-row">
-        <span>{collection.time_minutes > 0 ? `~${collection.time_minutes} minutes` : 'Reference collection'}</span>
-        <span>{collection.stops.length} stops</span>
-        <span class="arc">{collection.emotional_arc}</span>
-      </div>
-    </header>
+  <header class="page-header">
+    <p class="meta">Collection</p>
+    <h1>{collection.title}</h1>
+    <p class="lead">{collection.summary}</p>
+    <p class="meta collection-meta">
+      {collection.time_minutes > 0 ? `~${collection.time_minutes} min` : 'Reference'} · {collection.stops.length} stops
+      {collection.emotional_arc ? ` · ${collection.emotional_arc}` : ''}
+    </p>
+  </header>
 
-    <ol class="stops-list">
-      {collection.stops.map((slug, i) => {
-        const exhibit = resolveStop(slug);
-        return (
-          <li class="stop-item">
-            <span class="stop-num">{i + 1}</span>
-            <div class="stop-body">
-              {exhibit ? (
-                <>
-                  <h2>
-                    <a href={`/exhibit/${exhibit.slug}`}>{exhibit.title}</a>
-                  </h2>
-                  <p>{exhibit.hook ?? exhibit.summary}</p>
-                  <span class="stop-type">{exhibit.type}</span>
-                </>
-              ) : (
-                <>
-                  <h2>{slug}</h2>
-                  <p class="coming-soon">Coming soon — exhibit not yet in canonical data.</p>
-                </>
-              )}
+  <ol class="stops-list">
+    {collection.stops.map((slug, i) => {
+      const exhibit = resolveStop(slug);
+      return (
+        <li>
+          <a href={exhibit ? `/exhibit/${exhibit.slug}` : '#'} class="row-link stop-link">
+            <div>
+              <p class="row-link__title">
+                <span class="stop-num">{i + 1}.</span> {exhibit?.title ?? slug}
+              </p>
+              <p class="row-link__meta">
+                {exhibit ? (exhibit.hook ?? exhibit.summary) : 'Coming soon'}
+              </p>
             </div>
-          </li>
-        );
-      })}
-    </ol>
+            <span class="row-link__action">{exhibit ? 'Open' : '—'}</span>
+          </a>
+        </li>
+      );
+    })}
+  </ol>
 
-    <footer class="collection-footer">
-      <a href="/learn">← All collections</a>
-      <a href="/discover" class="discover-link">Surprise Me instead</a>
-    </footer>
-  </article>
+  <footer class="page-footer">
+    <a href="/learn">← All collections</a>
+    <a href="/discover">Surprise me →</a>
+  </footer>
 </MuseumLayout>
 
 <style>
-  .collection-header {
-    margin-bottom: 2.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .collection-label {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--accent);
-    margin: 0 0 0.5rem;
-  }
-
-  .collection-header h1 {
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
-    margin-bottom: 0.5rem;
-  }
-
-  .summary {
-    color: var(--text-muted);
-    font-size: 1.1rem;
-    max-width: 55ch;
-    margin: 0 0 1rem;
-  }
-
-  .meta-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem 1.5rem;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-  }
-
-  .arc {
-    font-family: var(--serif);
-    font-style: italic;
+  .collection-meta {
+    margin-top: 0.75rem;
   }
 
   .stops-list {
     list-style: none;
     padding: 0;
-    margin: 0 0 2.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    margin: 0;
   }
 
-  .stop-item {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 1.25rem;
-    padding: 1.25rem 1.5rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+  .stop-link {
+    display: flex;
   }
 
   .stop-num {
-    font-family: var(--serif);
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--accent);
-    opacity: 0.6;
-    line-height: 1;
-  }
-
-  .stop-body h2 {
-    font-size: 1.2rem;
-    margin-bottom: 0.35rem;
-  }
-
-  .stop-body h2 a {
-    color: var(--text);
-  }
-
-  .stop-body h2 a:hover {
-    color: var(--accent);
-  }
-
-  .stop-body p {
-    margin: 0 0 0.5rem;
-    color: var(--text-muted);
-    font-size: 0.95rem;
-  }
-
-  .stop-type {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--accent);
-  }
-
-  .coming-soon {
-    font-style: italic;
-    opacity: 0.8;
-  }
-
-  .collection-footer {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--border);
-  }
-
-  .collection-footer a {
-    color: var(--text-muted);
-  }
-
-  .discover-link {
-    color: var(--accent);
-    font-weight: 600;
+    color: var(--text-faint);
+    font-weight: 500;
   }
 </style>

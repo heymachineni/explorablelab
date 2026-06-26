@@ -4,71 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Petrie Multiplier — ExplorableLab</title>
-  <style>
-    :root {
-      --bg: #1a1410;
-      --text: #f5ebe0;
-      --accent: #e07a5f;
-      --minority: #81b29a;
-      --majority: #3d405b;
-      --harm: #e63946;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "Source Sans 3", system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      padding: 1.5rem;
-    }
-    h1 { font-family: "Crimson Pro", Georgia, serif; font-weight: 600; margin: 0 0 0.25rem; }
-    .tagline { font-style: italic; opacity: 0.85; margin-bottom: 1.5rem; }
-    .controls {
-      display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center;
-      margin-bottom: 1rem; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;
-    }
-    label { display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.9rem; }
-    input[type="range"] { width: 180px; accent-color: var(--accent); }
-    button {
-      background: var(--accent); color: var(--bg); border: none; padding: 0.6rem 1.2rem;
-      border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 1rem;
-    }
-    button:hover { filter: brightness(1.1); }
-    canvas {
-      display: block; width: 100%; max-width: 640px; height: auto;
-      border-radius: 8px; background: #2d2420; margin: 1rem 0;
-    }
-    .stats {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem;
-      margin: 1rem 0;
-    }
-    .stat {
-      padding: 1rem; background: rgba(255,255,255,0.06); border-radius: 8px; text-align: center;
-    }
-    .stat .val { font-size: 1.8rem; font-weight: 700; color: var(--accent); }
-    .stat .lbl { font-size: 0.8rem; opacity: 0.7; margin-top: 0.25rem; }
-    .reveal {
-      margin-top: 1.5rem; padding: 1rem 1.25rem; border-left: 3px solid var(--accent);
-      background: rgba(224, 122, 95, 0.1); display: none;
-    }
-    .reveal.visible { display: block; }
-    a.back { color: var(--accent); }
-  </style>
+  <link rel="stylesheet" href="/sims/sim.css" />
 </head>
 <body>
-  <p><a class="back" href="/">← ExplorableLab</a></p>
-  <h1>The Petrie Multiplier</h1>
+  <a class="back" href="/">← ExplorableLab</a>
+  <h1>Petrie Multiplier</h1>
   <p class="tagline">Equal meanness. Unequal harm.</p>
-
-  <p>Set harassment probability <strong>equal for everyone</strong>. Adjust group ratio. Run the conference floor. Watch who absorbs the harm.</p>
+  <p class="intro">Set harassment probability <strong>equal for everyone</strong>. Adjust group ratio. Run the simulation.</p>
 
   <div class="controls">
     <label>Minority share (%)
       <input type="range" id="ratio" min="5" max="45" value="20" />
       <span id="ratioVal">20%</span>
     </label>
-    <label>Harassment rate (equal for all)
+    <label>Harassment rate
       <input type="range" id="rate" min="0" max="30" value="8" />
       <span id="rateVal">8%</span>
     </label>
@@ -76,22 +25,20 @@
       <input type="range" id="n" min="40" max="120" value="80" step="10" />
       <span id="nVal">80</span>
     </label>
-    <button id="run">Run simulation</button>
-    <button id="reset">Reset</button>
+    <button id="run">Run</button>
+    <button class="secondary" id="reset">Reset</button>
   </div>
 
   <canvas id="c" width="640" height="400"></canvas>
 
   <div class="stats">
-    <div class="stat"><div class="val" id="majH">0</div><div class="lbl">Harassment received (majority)</div></div>
-    <div class="stat"><div class="val" id="minH">0</div><div class="lbl">Harassment received (minority)</div></div>
-    <div class="stat"><div class="val" id="mult">—</div><div class="lbl">Multiplier (minority per capita / majority)</div></div>
+    <div class="stat"><div class="val" id="majH">0</div><div class="lbl">Majority harm total</div></div>
+    <div class="stat"><div class="val" id="minH">0</div><div class="lbl">Minority harm total</div></div>
+    <div class="stat"><div class="val" id="mult">—</div><div class="lbl">Multiplier</div></div>
   </div>
 
   <div class="reveal" id="reveal">
-    <strong>You predicted fairness.</strong> Equal per-capita rates still produce unequal totals because minority members interact with majority members more often as <em>targets of opportunity</em>. This is combinatorics, not intent.
-    <br><br>
-    <em>Petrie, 2013 — harassment in mixed groups.</em>
+    Equal per-capita rates still produce unequal totals — minority members interact with majority members more often as targets. Combinatorics, not intent. <em>Petrie, 2013.</em>
   </div>
 
   <script>
@@ -125,15 +72,15 @@
     }
 
     function draw() {
-      ctx.fillStyle = "#2d2420";
+      ctx.fillStyle = "#fbfbfa";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       for (const a of agents) {
         ctx.beginPath();
-        ctx.arc(a.x, a.y, 8 + Math.min(a.harm, 20), 0, Math.PI * 2);
-        ctx.fillStyle = a.minority ? "#81b29a" : "#3d405b";
+        ctx.arc(a.x, a.y, 6 + Math.min(a.harm, 16), 0, Math.PI * 2);
+        ctx.fillStyle = a.minority ? "#2383e2" : "#9b9a97";
         ctx.fill();
         if (a.harm > 0) {
-          ctx.strokeStyle = `rgba(230, 57, 70, ${Math.min(1, a.harm / 15)})`;
+          ctx.strokeStyle = `rgba(224, 62, 62, ${Math.min(1, a.harm / 15)})`;
           ctx.lineWidth = 2;
           ctx.stroke();
         }
@@ -143,9 +90,8 @@
     function runSim() {
       initAgents();
       const rate = +document.getElementById("rate").value / 100;
-      const pairs = 800;
       let majH = 0, minH = 0;
-      for (let p = 0; p < pairs; p++) {
+      for (let p = 0; p < 800; p++) {
         const i = Math.floor(Math.random() * agents.length);
         let j = Math.floor(Math.random() * agents.length);
         while (j === i) j = Math.floor(Math.random() * agents.length);

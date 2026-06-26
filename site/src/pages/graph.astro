@@ -43,43 +43,42 @@ const graphData = { nodes, edges };
 const exhibitOptions = exhibits.map((e) => ({ slug: e.slug, title: e.title }));
 ---
 
-<MuseumLayout title="Constellation" description="Canonical exhibits as a graph of related ideas.">
+<MuseumLayout title="Constellation" description="Canonical exhibits as a graph of related ideas." wide>
   <header class="page-header">
     <h1>Constellation</h1>
-    <p class="lead">Canonical nodes as stars — edges from related exhibits. Click a dot to visit.</p>
+    <p class="lead">Click a node to open an exhibit. Lines show related ideas.</p>
   </header>
 
-  <div class="graph-container">
-    <canvas id="graph-canvas" width="960" height="640" aria-label="Constellation graph of exhibits"></canvas>
-    <p class="graph-legend">{nodes.length} exhibits · {edges.length} connections</p>
-    <div class="graph-actions">
-      <button type="button" class="graph-btn" id="rabbit-btn">Rabbit Hole →</button>
-      <button type="button" class="graph-btn secondary" id="trail-btn">Save to Trail</button>
+  <div class="graph-wrap">
+    <canvas id="graph-canvas" width="960" height="480" aria-label="Constellation graph"></canvas>
+    <p class="meta graph-meta">{nodes.length} exhibits · {edges.length} connections</p>
+    <div class="btn-row graph-actions">
+      <button type="button" class="btn" id="rabbit-btn">Random path</button>
+      <button type="button" class="btn" id="trail-btn">Save to trail</button>
     </div>
-    <p class="trail-note" id="trail-note" hidden></p>
+    <p class="meta trail-note" id="trail-note" hidden></p>
   </div>
 
-  <section class="compare-section">
-    <h2>Compare Mode</h2>
-    <p class="compare-lead">Pick two exhibits — see them side by side.</p>
+  <section class="section compare-section">
+    <h2 class="section-heading">Compare</h2>
     <div class="compare-picks">
-      <label>
-        Exhibit A
-        <select id="compare-a">
+      <label class="field">
+        <span>Exhibit A</span>
+        <select id="compare-a" class="select">
           {exhibitOptions.map((e) => (
             <option value={e.slug}>{e.title}</option>
           ))}
         </select>
       </label>
-      <label>
-        Exhibit B
-        <select id="compare-b">
+      <label class="field">
+        <span>Exhibit B</span>
+        <select id="compare-b" class="select">
           {exhibitOptions.map((e, i) => (
             <option value={e.slug} selected={i === 1}>{e.title}</option>
           ))}
         </select>
       </label>
-      <button type="button" class="graph-btn" id="compare-btn">Compare →</button>
+      <button type="button" class="btn btn-primary" id="compare-btn">Compare</button>
     </div>
     <div class="compare-panel" id="compare-panel" hidden>
       <div class="compare-col" id="compare-col-a"></div>
@@ -90,17 +89,16 @@ const exhibitOptions = exhibits.map((e) => ({ slug: e.slug, title: e.title }));
   <script is:inline define:vars={{ graphData, exhibitCatalog: exhibits }}>
     const canvas = document.getElementById('graph-canvas');
     if (!canvas) throw new Error('Canvas not found');
-
     const ctx = canvas.getContext('2d');
     if (!ctx) throw new Error('2D context unavailable');
 
     const dpr = window.devicePixelRatio || 1;
-    let width = canvas.clientWidth;
-    let height = Math.min(640, width * 0.66);
+    let width = 960;
+    let height = 480;
 
     function resize() {
       width = canvas.parentElement?.clientWidth ?? 960;
-      height = Math.min(640, width * 0.66);
+      height = Math.min(480, Math.max(280, width * 0.5));
       canvas.width = width * dpr;
       canvas.height = height * dpr;
       canvas.style.width = `${width}px`;
@@ -113,8 +111,7 @@ const exhibitOptions = exhibits.map((e) => ({ slug: e.slug, title: e.title }));
 
     function draw() {
       ctx.clearRect(0, 0, width, height);
-
-      ctx.fillStyle = '#1a1410';
+      ctx.fillStyle = '#fbfbfa';
       ctx.fillRect(0, 0, width, height);
 
       for (const edge of graphData.edges) {
@@ -124,7 +121,7 @@ const exhibitOptions = exhibits.map((e) => ({ slug: e.slug, title: e.title }));
         ctx.beginPath();
         ctx.moveTo(a.x * width, a.y * height);
         ctx.lineTo(b.x * width, b.y * height);
-        ctx.strokeStyle = 'rgba(224, 122, 95, 0.18)';
+        ctx.strokeStyle = 'rgba(55, 53, 47, 0.08)';
         ctx.lineWidth = 1;
         ctx.stroke();
       }
@@ -133,12 +130,8 @@ const exhibitOptions = exhibits.map((e) => ({ slug: e.slug, title: e.title }));
         const px = node.x * width;
         const py = node.y * height;
         ctx.beginPath();
-        ctx.arc(px, py, 5, 0, Math.PI * 2);
-        ctx.fillStyle = '#e07a5f';
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(px, py, 10, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(224, 122, 95, 0.15)';
+        ctx.arc(px, py, 4, 0, Math.PI * 2);
+        ctx.fillStyle = '#2383e2';
         ctx.fill();
       }
     }
@@ -147,12 +140,10 @@ const exhibitOptions = exhibits.map((e) => ({ slug: e.slug, title: e.title }));
       const rect = canvas.getBoundingClientRect();
       const mx = ev.clientX - rect.left;
       const my = ev.clientY - rect.top;
-
       for (const node of graphData.nodes) {
         const px = node.x * width;
         const py = node.y * height;
-        const dist = Math.hypot(mx - px, my - py);
-        if (dist < 16) {
+        if (Math.hypot(mx - px, my - py) < 14) {
           window.location.href = `/exhibit/${node.slug}`;
           return;
         }
@@ -167,7 +158,7 @@ const exhibitOptions = exhibits.map((e) => ({ slug: e.slug, title: e.title }));
       for (const node of graphData.nodes) {
         const px = node.x * width;
         const py = node.y * height;
-        if (Math.hypot(mx - px, my - py) < 16) {
+        if (Math.hypot(mx - px, my - py) < 14) {
           hovering = true;
           canvas.title = node.title;
           break;
@@ -197,7 +188,7 @@ const exhibitOptions = exhibits.map((e) => ({ slug: e.slug, title: e.title }));
       const note = document.getElementById('trail-note');
       if (note) {
         note.hidden = false;
-        note.textContent = `Trail saved (${trail.length} exhibits). Open Discover to continue.`;
+        note.textContent = `Trail saved (${trail.length} exhibits).`;
       }
     });
 
@@ -205,7 +196,7 @@ const exhibitOptions = exhibits.map((e) => ({ slug: e.slug, title: e.title }));
 
     function renderCompareCol(el, exhibit) {
       if (!exhibit) {
-        el.innerHTML = '<p>Exhibit not found.</p>';
+        el.innerHTML = '<p class="no-play">Exhibit not found.</p>';
         return;
       }
       const play = exhibit.embedUrl
@@ -214,11 +205,10 @@ const exhibitOptions = exhibits.map((e) => ({ slug: e.slug, title: e.title }));
           ? `<iframe src="${exhibit.playUrl}" title="${exhibit.title}" loading="lazy"></iframe>`
           : `<p class="no-play">${exhibit.summary}</p>`;
       el.innerHTML = `
-        <span class="cmp-type">${exhibit.type} · ${exhibit.wing}</span>
+        <p class="cmp-meta">${exhibit.type} · ${exhibit.wing}</p>
         <h3><a href="/exhibit/${exhibit.slug}">${exhibit.title}</a></h3>
-        <p>${exhibit.hook ?? exhibit.summary}</p>
+        <p class="cmp-desc">${exhibit.hook ?? exhibit.summary}</p>
         <div class="cmp-embed">${play}</div>
-        <a href="/exhibit/${exhibit.slug}" class="cmp-link">Open exhibit →</a>
       `;
     }
 
@@ -236,162 +226,104 @@ const exhibitOptions = exhibits.map((e) => ({ slug: e.slug, title: e.title }));
 </MuseumLayout>
 
 <style>
-  .page-header {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
-  .page-header h1 {
-    font-size: clamp(2rem, 5vw, 2.75rem);
-  }
-
-  .lead {
-    color: var(--text-muted);
-    max-width: 42ch;
-    margin: 0 auto;
-  }
-
-  .graph-container {
-    background: var(--bg-card);
+  .graph-wrap {
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 1rem;
-    box-shadow: var(--shadow);
+    padding: 0.75rem;
+    margin-bottom: 2rem;
   }
 
   #graph-canvas {
     display: block;
     width: 100%;
-    border-radius: calc(var(--radius) - 2px);
+    border-radius: var(--radius);
     cursor: default;
   }
 
-  .graph-legend {
+  .graph-meta {
+    margin: 0.5rem 0 0.75rem;
     text-align: center;
-    margin: 0.75rem 0 0;
-    font-size: 0.85rem;
-    color: var(--text-muted);
   }
 
   .graph-actions {
-    display: flex;
     justify-content: center;
-    gap: 0.75rem;
-    margin-top: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .graph-btn {
-    appearance: none;
-    cursor: pointer;
-    padding: 0.6rem 1.25rem;
-    font-family: var(--sans);
-    font-size: 0.9rem;
-    font-weight: 600;
-    border-radius: var(--radius);
-    border: none;
-    background: var(--accent);
-    color: var(--bg);
-  }
-
-  .graph-btn.secondary {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--text);
   }
 
   .trail-note {
     text-align: center;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin: 0.75rem 0 0;
-  }
-
-  .compare-section {
-    margin-top: 2.5rem;
-    padding: 1.5rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-  }
-
-  .compare-section h2 {
-    font-size: 1.35rem;
-    margin-bottom: 0.35rem;
-  }
-
-  .compare-lead {
-    color: var(--text-muted);
-    margin: 0 0 1.25rem;
+    margin-top: 0.5rem;
   }
 
   .compare-picks {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.75rem;
     align-items: flex-end;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
-  .compare-picks label {
+  .field {
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
-    font-size: 0.85rem;
+    gap: 0.25rem;
+    font-size: 0.8125rem;
     color: var(--text-muted);
   }
 
-  .compare-picks select {
-    min-width: 200px;
-    padding: 0.5rem 0.75rem;
-    background: var(--bg-elevated);
+  .select {
+    min-width: min(220px, 100%);
+    padding: 0.4rem 0.5rem;
+    font-family: var(--font);
+    font-size: 0.875rem;
     border: 1px solid var(--border);
     border-radius: var(--radius);
+    background: var(--bg);
     color: var(--text);
-    font-family: var(--sans);
   }
 
   .compare-panel {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    gap: 0.75rem;
   }
 
   .compare-col {
-    padding: 1.25rem;
-    background: var(--bg-elevated);
     border: 1px solid var(--border);
     border-radius: var(--radius);
+    padding: 0.875rem;
   }
 
-  .cmp-type {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--accent);
+  .compare-col :global(.cmp-meta) {
+    margin: 0 0 0.25rem;
+    font-size: 0.75rem;
+    color: var(--text-faint);
   }
 
-  .compare-col h3 {
-    font-size: 1.1rem;
-    margin: 0.4rem 0;
+  .compare-col :global(h3) {
+    font-size: 0.9375rem;
+    margin: 0 0 0.35rem;
   }
 
-  .compare-col p {
-    color: var(--text-muted);
-    font-size: 0.9rem;
+  .compare-col :global(h3 a) {
+    color: var(--text);
+  }
+
+  .compare-col :global(.cmp-desc) {
     margin: 0 0 0.75rem;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
   }
 
-  .cmp-embed {
+  .compare-col :global(.cmp-embed) {
     position: relative;
     aspect-ratio: 16 / 10;
-    background: #0d0a08;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
     overflow: hidden;
-    margin-bottom: 0.75rem;
   }
 
-  .cmp-embed iframe {
+  .compare-col :global(.cmp-embed iframe) {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -399,20 +331,25 @@ const exhibitOptions = exhibits.map((e) => ({ slug: e.slug, title: e.title }));
     border: none;
   }
 
-  .no-play {
+  .compare-col :global(.no-play) {
     padding: 1rem;
-    font-size: 0.9rem;
+    margin: 0;
+    font-size: 0.8125rem;
     color: var(--text-muted);
   }
 
-  .cmp-link {
-    font-size: 0.85rem;
-    font-weight: 600;
-  }
-
-  @media (max-width: 768px) {
+  @media (max-width: 640px) {
     .compare-panel {
       grid-template-columns: 1fr;
+    }
+
+    .compare-picks {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .select {
+      width: 100%;
     }
   }
 </style>

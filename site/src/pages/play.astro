@@ -1,262 +1,134 @@
 ---
 import MuseumLayout from '../layouts/MuseumLayout.astro';
 
-const arcadeGames = [
-  {
-    slug: 'parable-of-polygons',
-    title: 'Parable of the Polygons',
-    hook: 'Segregation without villains.',
-    url: 'https://ncase.me/polygons/',
-  },
-  {
-    slug: 'evolution-of-trust',
-    title: 'Evolution of Trust',
-    hook: 'Cooperation in repeated games.',
-    url: 'https://ncase.me/trust/',
-  },
-  {
-    slug: 'we-become-what-we-behold',
-    title: 'We Become What We Behold',
-    hook: 'News cycles and small acts of bigotry.',
-    url: 'https://ncase.me/social-media/',
-  },
-  {
-    slug: 'loopy',
-    title: 'Loopy',
-    hook: 'Draw feedback loops.',
-    url: 'https://ncase.me/loopy/',
-  },
-  {
-    slug: 'fireflies',
-    title: 'Fireflies',
-    hook: 'Synchronization from local rules.',
-    url: 'https://ncase.me/fireflies/',
-  },
-  {
-    slug: 'wisdom-and-madness-of-crowds',
-    title: 'Wisdom and/or Madness of Crowds',
-    hook: 'When groups think well — and badly.',
-    url: 'https://ncase.me/crowds/',
-  },
-  {
-    slug: 'to-build-a-better-ballot',
-    title: 'To Build a Better Ballot',
-    hook: 'Voting systems, visualized.',
-    url: 'https://ncase.me/ballot/',
-  },
-  {
-    slug: 'adventures-with-anxiety',
-    title: 'Adventures with Anxiety',
-    hook: 'A playable story about anxiety.',
-    url: 'https://ncase.me/anxiety/',
-  },
-  {
-    slug: 'how-to-remember-anything-forever-ish',
-    title: 'How to Remember Anything Forever-ish',
-    hook: 'Spaced repetition, explained.',
-    url: 'https://ncase.me/remember/',
-  },
+const nativeSims = [
+  { slug: 'petrie-multiplier', title: 'Petrie Multiplier', hook: 'Equal meanness. Unequal harm.', url: '/sims/petrie-multiplier/' },
+  { slug: 'ergodicity-street', title: 'Ergodicity Street', hook: "The average person doesn't exist.", url: '/sims/ergodicity-street/' },
+];
+
+const canonGames = [
+  { slug: 'evolution-of-trust', title: 'Evolution of Trust', hook: 'Cooperation in repeated games.' },
+  { slug: 'we-become-what-we-behold', title: 'We Become What We Behold', hook: 'News cycles and small acts of bigotry.' },
+  { slug: 'to-build-a-better-ballot', title: 'To Build a Better Ballot', hook: 'Same voters, different winners.' },
+  { slug: 'loopy', title: 'Loopy', hook: 'Draw feedback loops.' },
+  { slug: 'fireflies', title: 'Fireflies', hook: 'Synchronization from local rules.' },
+  { slug: 'wisdom-and-madness-of-crowds', title: 'Wisdom and/or Madness of Crowds', hook: 'When groups think well — and badly.' },
+  { slug: 'parable-of-polygons', title: 'Parable of the Polygons', hook: 'Segregation without villains.' },
+  { slug: 'adventures-with-anxiety', title: 'Adventures with Anxiety', hook: 'A playable story about anxiety.' },
+  { slug: 'how-to-remember-anything-forever-ish', title: 'How to Remember Anything Forever-ish', hook: 'Spaced repetition, explained.' },
 ];
 
 const paradoxes = [
-  { slug: 'monty-hall', title: 'Monty Hall Problem', exhibit: '/exhibit/monty-hall' },
-  { slug: 'simpsons-paradox', title: "Simpson's Paradox", exhibit: '/exhibit/simpsons-paradox' },
-  { slug: 'st-petersburg-paradox', title: 'St. Petersburg Paradox', exhibit: '/exhibit/st-petersburg-paradox' },
-  { slug: 'prisoners-dilemma', title: "Prisoner's Dilemma", exhibit: '/exhibit/prisoners-dilemma' },
-  { slug: 'petrie-multiplier', title: 'Petrie Multiplier', exhibit: '/exhibit/petrie-multiplier', native: '/sims/petrie-multiplier/' },
+  { slug: 'monty-hall', title: 'Monty Hall Problem' },
+  { slug: 'simpsons-paradox', title: "Simpson's Paradox" },
+  { slug: 'st-petersburg-paradox', title: 'St. Petersburg Paradox' },
+  { slug: 'prisoners-dilemma', title: "Prisoner's Dilemma" },
+  { slug: 'petrie-multiplier', title: 'Petrie Multiplier' },
 ];
 ---
 
-<MuseumLayout title="Paradox Arcade" description="Play canonical explorables and paradox games.">
+<MuseumLayout title="Play" description="Native simulations and playable exhibits." wide>
   <header class="page-header">
-    <h1>Paradox Arcade</h1>
-    <p class="lead">Commit. Reveal. Feel your intuition break. Nine Nicky Case explorables, playable now.</p>
+    <h1>Play</h1>
+    <p class="lead">Simulations you can run now — native builds and linked canon explorables.</p>
   </header>
 
-  <section class="arcade-section">
-    <h2>Canon Explorables</h2>
-    <div class="arcade-grid">
-      {arcadeGames.map((game) => (
-        <article class="arcade-card">
-          <div class="embed-wrap">
-            <iframe src={game.url} title={game.title} loading="lazy" allow="fullscreen"></iframe>
+  <section class="section">
+    <h2 class="section-heading">Built at ExplorableLab</h2>
+    {nativeSims.map((sim) => (
+      <article class="sim-block">
+        <div class="sim-head">
+          <div>
+            <h3 class="sim-title"><a href={`/exhibit/${sim.slug}`}>{sim.title}</a></h3>
+            <p class="sim-hook">{sim.hook}</p>
           </div>
-          <div class="card-body">
-            <h3>
-              <a href={`/exhibit/${game.slug}`}>{game.title}</a>
-            </h3>
-            <p>{game.hook}</p>
-            <a href={game.url} class="play-external" target="_blank" rel="noopener noreferrer">
-              Open full screen ↗
-            </a>
+          <a href={sim.url} class="btn btn-primary">Full screen</a>
+        </div>
+        <div class="embed">
+          <iframe src={sim.url} title={sim.title} loading="lazy"></iframe>
+        </div>
+      </article>
+    ))}
+  </section>
+
+  <section class="section">
+    <h2 class="section-heading">Canon explorables</h2>
+    <p class="section-note">Classic interactives — open each exhibit to play embedded.</p>
+    <div class="row-list">
+      {canonGames.map((game) => (
+        <a href={`/exhibit/${game.slug}`} class="row-link">
+          <div>
+            <p class="row-link__title">{game.title}</p>
+            <p class="row-link__meta">{game.hook}</p>
           </div>
-        </article>
+          <span class="row-link__action">Open →</span>
+        </a>
       ))}
     </div>
   </section>
 
-  <section class="native-section">
-    <h2>Built at ExplorableLab</h2>
-    <div class="native-grid">
-      <article class="arcade-card">
-        <div class="embed-wrap">
-          <iframe src="/sims/petrie-multiplier/" title="Petrie Multiplier" loading="lazy"></iframe>
-        </div>
-        <div class="card-body">
-          <h3><a href="/exhibit/petrie-multiplier">Petrie Multiplier</a></h3>
-          <p>Equal meanness. Unequal harm.</p>
-          <a href="/sims/petrie-multiplier/" class="play-external">Play full screen →</a>
-        </div>
-      </article>
-      <article class="arcade-card">
-        <div class="embed-wrap">
-          <iframe src="/sims/ergodicity-street/" title="Ergodicity Street" loading="lazy"></iframe>
-        </div>
-        <div class="card-body">
-          <h3><a href="/exhibit/ergodicity-street">Ergodicity Street</a></h3>
-          <p>The average person doesn't exist.</p>
-          <a href="/sims/ergodicity-street/" class="play-external">Play full screen →</a>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section class="paradox-section">
-    <h2>Paradox Gallery</h2>
-    <p class="section-note">More paradox exhibits — native sims coming soon.</p>
-    <ul class="paradox-list">
+  <section class="section">
+    <h2 class="section-heading">Paradox gallery</h2>
+    <div class="grid-auto">
       {paradoxes.map((p) => (
-        <li>
-          <a href={p.exhibit}>{p.title}</a>
-        </li>
+        <a href={`/exhibit/${p.slug}`} class="card card-interactive">
+          <p class="card-title">{p.title}</p>
+        </a>
       ))}
-    </ul>
+    </div>
   </section>
 </MuseumLayout>
 
 <style>
-  .page-header {
-    margin-bottom: 2.5rem;
-    text-align: center;
-  }
-
-  .page-header h1 {
-    font-size: clamp(2rem, 5vw, 2.75rem);
-    margin-bottom: 0.5rem;
-  }
-
-  .lead {
-    max-width: 42ch;
-    margin: 0 auto;
-    color: var(--text-muted);
-    font-size: 1.1rem;
-  }
-
-  .arcade-section {
-    margin-bottom: 3rem;
-  }
-
-  .native-section {
-    margin-bottom: 3rem;
-  }
-
-  .native-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .arcade-section h2,
-  .paradox-section h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1.25rem;
-    padding-bottom: 0.5rem;
+  .sim-block {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
     border-bottom: 1px solid var(--border);
   }
 
-  .arcade-grid {
-    display: grid;
-    gap: 2rem;
+  .sim-block:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
   }
 
-  .arcade-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
+  .sim-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
   }
 
-  .embed-wrap {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    background: #0d0a08;
+  .sim-title {
+    font-size: 1rem;
+    margin: 0 0 0.15rem;
   }
 
-  .embed-wrap iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
-
-  .card-body {
-    padding: 1.25rem 1.5rem;
-  }
-
-  .card-body h3 {
-    font-size: 1.25rem;
-    margin-bottom: 0.35rem;
-  }
-
-  .card-body h3 a {
+  .sim-title a {
     color: var(--text);
   }
 
-  .card-body h3 a:hover {
+  .sim-title a:hover {
     color: var(--accent);
   }
 
-  .card-body p {
-    margin: 0 0 0.75rem;
+  .sim-hook {
+    margin: 0;
+    font-size: 0.875rem;
     color: var(--text-muted);
-    font-size: 0.95rem;
-  }
-
-  .play-external {
-    font-size: 0.85rem;
-    font-weight: 600;
   }
 
   .section-note {
+    margin: 0 0 0.75rem;
+    font-size: 0.875rem;
     color: var(--text-muted);
-    margin: -0.5rem 0 1rem;
-    font-size: 0.95rem;
   }
 
-  .paradox-list {
-    list-style: none;
-    padding: 0;
+  .card-title {
     margin: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 0.75rem;
-  }
-
-  .paradox-list li a {
-    display: block;
-    padding: 1rem 1.25rem;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    color: var(--text);
-    font-family: var(--serif);
-    font-size: 1.05rem;
-  }
-
-  .paradox-list li a:hover {
-    border-color: var(--accent);
-    color: var(--accent);
+    font-size: 0.9375rem;
+    font-weight: 500;
   }
 </style>

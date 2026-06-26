@@ -4,85 +4,49 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ergodicity Street — ExplorableLab</title>
-  <style>
-    :root { --bg: #1a1410; --text: #f5ebe0; --accent: #e07a5f; --muted: #c4b5a5; }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; font-family: "Source Sans 3", system-ui, sans-serif;
-      background: var(--bg); color: var(--text); min-height: 100vh; padding: 1.5rem;
-    }
-    h1 { font-family: "Crimson Pro", Georgia, serif; font-weight: 600; margin: 0 0 0.25rem; }
-    .tagline { font-style: italic; opacity: 0.85; margin-bottom: 1.25rem; }
-    .predict {
-      padding: 1rem 1.25rem; margin-bottom: 1rem; background: rgba(255,255,255,0.05);
-      border-radius: 8px; border: 1px solid rgba(245,235,224,0.12);
-    }
-    .predict p { margin: 0 0 0.75rem; }
-    .predict-btns { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-    .predict-btns button {
-      background: transparent; border: 1px solid var(--accent); color: var(--text);
-      padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-weight: 600;
-    }
-    .predict-btns button.selected { background: var(--accent); color: var(--bg); }
-    .controls {
-      display: flex; flex-wrap: wrap; gap: 1.25rem; align-items: center;
-      margin-bottom: 1rem; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;
-    }
-    label { display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.9rem; }
-    input[type="range"] { width: 160px; accent-color: var(--accent); }
-    button.run {
-      background: var(--accent); color: var(--bg); border: none; padding: 0.6rem 1.2rem;
-      border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 1rem;
-    }
-    button.run:disabled { opacity: 0.4; cursor: not-allowed; }
-    canvas {
-      display: block; width: 100%; max-width: 720px; height: auto;
-      border-radius: 8px; background: #2d2420; margin: 1rem 0;
-    }
-    .stats {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1rem 0;
-    }
-    .stat { padding: 1rem; background: rgba(255,255,255,0.06); border-radius: 8px; text-align: center; }
-    .stat .val { font-size: 1.6rem; font-weight: 700; color: var(--accent); }
-    .stat .lbl { font-size: 0.78rem; opacity: 0.7; margin-top: 0.25rem; }
-    .reveal {
-      margin-top: 1.25rem; padding: 1rem 1.25rem; border-left: 3px solid var(--accent);
-      background: rgba(224, 122, 95, 0.1); display: none;
-    }
-    .reveal.visible { display: block; }
-    a.back { color: var(--accent); }
-  </style>
+  <link rel="stylesheet" href="/sims/sim.css" />
 </head>
 <body>
-  <p><a class="back" href="/">← ExplorableLab</a></p>
+  <a class="back" href="/">← ExplorableLab</a>
   <h1>Ergodicity Street</h1>
   <p class="tagline">The average person doesn't exist.</p>
-
-  <p>Everyone plays the same fair coin game each round. The <strong>ensemble average</strong> wealth can rise while most individuals go bust.</p>
+  <p class="intro">Everyone plays the same fair coin game. The ensemble average can rise while most individuals go bust.</p>
 
   <div class="predict" id="predict">
-    <p><strong>Before you run:</strong> After 40 rounds, will the <em>typical</em> player be richer?</p>
+    <p><strong>Before you run:</strong> After 40 rounds, will the typical player be richer?</p>
     <div class="predict-btns">
-      <button type="button" data-guess="yes">Yes — most get richer</button>
-      <button type="button" data-guess="no">No — most lose</button>
+      <button type="button" data-guess="yes">Yes</button>
+      <button type="button" data-guess="no">No</button>
     </div>
   </div>
 
   <div class="controls">
-    <label>Players <input type="range" id="n" min="20" max="200" value="100" step="10" /><span id="nVal">100</span></label>
-    <label>Rounds <input type="range" id="rounds" min="10" max="80" value="40" step="5" /><span id="rVal">40</span></label>
-    <label>Win × <input type="range" id="win" min="110" max="200" value="150" step="5" /><span id="wVal">1.5×</span></label>
-    <label>Lose × <input type="range" id="lose" min="40" max="90" value="60" step="5" /><span id="lVal">0.6×</span></label>
-    <button class="run" id="run" disabled>Run 40 rounds</button>
+    <label>Players
+      <input type="range" id="n" min="20" max="200" value="100" step="10" />
+      <span id="nVal">100</span>
+    </label>
+    <label>Rounds
+      <input type="range" id="rounds" min="10" max="80" value="40" step="5" />
+      <span id="rVal">40</span>
+    </label>
+    <label>Win ×
+      <input type="range" id="win" min="110" max="200" value="150" step="5" />
+      <span id="wVal">1.5×</span>
+    </label>
+    <label>Lose ×
+      <input type="range" id="lose" min="40" max="90" value="60" step="5" />
+      <span id="lVal">0.6×</span>
+    </label>
+    <button id="run" disabled>Run</button>
   </div>
 
   <canvas id="c" width="720" height="360"></canvas>
 
   <div class="stats">
-    <div class="stat"><div class="val" id="avgEns">—</div><div class="lbl">Ensemble average ($)</div></div>
-    <div class="stat"><div class="val" id="medInd">—</div><div class="lbl">Median individual ($)</div></div>
-    <div class="stat"><div class="val" id="bustPct">—</div><div class="lbl">Players below $20</div></div>
-    <div class="stat"><div class="val" id="geoMean">—</div><div class="lbl">Geometric mean factor / round</div></div>
+    <div class="stat"><div class="val" id="avgEns">—</div><div class="lbl">Ensemble average</div></div>
+    <div class="stat"><div class="val" id="medInd">—</div><div class="lbl">Median individual</div></div>
+    <div class="stat"><div class="val" id="bustPct">—</div><div class="lbl">Below $20</div></div>
+    <div class="stat"><div class="val" id="geoMean">—</div><div class="lbl">Geo mean / round</div></div>
   </div>
 
   <div class="reveal" id="reveal"></div>
@@ -96,7 +60,7 @@
     function bind(id, outId, fmt) {
       const el = document.getElementById(id);
       const out = document.getElementById(outId);
-      el.oninput = () => { out.textContent = fmt(el.value); document.getElementById("run").textContent = `Run ${el.id === "rounds" ? el.value : document.getElementById("rounds").value} rounds`; };
+      el.oninput = () => { out.textContent = fmt(el.value); };
       fmt(el.value);
     }
     bind("n", "nVal", v => v);
@@ -145,31 +109,29 @@
       document.getElementById("geoMean").textContent = geo.toFixed(3);
 
       const typicalLost = med < 100;
-      const correct = (guess === "no" && typicalLost) || (guess === "yes" && !typicalLost);
       const reveal = document.getElementById("reveal");
       reveal.classList.add("visible");
       reveal.innerHTML = typicalLost
-        ? `<strong>Ensemble average: $${Math.round(avg)} · Median individual: $${Math.round(med)}</strong><br><br>
-           The group average can look fine while the typical person loses — multiplicative noise is non-ergodic.
-           Geometric mean per round (${geo.toFixed(3)}) ${geo < 1 ? "&lt; 1 → typical path decays" : "≥ 1"}.
-           ${guess ? (correct ? "<br><br>✓ You predicted correctly." : "<br><br>Your guess missed — that's the point.") : ""}`
-        : `<strong>With these parameters, the median held up</strong> — try lowering win or raising rounds. Geometric mean: ${geo.toFixed(3)}.`;
+        ? `Ensemble average $${Math.round(avg)} vs median $${Math.round(med)}. The group average can look fine while the typical person loses — multiplicative processes are non-ergodic.`
+        : `With these parameters the median held up. Try more rounds or lower win multiplier. Geo mean: ${geo.toFixed(3)}.`;
 
       drawChart();
     }
 
     function drawChart() {
       const w = canvas.width, h = canvas.height;
-      ctx.fillStyle = "#2d2420";
+      ctx.fillStyle = "#fbfbfa";
       ctx.fillRect(0, 0, w, h);
       const maxY = Math.max(...history.ensemble, ...history.median, 120);
-      const pad = 40;
+      const pad = 36;
       const plotW = w - pad * 2, plotH = h - pad * 2;
       const len = history.ensemble.length;
 
-      ctx.strokeStyle = "rgba(245,235,224,0.15)";
+      ctx.strokeStyle = "rgba(55, 53, 47, 0.12)";
       ctx.beginPath();
-      ctx.moveTo(pad, pad); ctx.lineTo(pad, h - pad); ctx.lineTo(w - pad, h - pad);
+      ctx.moveTo(pad, pad);
+      ctx.lineTo(pad, h - pad);
+      ctx.lineTo(w - pad, h - pad);
       ctx.stroke();
 
       function line(data, color) {
@@ -183,18 +145,11 @@
         });
         ctx.stroke();
       }
-      line(history.ensemble, "#e07a5f");
-      line(history.median, "#81b29a");
-
-      ctx.fillStyle = "#c4b5a5";
-      ctx.font = "12px sans-serif";
-      ctx.fillText("— ensemble avg", pad, 20);
-      ctx.fillStyle = "#81b29a";
-      ctx.fillText("— median individual", pad + 120, 20);
+      line(history.ensemble, "#2383e2");
+      line(history.median, "#9b9a97");
     }
 
     document.getElementById("run").onclick = simulate;
-    document.getElementById("run").textContent = "Run 40 rounds";
   </script>
 </body>
 </html>

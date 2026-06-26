@@ -1,10 +1,13 @@
 ---
+import '../styles/global.css';
+
 interface Props {
   title?: string;
   description?: string;
+  wide?: boolean;
 }
 
-const { title = 'ExplorableLab', description = 'Explore ideas that only make sense when you play with them.' } = Astro.props;
+const { title = 'ExplorableLab', description = 'Explore ideas that only make sense when you play with them.', wide = false } = Astro.props;
 
 const navItems = [
   { href: '/play', label: 'Play' },
@@ -14,6 +17,8 @@ const navItems = [
   { href: '/studio/echo', label: 'Studio' },
   { href: '/contribute', label: 'Contribute' },
 ];
+
+const path = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -23,218 +28,143 @@ const navItems = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <title>{title === 'ExplorableLab' ? title : `${title} · ExplorableLab`}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
     <header class="site-header">
-      <a href="/" class="logo">
-        <span class="logo-mark">◈</span>
-        ExplorableLab
-      </a>
+      <a href="/" class="logo">ExplorableLab</a>
       <nav class="site-nav" aria-label="Main">
         {navItems.map((item) => (
-          <a href={item.href} class:list={['nav-link', { active: Astro.url.pathname.startsWith(item.href) }]}>
+          <a
+            href={item.href}
+            class:list={['nav-link', { active: path === item.href || (item.href !== '/' && path.startsWith(item.href)) }]}
+          >
             {item.label}
           </a>
         ))}
       </nav>
     </header>
 
-    <main class="site-main">
+    <main class:list={['site-main', { 'site-main--wide': wide }]}>
       <slot />
     </main>
 
     <footer class="site-footer">
-      <p class="footer-tagline">Explore ideas that only make sense when you play with them.</p>
+      <p class="footer-copy">Explore ideas that only make sense when you play with them.</p>
       <nav class="footer-nav" aria-label="Footer">
         <a href="/contribute">Contribute</a>
-        <a href="https://github.com/heymachineni/explorablelab" rel="noopener noreferrer">Workshop</a>
-        <span class="footer-note">CC0 · Inspired by Bret Victor, Nicky Case, Distill, the Exploratorium</span>
+        <a href="https://github.com/heymachineni/explorablelab" rel="noopener noreferrer">GitHub</a>
       </nav>
     </footer>
   </body>
 </html>
-
-<style is:global>
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  :root {
-    --bg: #1a1410;
-    --bg-elevated: #241c17;
-    --bg-card: #2a211c;
-    --text: #f5ebe0;
-    --text-muted: #c4b5a5;
-    --accent: #e07a5f;
-    --accent-soft: rgba(224, 122, 95, 0.15);
-    --border: rgba(245, 235, 224, 0.12);
-    --serif: 'Crimson Pro', Georgia, 'Times New Roman', serif;
-    --sans: 'Source Sans 3', system-ui, -apple-system, sans-serif;
-    --radius: 6px;
-    --shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    font-size: 1.05rem;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4 {
-    font-family: var(--serif);
-    font-weight: 600;
-    line-height: 1.25;
-    margin: 0 0 0.5em;
-  }
-
-  a {
-    color: var(--accent);
-    text-decoration: none;
-    transition: color 0.2s ease, opacity 0.2s ease;
-  }
-
-  a:hover {
-    color: #f0a090;
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-</style>
 
 <style>
   .site-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 2rem;
-    padding: 1.25rem 2rem;
+    gap: 1rem;
+    padding: 0.75rem clamp(1rem, 4vw, 1.5rem);
     border-bottom: 1px solid var(--border);
-    background: rgba(26, 20, 16, 0.92);
-    backdrop-filter: blur(8px);
+    background: var(--bg);
     position: sticky;
     top: 0;
     z-index: 100;
   }
 
   .logo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--serif);
-    font-size: 1.35rem;
+    font-size: 0.9375rem;
     font-weight: 600;
     color: var(--text);
-    letter-spacing: 0.02em;
+    letter-spacing: -0.01em;
+    flex-shrink: 0;
   }
 
   .logo:hover {
-    color: var(--accent);
-  }
-
-  .logo-mark {
-    color: var(--accent);
-    font-size: 1.1rem;
+    color: var(--text);
+    opacity: 0.7;
   }
 
   .site-nav {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.25rem 1.5rem;
+    justify-content: flex-end;
+    gap: 0.125rem 0.25rem;
   }
 
   .nav-link {
     color: var(--text-muted);
-    font-size: 0.95rem;
+    font-size: 0.8125rem;
     font-weight: 500;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    padding: 0.25rem 0;
-    border-bottom: 2px solid transparent;
+    padding: 0.35rem 0.5rem;
+    border-radius: var(--radius);
   }
 
-  .nav-link:hover,
+  .nav-link:hover {
+    background: var(--bg-hover);
+    color: var(--text);
+  }
+
   .nav-link.active {
     color: var(--text);
-    border-bottom-color: var(--accent);
+    background: var(--bg-hover);
   }
 
   .site-main {
     flex: 1;
     width: 100%;
-    max-width: 1200px;
+    max-width: var(--page-max);
     margin: 0 auto;
-    padding: 2rem;
+    padding: clamp(1.25rem, 4vw, 2rem) clamp(1rem, 4vw, 1.5rem);
+  }
+
+  .site-main--wide {
+    max-width: var(--page-wide);
   }
 
   .site-footer {
     margin-top: auto;
-    padding: 2.5rem 2rem;
+    padding: 1.25rem clamp(1rem, 4vw, 1.5rem);
     border-top: 1px solid var(--border);
-    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
   }
 
-  .footer-tagline {
-    font-family: var(--serif);
-    font-style: italic;
-    color: var(--text-muted);
-    margin: 0 0 1rem;
+  .footer-copy {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--text-faint);
   }
 
   .footer-nav {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem 1.5rem;
-    font-size: 0.9rem;
+    gap: 1rem;
+    font-size: 0.8125rem;
   }
 
   .footer-nav a {
     color: var(--text-muted);
   }
 
-  .footer-nav a:hover {
-    color: var(--accent);
-  }
-
-  .footer-note {
-    color: rgba(196, 181, 165, 0.6);
-    font-size: 0.85rem;
-  }
-
-  @media (max-width: 640px) {
+  @media (max-width: 520px) {
     .site-header {
       flex-direction: column;
-      align-items: flex-start;
-      padding: 1rem 1.25rem;
+      align-items: stretch;
     }
 
-    .site-main {
-      padding: 1.25rem;
+    .site-nav {
+      justify-content: flex-start;
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      padding-bottom: 0.125rem;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-link {
+      flex-shrink: 0;
     }
   }
 </style>

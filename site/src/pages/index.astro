@@ -7,439 +7,143 @@ import type { Exhibit } from '../types';
 const exhibits = canonicalData.exhibits as Exhibit[];
 const collections = collectionsData.collections;
 
-const masters = exhibits.filter((e) => e.type === 'EXE' && e.embedUrl);
 const nativeSims = exhibits.filter((e) => e.playUrl);
-const heroHook = 'You just segregated a society with one reasonable move.';
+const startCollection = collections.find((c) => c.slug === 'start-here-first-visit');
 ---
 
 <MuseumLayout title="ExplorableLab">
   <section class="hero">
-    <div class="hero-frame">
-      <iframe
-        src="https://ncase.me/polygons/"
-        title="Parable of the Polygons"
-        loading="eager"
-        allow="fullscreen"
-      ></iframe>
+    <p class="hero-eyebrow">Interactive museum</p>
+    <h1>Explore ideas that only make sense when you play with them.</h1>
+    <p class="hero-desc">
+      Curated simulations, paradoxes, and paths — built to be touched, not read.
+    </p>
+    <div class="btn-row hero-actions">
+      <a href="/learn" class="btn btn-primary">Start here</a>
+      <a href="/discover" class="btn">Surprise me</a>
+      <a href="/play" class="btn">Play</a>
     </div>
-    <p class="hero-caption">{heroHook}</p>
   </section>
 
-  <section class="tagline-block">
-    <h1 class="site-tagline">Explore ideas that only make sense when you play with them.</h1>
-  </section>
+  {nativeSims.length > 0 && (
+    <section class="section">
+      <div class="section-header">
+        <h2>Built here</h2>
+        <span class="meta">Native simulations</span>
+      </div>
+      <div class="row-list">
+        {nativeSims.map((sim) => (
+          <a href={sim.playUrl} class="row-link">
+            <div>
+              <p class="row-link__title">{sim.title}</p>
+              <p class="row-link__meta">{sim.hook ?? sim.summary}</p>
+            </div>
+            <span class="row-link__action">Play →</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
 
-  <section class="doors" aria-label="Three doors">
-    <a href="/play" class="door door-play">
-      <span class="door-icon">▶</span>
-      <span class="door-label">Play</span>
-      <span class="door-desc">Paradox Arcade &amp; live sims</span>
-    </a>
-    <a href="/discover" class="door door-discover">
-      <span class="door-icon">✦</span>
-      <span class="door-label">Discover</span>
-      <span class="door-desc">Surprise me with an exhibit</span>
-    </a>
-    <a href="/learn" class="door door-learn">
-      <span class="door-icon">◎</span>
-      <span class="door-label">Learn</span>
-      <span class="door-desc">Curated collections &amp; paths</span>
-    </a>
-  </section>
+  {startCollection && (
+    <section class="section">
+      <div class="section-header">
+        <h2>First visit</h2>
+        <a href={`/collection/${startCollection.slug}`} class="link-muted">Full path →</a>
+      </div>
+      <p class="section-note">{startCollection.time_minutes} min · {startCollection.stops.length} stops</p>
+      <div class="row-list">
+        {startCollection.stops.slice(0, 5).map((slug) => {
+          const ex = exhibits.find((e) => e.slug === slug);
+          return (
+            <a href={`/exhibit/${slug}`} class="row-link">
+              <div>
+                <p class="row-link__title">{ex?.title ?? slug}</p>
+                <p class="row-link__meta">{ex?.hook ?? ex?.summary ?? 'Exhibit'}</p>
+              </div>
+              <span class="row-link__action">Open</span>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+  )}
 
-  <section class="collections-rail">
+  <section class="section">
     <div class="section-header">
       <h2>Collections</h2>
-      <a href="/learn" class="see-all">See all →</a>
+      <a href="/learn" class="link-muted">All collections →</a>
     </div>
-    <div class="rail-scroll">
-      {collections.slice(0, 8).map((col) => (
-        <a href={`/collection/${col.slug}`} class="rail-card">
-          <span class="rail-time">{col.time_minutes > 0 ? `${col.time_minutes} min` : 'Reference'}</span>
-          <h3>{col.title}</h3>
-          <p>{col.summary}</p>
+    <div class="grid-auto">
+      {collections.slice(0, 6).map((col) => (
+        <a href={`/collection/${col.slug}`} class="card card-interactive">
+          <p class="card-title">{col.title}</p>
+          <p class="card-meta">{col.time_minutes > 0 ? `${col.time_minutes} min` : 'Reference'} · {col.stops.length} stops</p>
         </a>
       ))}
     </div>
   </section>
 
-  <section class="graph-teaser">
+  <section class="section">
     <div class="section-header">
       <h2>Constellation</h2>
-      <a href="/graph" class="see-all">Explore graph →</a>
+      <a href="/graph" class="link-muted">Open graph →</a>
     </div>
-    <p class="teaser-text">Canonical exhibits as stars — follow edges between related ideas.</p>
-    <a href="/graph" class="graph-link">View the constellation</a>
-  </section>
-
-  <section class="masters-gallery">
-    <h2>Gallery of Masters</h2>
-    <p class="gallery-intro">Nine canon explorables — playable now.</p>
-    <div class="gallery-grid">
-      {masters.map((exhibit) => (
-        <a href={`/exhibit/${exhibit.slug}`} class="master-tile">
-          <span class="tile-type">{exhibit.type}</span>
-          <h3>{exhibit.title}</h3>
-          <p>{exhibit.hook ?? exhibit.summary}</p>
-          {exhibit.embedUrl && <span class="tile-play">Play →</span>}
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <section class="native-sims">
-    <div class="section-header">
-      <h2>Built Here</h2>
-      <span class="badge-new">Native sim</span>
-    </div>
-    <p class="native-intro">ExplorableLab builds — not just links. Try the first native simulation.</p>
-    {nativeSims.map((sim) => (
-      <a href={`/exhibit/${sim.slug}`} class="native-card">
-        <div class="native-play">
-          <iframe src={sim.playUrl} title={sim.title} loading="lazy"></iframe>
-        </div>
-        <div class="native-meta">
-          <h3>{sim.title}</h3>
-          <p>{sim.hook ?? sim.summary}</p>
-          <span class="tile-play">Play →</span>
-        </div>
-      </a>
-    ))}
+    <p class="section-note">Browse {exhibits.length} canonical exhibits and how they connect.</p>
+    <a href="/graph" class="btn">View constellation</a>
   </section>
 </MuseumLayout>
 
 <style>
   .hero {
-    margin: -0.5rem -0.5rem 2.5rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
   }
 
-  .hero-frame {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    max-height: 520px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    background: #0d0a08;
+  .hero-eyebrow {
+    margin: 0 0 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--text-faint);
   }
 
-  .hero-frame iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
-
-  .hero-caption {
-    margin: 1rem 0 0;
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 1.15rem;
-    color: var(--text-muted);
-    text-align: center;
-  }
-
-  .tagline-block {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-
-  .site-tagline {
-    font-size: clamp(1.5rem, 4vw, 2.25rem);
-    font-weight: 400;
-    max-width: 28ch;
-    margin: 0 auto;
-    color: var(--text);
-  }
-
-  .doors {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-    margin-bottom: 3.5rem;
-  }
-
-  .door {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 2rem 1.25rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    color: var(--text);
-    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .door:hover {
-    transform: translateY(-3px);
-    border-color: var(--accent);
-    box-shadow: 0 12px 40px rgba(224, 122, 95, 0.12);
-    color: var(--text);
-  }
-
-  .door-icon {
-    font-size: 1.75rem;
-    color: var(--accent);
+  .hero h1 {
+    font-size: clamp(1.75rem, 5vw, 2.25rem);
+    max-width: 18ch;
     margin-bottom: 0.75rem;
   }
 
-  .door-label {
-    font-family: var(--serif);
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 0.35rem;
+  .hero-desc {
+    margin: 0 0 1.25rem;
+    color: var(--text-muted);
+    max-width: 42ch;
+    font-size: 1rem;
+    line-height: 1.6;
   }
 
-  .door-desc {
-    font-size: 0.9rem;
+  .hero-actions {
+    margin-top: 0.5rem;
+  }
+
+  .section-note {
+    margin: 0 0 0.75rem;
+    font-size: 0.875rem;
     color: var(--text-muted);
   }
 
-  .section-header {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1.25rem;
-  }
-
-  .section-header h2 {
-    font-size: 1.75rem;
-  }
-
-  .see-all {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    white-space: nowrap;
-  }
-
-  .see-all:hover {
-    color: var(--accent);
-  }
-
-  .collections-rail {
-    margin-bottom: 3.5rem;
-  }
-
-  .rail-scroll {
-    display: flex;
-    gap: 1rem;
-    overflow-x: auto;
-    padding-bottom: 0.75rem;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .rail-card {
-    flex: 0 0 min(280px, 80vw);
-    scroll-snap-align: start;
-    padding: 1.5rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    color: var(--text);
-    transition: border-color 0.2s ease;
-  }
-
-  .rail-card:hover {
-    border-color: var(--accent);
-    color: var(--text);
-  }
-
-  .rail-time {
-    display: inline-block;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--accent);
-    margin-bottom: 0.5rem;
-  }
-
-  .rail-card h3 {
-    font-size: 1.15rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .rail-card p {
+  .row-list {
     margin: 0;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    line-height: 1.5;
   }
 
-  .graph-teaser {
-    margin-bottom: 3.5rem;
-    padding: 2rem;
-    background: var(--accent-soft);
-    border: 1px solid rgba(224, 122, 95, 0.25);
-    border-radius: var(--radius);
-    text-align: center;
+  .card-title {
+    margin: 0 0 0.25rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
   }
 
-  .teaser-text {
-    color: var(--text-muted);
-    margin: 0 0 1rem;
-  }
-
-  .graph-link {
-    display: inline-block;
-    padding: 0.6rem 1.25rem;
-    background: var(--accent);
-    color: var(--bg);
-    border-radius: var(--radius);
-    font-weight: 600;
-    font-size: 0.95rem;
-  }
-
-  .graph-link:hover {
-    color: var(--bg);
-    opacity: 0.9;
-  }
-
-  .masters-gallery {
-    margin-bottom: 2.5rem;
-  }
-
-  .masters-gallery h2 {
-    font-size: 1.75rem;
-    margin-bottom: 0.35rem;
-  }
-
-  .gallery-intro {
-    color: var(--text-muted);
-    margin: 0 0 1.5rem;
-  }
-
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1rem;
-  }
-
-  .master-tile {
-    display: flex;
-    flex-direction: column;
-    padding: 1.25rem;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    color: var(--text);
-    min-height: 160px;
-    transition: border-color 0.2s ease;
-  }
-
-  .master-tile:hover {
-    border-color: var(--accent);
-    color: var(--text);
-  }
-
-  .tile-type {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--accent);
-    margin-bottom: 0.5rem;
-  }
-
-  .master-tile h3 {
-    font-size: 1.1rem;
-    margin-bottom: 0.4rem;
-  }
-
-  .master-tile p {
-    flex: 1;
+  .card-meta {
     margin: 0;
-    font-size: 0.88rem;
+    font-size: 0.8125rem;
     color: var(--text-muted);
-    line-height: 1.45;
-  }
-
-  .tile-play {
-    margin-top: 0.75rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--accent);
-  }
-
-  .native-sims {
-    margin-bottom: 2.5rem;
-  }
-
-  .badge-new {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--accent);
-    padding: 0.2rem 0.5rem;
-    border: 1px solid rgba(224, 122, 95, 0.4);
-    border-radius: 3px;
-  }
-
-  .native-intro {
-    color: var(--text-muted);
-    margin: 0 0 1rem;
-  }
-
-  .native-card {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    color: var(--text);
-    background: var(--bg-card);
-  }
-
-  .native-card:hover {
-    border-color: var(--accent);
-    color: var(--text);
-  }
-
-  .native-play {
-    position: relative;
-    aspect-ratio: 16 / 10;
-    background: #0d0a08;
-  }
-
-  .native-play iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    pointer-events: none;
-  }
-
-  .native-meta {
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .native-meta h3 {
-    margin-bottom: 0.5rem;
-  }
-
-  .native-meta p {
-    margin: 0;
-    color: var(--text-muted);
-    font-size: 0.95rem;
-  }
-
-  @media (max-width: 768px) {
-    .doors {
-      grid-template-columns: 1fr;
-    }
-
-    .native-card {
-      grid-template-columns: 1fr;
-    }
   }
 </style>

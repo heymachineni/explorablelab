@@ -6,106 +6,24 @@ import type { Collection } from '../types';
 const collections = collectionsData.collections as Collection[];
 ---
 
-<MuseumLayout title="Learn" description="Curated collections and guided paths through ExplorableLab.">
+<MuseumLayout title="Learn" description="Curated collections and guided paths.">
   <header class="page-header">
     <h1>Learn</h1>
-    <p class="lead">Curated exhibitions — not alphabetical dumps. Each collection is a path with narrative, time estimate, and emotional arc.</p>
+    <p class="lead">Curated paths with time estimates — not alphabetical lists.</p>
   </header>
 
-  <div class="collections-grid">
-    {collections.map((col, i) => (
-      <a href={`/collection/${col.slug}`} class="collection-card">
-        <span class="card-number">{String(i + 1).padStart(2, '0')}</span>
-        <div class="card-content">
-          <div class="card-meta">
-            <span class="time">{col.time_minutes > 0 ? `${col.time_minutes} min` : 'Reference'}</span>
-            <span class="stops">{col.stops.length} stops</span>
-          </div>
-          <h2>{col.title}</h2>
-          <p>{col.summary}</p>
-          <span class="arc">{col.emotional_arc}</span>
+  <div class="row-list">
+    {collections.map((col) => (
+      <a href={`/collection/${col.slug}`} class="row-link">
+        <div>
+          <p class="row-link__title">{col.title}</p>
+          <p class="row-link__meta">
+            {col.time_minutes > 0 ? `${col.time_minutes} min` : 'Reference'} · {col.stops.length} stops
+            {col.emotional_arc ? ` · ${col.emotional_arc}` : ''}
+          </p>
         </div>
+        <span class="row-link__action">Open →</span>
       </a>
     ))}
   </div>
 </MuseumLayout>
-
-<style>
-  .page-header {
-    margin-bottom: 2.5rem;
-  }
-
-  .page-header h1 {
-    font-size: clamp(2rem, 5vw, 2.75rem);
-    margin-bottom: 0.5rem;
-  }
-
-  .lead {
-    color: var(--text-muted);
-    max-width: 52ch;
-    font-size: 1.05rem;
-    margin: 0;
-  }
-
-  .collections-grid {
-    display: grid;
-    gap: 1.25rem;
-  }
-
-  .collection-card {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 1.25rem;
-    padding: 1.5rem 1.75rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    color: var(--text);
-    transition: border-color 0.2s ease, transform 0.2s ease;
-  }
-
-  .collection-card:hover {
-    border-color: var(--accent);
-    transform: translateX(4px);
-    color: var(--text);
-  }
-
-  .card-number {
-    font-family: var(--serif);
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--accent);
-    opacity: 0.5;
-    line-height: 1;
-    padding-top: 0.15rem;
-  }
-
-  .card-meta {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 0.5rem;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--accent);
-  }
-
-  .collection-card h2 {
-    font-size: 1.35rem;
-    margin-bottom: 0.4rem;
-  }
-
-  .collection-card p {
-    margin: 0 0 0.75rem;
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-
-  .arc {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 0.88rem;
-    color: rgba(196, 181, 165, 0.7);
-  }
-</style>
