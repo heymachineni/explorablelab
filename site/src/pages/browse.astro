@@ -1,0 +1,21 @@
+---
+import AppLayout from '../layouts/AppLayout.astro';
+import PageList from '../components/PageList.astro';
+import { databaseRows } from '../lib/workspace';
+
+const filter = Astro.url.searchParams.get('filter') ?? 'all';
+---
+
+<AppLayout
+  title="Browse"
+  description="Browse every explanation in ExplorableLab."
+  breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Browse' }]}
+  full
+>
+  <header class="browse-header">
+    <h1 class="browse-title">Browse</h1>
+    <p class="browse-lead">One library. Filter by topic when you need focus.</p>
+  </header>
+
+  <PageList rows={databaseRows} defaultSegment={filter} id="browse" />
+</AppLayout>

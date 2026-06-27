@@ -1,5 +1,7 @@
 import workspaceData from '../data/workspace.json';
 import type { DatabaseRow, Exhibit, Hub, WorkspaceData } from '../types';
+import { iconForType } from './icons';
+import type { IconName } from './icons';
 import {
   displayTitle,
   exhibitBySlug,
@@ -34,24 +36,8 @@ export function backlinksFor(slug: string): Exhibit[] {
     .filter((e): e is Exhibit => !!e);
 }
 
-export const TYPE_ICONS: Record<string, string> = {
-  THY: '∑',
-  PAT: '◇',
-  MET: '◈',
-  STR: '▤',
-  SIM: '⎔',
-  EXE: '◎',
-  PAR: '↯',
-  EXP: '⎙',
-  PAP: '📄',
-  BOK: '📘',
-  DIS: '◉',
-  MOD: '⬡',
-  DSN: '✦',
-};
-
-export function pageIcon(exhibit: Exhibit): string {
-  return TYPE_ICONS[exhibit.type] ?? '◻';
+export function pageIcon(exhibit: Exhibit): IconName {
+  return iconForType(exhibit.type);
 }
 
 export function toDatabaseRow(exhibit: Exhibit): DatabaseRow {

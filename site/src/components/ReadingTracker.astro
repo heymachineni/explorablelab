@@ -3,21 +3,23 @@ interface Props {
   slug: string;
   title: string;
   type: string;
+  typeCode: string;
   hub?: string;
   pathSlug?: string | null;
   stepIndex?: number | null;
 }
 
-const { slug, title, type, hub = '', pathSlug = null, stepIndex = null } = Astro.props;
+const { slug, title, type, typeCode, hub = '', pathSlug = null, stepIndex = null } = Astro.props;
 const href = Astro.url.pathname + Astro.url.search;
 ---
 
-<script is:inline define:vars={{ slug, title, type, hub, href, pathSlug, stepIndex }}>
+<script is:inline define:vars={{ slug, title, type, typeCode, hub, href, pathSlug, stepIndex }}>
   function track() {
     window.ExplorableLabContinue?.trackPage({
       slug,
       title,
       type,
+      typeCode,
       hub,
       href,
       pathSlug,

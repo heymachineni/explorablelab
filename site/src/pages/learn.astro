@@ -1,5 +1,6 @@
 ---
 import AppLayout from '../layouts/AppLayout.astro';
+import Icon from '../components/Icon.astro';
 import { collections } from '../lib/museum';
 
 const sorted = [...collections].sort((a, b) => {
@@ -11,56 +12,29 @@ const sorted = [...collections].sort((a, b) => {
 
 <AppLayout
   title="Paths"
-  description="Curated reading paths through ExplorableLab."
+  description="Curated reading sequences through ExplorableLab."
   breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Paths' }]}
-  wide
 >
-  <header class="list-header">
-    <h1 class="list-title">Paths</h1>
-    <p class="list-lead">Curated reading sequences — ordered stops with time estimates.</p>
+  <header class="browse-header">
+    <h1 class="browse-title">Paths</h1>
+    <p class="browse-lead">Curated sequences — read in order, at your pace.</p>
   </header>
 
-  <div class="notion-table-wrap">
-    <table class="notion-table notion-table--interactive">
-      <thead>
-        <tr>
-          <th>Path</th>
-          <th>Summary</th>
-          <th>Time</th>
-          <th>Stops</th>
-        </tr>
-      </thead>
-      <tbody>
-        {sorted.map((path) => (
-          <tr>
-            <td>
-              <a href={`/collection/${path.slug}`} class="table-link">{path.title}</a>
-            </td>
-            <td class="table-muted">{path.summary}</td>
-            <td>{path.time_minutes > 0 ? `${path.time_minutes} min` : '—'}</td>
-            <td>{path.stops.length}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+  <ul class="path-rows">
+    {sorted.map((path) => (
+      <li class="path-row">
+        <a href={`/collection/${path.slug}`} class="path-link">
+          <Icon name="paths" size={20} />
+          <span class="path-body">
+            <span class="path-title">{path.title}</span>
+            <span class="path-meta">
+              {path.summary}
+              {path.time_minutes > 0 && ` · ${path.time_minutes} min · ${path.stops.length} readings`}
+            </span>
+          </span>
+          <Icon name="chevron-right" size={18} />
+        </a>
+      </li>
+    ))}
+  </ul>
 </AppLayout>
-
-<style>
-  .list-header {
-    margin-bottom: 1.5rem;
-  }
-
-  .list-title {
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    margin: 0 0 0.35rem;
-  }
-
-  .list-lead {
-    margin: 0;
-    color: var(--text-secondary);
-    font-size: 0.9375rem;
-  }
-</style>

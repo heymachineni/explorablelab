@@ -1,4 +1,6 @@
 ---
+import Icon from './Icon.astro';
+
 interface Props {
   pathSlug: string;
   stepIndex: number;
@@ -15,19 +17,39 @@ const progress = ((stepIndex + 1) / total) * 100;
 <div class="path-bar">
   <div class="path-bar-top">
     <p class="path-bar-name">
-      Path · <a href={`/collection/${pathSlug}`}>{pathTitle}</a>
+      <Icon name="paths" size={16} />
+      <a href={`/collection/${pathSlug}`}>{pathTitle}</a>
     </p>
-    <span class="path-bar-step">Stop {stepIndex + 1} of {total}</span>
+    <span class="path-bar-step">{stepIndex + 1} of {total}</span>
   </div>
-  <div class="path-progress" role="progressbar" aria-valuenow={stepIndex + 1} aria-valuemin={1} aria-valuemax={total}>
+  <div
+    class="path-progress"
+    role="progressbar"
+    aria-valuenow={stepIndex + 1}
+    aria-valuemin={1}
+    aria-valuemax={total}
+    aria-label={`Reading ${stepIndex + 1} of ${total}`}
+  >
     <div class="path-progress-fill" style={`width: ${progress}%`}></div>
   </div>
 </div>
 
 {(prevHref || nextHref) && (
   <div class="path-actions">
-    {prevHref ? <a href={prevHref} class="btn btn-ghost">← Previous stop</a> : <span></span>}
-    {nextHref ? <a href={nextHref} class="btn btn-primary">Next stop →</a> : (
+    {prevHref ? (
+      <a href={prevHref} class="btn">
+        <Icon name="arrow-left" size={18} />
+        Previous
+      </a>
+    ) : (
+      <span></span>
+    )}
+    {nextHref ? (
+      <a href={nextHref} class="btn btn-primary">
+        Next
+        <Icon name="arrow-right" size={18} />
+      </a>
+    ) : (
       <a href={`/collection/${pathSlug}`} class="btn btn-primary">Finish path</a>
     )}
   </div>

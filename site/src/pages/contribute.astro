@@ -1,15 +1,14 @@
 ---
 import AppLayout from '../layouts/AppLayout.astro';
+import Icon from '../components/Icon.astro';
 import { stats } from '../lib/museum';
 
 const repo = 'https://github.com/heymachineni/explorablelab/blob/main';
 
 const links = [
-  { title: 'E.C.H.O. Studio', desc: 'Design worksheet for new simulations.', href: '/studio/echo', local: true },
-  { title: 'Contributing guide', desc: 'How to promote exhibits and write paths.', href: `${repo}/CONTRIBUTING.md` },
-  { title: 'Canonical registry', desc: 'The 105 slugs on the museum floor.', href: `${repo}/meta/CANONICAL-REGISTRY.md` },
-  { title: 'Product spec', desc: 'Vision, IA, and quality bar.', href: `${repo}/PRODUCT-SPEC.md` },
-  { title: 'Design bible', desc: 'Patterns, autopsies, build specs.', href: `${repo}/EXPLORABLE_EXPLANATIONS_RESEARCH.md` },
+  { title: 'E.C.H.O. Studio', desc: 'Design worksheet for new simulations.', href: '/studio/echo', local: true, icon: 'contribute' as const },
+  { title: 'Contributing guide', desc: 'How to promote pages and write paths.', href: `${repo}/CONTRIBUTING.md`, local: false, icon: 'page' as const },
+  { title: 'Content growth', desc: 'Quality bar and promotion workflow.', href: `${repo}/CONTENT-GROWTH.md`, local: false, icon: 'page' as const },
 ];
 ---
 
@@ -18,46 +17,42 @@ const links = [
   description="Workshop documentation for contributors."
   breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Contribute' }]}
 >
-  <h1 class="page-title">Contribute</h1>
-  <p class="page-lead">
-    Visitors see {stats.total} read-only explanations and {stats.paths} curated paths.
-    Contributors work in the markdown workshop to write, promote, and connect ideas.
-  </p>
+  <header class="browse-header">
+    <h1 class="browse-title">Contribute</h1>
+    <p class="browse-lead">
+      The public site has {stats.total} curated readings and {stats.paths} paths.
+      Contributors write in the markdown workshop.
+    </p>
+  </header>
 
-  <p class="section-label">Workshop</p>
-  <div class="db-table">
+  <ul class="page-rows">
     {links.map((link) => (
-      <a
-        href={link.href}
-        class="db-row"
-        target={link.local ? undefined : '_blank'}
-        rel={link.local ? undefined : 'noopener noreferrer'}
-      >
-        <div>
-          <p class="db-row-title">{link.title}</p>
-          <p class="db-row-meta">{link.desc}</p>
-        </div>
-        <span class="db-row-action">{link.local ? 'Open' : 'GitHub ↗'}</span>
-      </a>
+      <li class="page-row">
+        <a
+          href={link.href}
+          class="page-row-link"
+          target={link.local ? undefined : '_blank'}
+          rel={link.local ? undefined : 'noopener noreferrer'}
+        >
+          <span class="page-row-icon">
+            <Icon name={link.icon} size={18} />
+          </span>
+          <span class="page-row-body">
+            <span class="page-row-title">{link.title}</span>
+            <span class="page-row-summary">{link.desc}</span>
+          </span>
+          <Icon name={link.local ? 'chevron-right' : 'external'} size={18} class="page-row-chevron" />
+        </a>
+      </li>
     ))}
-  </div>
+  </ul>
 
-  <section class="section" style="margin-top: 2rem;">
-    <p class="section-label">Weekly rhythm</p>
-    <ul class="rhythm-list">
-      <li>Promote one exhibit to canonical quality</li>
-      <li>Improve one explanation in `content/`</li>
-      <li>Update one path with accurate stops and summaries</li>
+  <section class="section-block">
+    <h2 class="home-section-title">Weekly rhythm</h2>
+    <ul class="prose-list">
+      <li>Promote one page to canonical quality</li>
+      <li>Improve one explanation in the workshop</li>
+      <li>Update one path with accurate stops</li>
     </ul>
   </section>
 </AppLayout>
-
-<style>
-  .rhythm-list {
-    margin: 0;
-    padding-left: 1.25rem;
-    color: var(--text-secondary);
-    font-size: 0.9375rem;
-    line-height: 1.7;
-  }
-</style>

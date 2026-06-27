@@ -1,6 +1,7 @@
 ---
 import { exhibits, displayTitle, typeLabel } from '../lib/museum';
 import { databaseRows } from '../lib/workspace';
+import { iconForType, iconToSvg, getIcon } from '../lib/icons';
 
 const searchItems = exhibits.map((e) => {
   const row = databaseRows.find((r) => r.slug === e.slug);
@@ -8,11 +9,21 @@ const searchItems = exhibits.map((e) => {
     slug: e.slug,
     title: displayTitle(e),
     type: typeLabel(e),
+    typeCode: e.type,
     wing: e.wing,
     hub: row?.hubTitle ?? '',
     href: `/exhibit/${e.slug}`,
   };
 });
+
+const typeIconSvgs: Record<string, string> = {};
+for (const item of searchItems) {
+  if (!typeIconSvgs[item.typeCode]) {
+    typeIconSvgs[item.typeCode] = iconToSvg(getIcon(iconForType(item.typeCode)), 18);
+  }
+}
+const chevronSvg = iconToSvg(getIcon('chevron-right'), 18, 1.75, 'page-row-chevron');
+const defaultIconSvg = iconToSvg(getIcon('page'), 18);
 ---
 
 <div class="palette-backdrop" id="palette-backdrop" role="dialog" aria-modal="true" aria-label="Search pages">
@@ -21,15 +32,16 @@ const searchItems = exhibits.map((e) => {
       type="search"
       class="palette-input"
       id="palette-input"
-      placeholder="Search pages, hubs, types…"
+      placeholder="Search"
       autocomplete="off"
       aria-label="Search"
+      aria-controls="palette-results"
     />
-    <div class="palette-results" id="palette-results"></div>
+    <div class="palette-results" id="palette-results" role="listbox" aria-label="Results"></div>
   </div>
 </div>
 
-<script is:inline define:vars={{ searchItems }}>
+<script is:inline define:vars={{ searchItems, typeIconSvgs, chevronSvg, defaultIconSvg }}>
   const backdrop = document.getElementById('palette-backdrop');
   const input = document.getElementById('palette-input');
   const results = document.getElementById('palette-results');
@@ -42,6 +54,7 @@ const searchItems = exhibits.map((e) => {
       input.value = '';
       input.focus();
     }
+    focusIndex = 0;
     render('');
   }
 
@@ -72,13 +85,18 @@ const searchItems = exhibits.map((e) => {
     results.innerHTML = filtered
       .slice(0, 12)
       .map(
-        (item, i) => `
-        <button type="button" class="palette-item${i === focusIndex ? ' focused' : ''}" data-href="${item.href}">
-          <div>
-            <p class="palette-item-title">${item.title}</p>
-            <p class="palette-item-meta">${item.type}${item.hub ? ` · ${item.hub}` : ` · ${item.wing}`}</p>
-          </div>
-        </button>`
+        (item, i) => {
+          const icon = typeIconSvgs[item.typeCode] || defaultIconSvg;
+          return `
+        <button type="button" class="palette-item${i === focusIndex ? ' focused' : ''}" data-href="${item.href}" role="option" aria-selected="${i === focusIndex}">
+          <span class="page-row-icon">${icon}</span>
+          <span class="page-row-body">
+            <span class="palette-item-title">${item.title}</span>
+            <span class="palette-item-meta">${item.type}${item.hub ? ` · ${item.hub}` : ` · ${item.wing}`}</span>
+          </span>
+          ${chevronSvg}
+        </button>`;
+        }
       )
       .join('');
 
@@ -86,7 +104,6 @@ const searchItems = exhibits.map((e) => {
       btn.addEventListener('click', () => {
         window.location.href = btn.getAttribute('data-href');
       });
-      if (i === focusIndex) btn.classList.add('focused');
     });
   }
 

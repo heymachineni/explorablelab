@@ -1,0 +1,128 @@
+---
+import Icon from './Icon.astro';
+import { iconForType } from '../lib/icons';
+import type { DatabaseRow } from '../types';
+
+interface Props {
+  rows: DatabaseRow[];
+  id?: string;
+  defaultSegment?: string;
+  compact?: boolean;
+}
+
+const { rows, id = 'pages', defaultSegment = 'all', compact = false } = Astro.props;
+
+const segments = [
+  { id: 'all', label: 'All' },
+  { id: 'DIS', label: 'Topics' },
+  { id: 'THY', label: 'Theories' },
+  { id: 'PAT', label: 'Patterns' },
+  { id: 'other', label: 'More' },
+];
+---
+
+<section class:list={['page-list', { 'page-list--compact': compact }]} data-page-list={id} data-default-segment={defaultSegment}>
+  <div class="page-list-toolbar">
+    {!compact && (
+      <div class="segmented" role="tablist" aria-label="Filter">
+      {segments.map((segment) => (
+        <button
+          type="button"
+          class="segmented-item"
+          data-segment={segment.id}
+          role="tab"
+        >
+          {segment.label}
+        </button>
+        ))}
+      </div>
+    )}
+    <label class="search-field">
+      <Icon name="search" size={18} class="search-field-icon" />
+      <input
+        type="search"
+        class="search-field-input"
+        id={`${id}-search`}
+        placeholder="Search"
+        aria-label="Search pages"
+      />
+    </label>
+  </div>
+
+  <ul class="page-rows" id={`${id}-rows`}>
+    {rows.map((row) => {
+      const segment = row.type === 'DIS'
+        ? 'DIS'
+        : row.type === 'THY'
+          ? 'THY'
+          : row.type === 'PAT'
+            ? 'PAT'
+            : 'other';
+      return (
+        <li
+          class="page-row"
+          data-segment={segment}
+          data-type={row.type}
+          data-search={row.searchText}
+        >
+          <a href={row.href} class="page-row-link">
+            <span class="page-row-icon">
+              <Icon name={iconForType(row.type)} size={18} />
+            </span>
+            <span class="page-row-body">
+              <span class="page-row-title">{row.title}</span>
+              <span class="page-row-summary">{row.summary}</span>
+            </span>
+            <Icon name="chevron-right" size={18} class="page-row-chevron" />
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+
+  <p class="page-list-count" id={`${id}-count`}>{rows.length} pages</p>
+</section>
+
+<script is:inline define:vars={{ id, defaultSegment }}>
+  const root = document.querySelector(`[data-page-list="${id}"]`);
+  if (!root) return;
+
+  const search = root.querySelector(`#${id}-search`);
+  const rows = Array.from(root.querySelectorAll('.page-row'));
+  const segments = Array.from(root.querySelectorAll('.segmented-item'));
+  const countEl = root.querySelector(`#${id}-count`);
+  let segment = new URLSearchParams(window.location.search).get('filter') || defaultSegment || 'all';
+
+  function matchesSegment(row, seg) {
+    if (seg === 'all') return true;
+    if (seg === 'other') return row.getAttribute('data-segment') === 'other';
+    return row.getAttribute('data-segment') === seg;
+  }
+
+  function apply() {
+    const q = (search?.value ?? '').trim().toLowerCase();
+    let visible = 0;
+    rows.forEach((row) => {
+      const hay = row.getAttribute('data-search') ?? '';
+      const show = matchesSegment(row, segment) && (!q || hay.includes(q));
+      row.style.display = show ? '' : 'none';
+      if (show) visible += 1;
+    });
+    if (countEl) countEl.textContent = `${visible} page${visible === 1 ? '' : 's'}`;
+  }
+
+  function setSegment(next) {
+    segment = next;
+    segments.forEach((btn) => {
+      btn.classList.toggle('is-active', btn.getAttribute('data-segment') === segment);
+    });
+    apply();
+  }
+
+  search?.addEventListener('input', apply);
+  segments.forEach((btn) => {
+    btn.addEventListener('click', () => setSegment(btn.getAttribute('data-segment') ?? 'all'));
+  });
+
+  setSegment(segment);
+</script>

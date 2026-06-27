@@ -1,8 +1,7 @@
 ---
 import '../styles/design-system.css';
+import Icon from '../components/Icon.astro';
 import CommandPalette from '../components/CommandPalette.astro';
-import { stats } from '../lib/museum';
-import { hubs, pinnedHubs } from '../lib/workspace';
 
 interface Props {
   title?: string;
@@ -15,7 +14,7 @@ interface Props {
 
 const {
   title = 'ExplorableLab',
-  description = 'Read-only explanations of theories, patterns, research, and methods.',
+  description = 'Clear explanations of ideas worth understanding.',
   wide = false,
   full = false,
   doc = false,
@@ -25,45 +24,28 @@ const {
 const path = Astro.url.pathname;
 const pathContext = Astro.url.searchParams.get('path');
 
-const primaryNav = [
-  { href: '/', label: 'Home', icon: '⌂', match: (p: string) => p === '/' },
+const nav = [
+  { href: '/', label: 'Home', icon: 'home' as const, match: (p: string) => p === '/' },
   {
-    href: '/graph',
-    label: 'All pages',
-    icon: '▦',
-    count: stats.total,
+    href: '/browse',
+    label: 'Browse',
+    icon: 'browse' as const,
     match: (p: string) =>
-      p.startsWith('/graph') || (p.startsWith('/exhibit') && !pathContext && !p.startsWith('/exhibit/')),
-  },
-  {
-    href: '/view/theories',
-    label: 'Theories',
-    icon: '∑',
-    count: stats.theories,
-    match: (p: string) => p.startsWith('/view/theories'),
-  },
-  {
-    href: '/view/patterns',
-    label: 'Patterns',
-    icon: '◇',
-    count: stats.patterns,
-    match: (p: string) => p.startsWith('/view/patterns'),
+      p.startsWith('/browse') ||
+      p.startsWith('/graph') ||
+      p.startsWith('/view/') ||
+      (p.startsWith('/exhibit') && !pathContext),
   },
   {
     href: '/learn',
     label: 'Paths',
-    icon: '→',
-    count: stats.paths,
+    icon: 'paths' as const,
     match: (p: string) =>
       p.startsWith('/learn') ||
       p.startsWith('/collection') ||
       (p.startsWith('/exhibit') && !!pathContext),
   },
 ];
-
-const sidebarHubs = pinnedHubs.length > 0 ? pinnedHubs : hubs.slice(0, 6);
-const hubActive = (slug: string) => path === `/exhibit/${slug}`;
-const hubsSectionOpen = path.startsWith('/view/hubs') || hubs.some((h) => hubActive(h.slug));
 ---
 
 <!doctype html>
@@ -72,63 +54,38 @@ const hubsSectionOpen = path.startsWith('/view/hubs') || hubs.some((h) => hubAct
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light" />
     <title>{title === 'ExplorableLab' ? title : `${title} · ExplorableLab`}</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
     <div class="app">
-      <aside class="sidebar" aria-label="Sidebar">
+      <aside class="sidebar" aria-label="Main">
         <a href="/" class="sidebar-brand">
-          <span class="sidebar-brand-icon" aria-hidden="true">◉</span>
+          <Icon name="explorable" size={22} />
           ExplorableLab
         </a>
 
         <nav class="sidebar-nav">
-          <p class="sidebar-section-label">Workspace</p>
-          {primaryNav.map((item) => (
+          {nav.map((item) => (
             <a href={item.href} class:list={['sidebar-link', { active: item.match(path) }]}>
-              <span class="sidebar-link-left">
-                <span class="sidebar-link-icon" aria-hidden="true">{item.icon}</span>
-                {item.label}
-              </span>
-              {item.count !== undefined && <span class="sidebar-count">{item.count}</span>}
+              <Icon name={item.icon} size={20} />
+              {item.label}
             </a>
           ))}
-
-          <details class="sidebar-details" open={hubsSectionOpen}>
-            <summary class="sidebar-section-toggle">
-              <span>Topic hubs</span>
-              <span class="sidebar-count">{stats.topicHubs}</span>
-            </summary>
-            <div class="sidebar-nested">
-              <a href="/view/hubs" class:list={['sidebar-link sidebar-link--nested', { active: path === '/view/hubs' }]}>
-                Browse all hubs
-              </a>
-              {sidebarHubs.map((hub) => (
-                <a
-                  href={hub.href}
-                  class:list={['sidebar-link sidebar-link--nested', { active: hubActive(hub.slug) }]}
-                >
-                  <span class="sidebar-link-left">{hub.title}</span>
-                  <span class="sidebar-count">{hub.memberCount}</span>
-                </a>
-              ))}
-            </div>
-          </details>
         </nav>
 
         <div class="sidebar-footer">
-          <a href="/contribute" class:list={['sidebar-link', { active: path.startsWith('/contribute') || path.startsWith('/studio') }]}>
-            <span class="sidebar-link-left">
-              <span class="sidebar-link-icon" aria-hidden="true">+</span>
-              Contribute
-            </span>
+          <a href="/contribute" class:list={['sidebar-link', { active: path.startsWith('/contribute') }]}>
+            <Icon name="contribute" size={20} />
+            Contribute
           </a>
-          <p class="sidebar-hint">
-            <button type="button" class="sidebar-search-btn" id="sidebar-search-btn" aria-label="Search pages">
-              <kbd>⌘</kbd><kbd>K</kbd> search
-            </button>
-          </p>
+          <button type="button" class="sidebar-search-btn" id="sidebar-search-btn" aria-label="Search">
+            <Icon name="search" size={18} />
+            Search
+            <kbd>⌘K</kbd>
+          </button>
         </div>
       </aside>
 
@@ -150,8 +107,9 @@ const hubsSectionOpen = path.startsWith('/view/hubs') || hubs.some((h) => hubAct
           ) : (
             <span class="topbar-title">{title === 'ExplorableLab' ? 'ExplorableLab' : title}</span>
           )}
-          <button type="button" class="topbar-search" id="topbar-search-btn" aria-label="Search pages">
-            Search <kbd>⌘K</kbd>
+          <button type="button" class="topbar-search" id="topbar-search-btn" aria-label="Search">
+            <Icon name="search" size={18} />
+            <kbd>⌘K</kbd>
           </button>
         </header>
 
@@ -162,14 +120,22 @@ const hubsSectionOpen = path.startsWith('/view/hubs') || hubs.some((h) => hubAct
     </div>
 
     <nav class="mobile-nav" aria-label="Mobile">
-      <a href="/" class:list={[{ active: path === '/' }]}>Home</a>
-      <a href="/graph" class:list={[{ active: path.startsWith('/graph') }]}>Pages</a>
-      <a href="/view/hubs" class:list={[{ active: path.startsWith('/view/hubs') || path.includes('DIS') }]}>Hubs</a>
-      <a href="/learn" class:list={[{ active: path.startsWith('/learn') || path.startsWith('/collection') }]}>Paths</a>
+      <a href="/" class:list={[{ active: path === '/' }]}>
+        <Icon name="home" size={20} />
+        Home
+      </a>
+      <a href="/browse" class:list={[{ active: path.startsWith('/browse') || path.startsWith('/graph') || path.startsWith('/view/') }]}>
+        <Icon name="browse" size={20} />
+        Browse
+      </a>
+      <a href="/learn" class:list={[{ active: path.startsWith('/learn') || path.startsWith('/collection') }]}>
+        <Icon name="paths" size={20} />
+        Paths
+      </a>
     </nav>
 
     <CommandPalette />
-    <script src="/js/continue-reading.js" defer></script>
+    <script is:inline src="/js/continue-reading.js" defer></script>
     <script is:inline>
       document.getElementById('sidebar-search-btn')?.addEventListener('click', () => {
         document.dispatchEvent(new CustomEvent('open-palette'));

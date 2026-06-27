@@ -18,7 +18,7 @@ import {
   relatedExhibits,
   typeLabel,
 } from '../../lib/museum';
-import { backlinksFor, hubForPage, pageIcon } from '../../lib/workspace';
+import { backlinksFor, hubForPage } from '../../lib/workspace';
 import type { Exhibit } from '../../types';
 
 export function getStaticPaths() {
@@ -53,22 +53,14 @@ if (path && stepIndex >= 0) {
   if (stepIndex < path.stops.length - 1) nextHref = exhibitUrl(path.stops[stepIndex + 1], path.slug, stepIndex + 1);
 }
 
-const related = relatedExhibits(exhibit, 8);
-const backlinks = backlinksFor(exhibit.slug).slice(0, 8);
-const meta = document?.meta ?? { fields: exhibit.fields ?? [], tags: [] };
-const icon = pageIcon(exhibit);
+const related = relatedExhibits(exhibit, 6);
+const backlinks = backlinksFor(exhibit.slug).slice(0, 6);
 
 const breadcrumbs = [
   { label: 'Home', href: '/' },
-  ...(isHub
-    ? [{ label: 'Topic hubs', href: '/view/hubs' }]
-    : hub
-      ? [
-          { label: 'Topic hubs', href: '/view/hubs' },
-          { label: hub.title, href: `/exhibit/${hub.slug}` },
-        ]
-      : [{ label: 'All pages', href: '/graph' }]),
-  ...(path ? [{ label: path.title, href: `/collection/${path.slug}` }] : []),
+  ...(path
+    ? [{ label: path.title, href: `/collection/${path.slug}` }]
+    : [{ label: 'Browse', href: '/browse' }]),
   { label: displayTitle(exhibit) },
 ];
 ---
@@ -83,6 +75,7 @@ const breadcrumbs = [
     slug={exhibit.slug}
     title={displayTitle(exhibit)}
     type={typeLabel(exhibit)}
+    typeCode={exhibit.type}
     hub={hub?.title}
     pathSlug={pathSlug}
     stepIndex={stepIndex >= 0 ? stepIndex : null}
@@ -102,13 +95,12 @@ const breadcrumbs = [
   <div class="doc-layout">
     <article class="doc-main">
       <DocHeader
-        icon={icon}
+        type={exhibit.type}
+        typeLabel={typeLabel(exhibit)}
         essence={document?.essence}
         summary={displaySummary(exhibit)}
-        typeLabel={typeLabel(exhibit)}
-        wing={exhibit.wing}
-        meta={meta}
-        hub={hub}
+        hub={hub ? { slug: hub.slug, title: hub.title, href: `/exhibit/${hub.slug}` } : undefined}
+        difficulty={exhibit.difficulty ?? document?.meta.difficulty}
       >
         {displayTitle(exhibit)}
       </DocHeader>
@@ -117,7 +109,7 @@ const breadcrumbs = [
         <DocBody sections={document.sections} />
       ) : (
         <div class="empty-doc">
-          <p>This page is being written. Check back after the next content pass.</p>
+          <p>This page is being written.</p>
         </div>
       )}
 
@@ -127,22 +119,17 @@ const breadcrumbs = [
 
       {!path && (
         <footer class="doc-footer">
+          <a href="/browse">Browse</a>
           {hub && !isHub && (
-            <>
-              <a href={`/exhibit/${hub.slug}`} class="text-link">← {hub.title}</a>
-              <span class="doc-footer-sep">·</span>
-            </>
+            <> · <a href={`/exhibit/${hub.slug}`}>{hub.title}</a></>
           )}
-          <a href="/graph" class="text-link">All pages</a>
-          <span class="doc-footer-sep">·</span>
-          <a href="/learn" class="text-link">Paths</a>
         </footer>
       )}
     </article>
 
     <aside class="doc-aside">
       {document && <DocToc items={document.toc} />}
-      <RelatedPanel exhibits={related} title="Related" />
+      <RelatedPanel exhibits={related} />
       <BacklinksPanel exhibits={backlinks} />
     </aside>
   </div>

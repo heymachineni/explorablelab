@@ -158,7 +158,7 @@ marked.use({ gfm: true, breaks: false });
 
 function postProcessHtml(html: string): string {
   return html
-    .replace(/<table>/g, '<div class="table-wrap"><table class="notion-table">')
+    .replace(/<table>/g, '<div class="table-wrap"><table class="content-table">')
     .replace(/<\/table>/g, '</table></div>')
     .replace(/<blockquote>/g, '<div class="callout callout--quote">')
     .replace(/<\/blockquote>/g, '</div>')

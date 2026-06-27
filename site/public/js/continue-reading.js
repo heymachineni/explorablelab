@@ -25,6 +25,7 @@
       title: payload.title || payload.slug.replace(/-/g, ' '),
       href: payload.href,
       type: payload.type || '',
+      typeCode: payload.typeCode || '',
       hub: payload.hub || '',
       viewedAt: Date.now(),
       pathSlug: payload.pathSlug || null,
@@ -55,18 +56,29 @@
     container.hidden = false;
     const list = container.querySelector('[data-continue-list]');
     if (!list) return;
+
+    const icons = window.__continueIcons || {};
+    const typeIcons = icons.typeIcons || {};
+    const chevronSvg = icons.chevronSvg || '';
+    const pageSvg = icons.pageSvg || '';
+
     list.innerHTML = items
       .slice(0, 5)
-      .map(
-        (item) => `
-        <a href="${item.href}" class="continue-row">
-          <span class="continue-row-main">
-            <span class="continue-row-title">${item.title}</span>
-            <span class="continue-row-meta">${item.type || 'Page'}${item.hub ? ` · ${item.hub}` : ''} · ${formatWhen(item.viewedAt)}</span>
-          </span>
-          <span class="continue-row-action">Continue</span>
-        </a>`
-      )
+      .map((item) => {
+        const icon = typeIcons[item.typeCode] || pageSvg;
+        const meta = `${item.type || 'Reading'}${item.hub ? ` · ${item.hub}` : ''} · ${formatWhen(item.viewedAt)}`;
+        return `
+        <li class="page-row">
+          <a href="${item.href}" class="page-row-link">
+            <span class="page-row-icon">${icon}</span>
+            <span class="page-row-body">
+              <span class="page-row-title">${item.title}</span>
+              <span class="page-row-summary">${meta}</span>
+            </span>
+            ${chevronSvg}
+          </a>
+        </li>`;
+      })
       .join('');
   }
 

@@ -1,5 +1,7 @@
 ---
 import AppLayout from '../../layouts/AppLayout.astro';
+import Icon from '../../components/Icon.astro';
+import { iconForType } from '../../lib/icons';
 import { collections, displayTitle, exhibitBySlug, exhibitUrl } from '../../lib/museum';
 import type { Collection } from '../../types';
 
@@ -26,49 +28,56 @@ const { collection } = Astro.props;
     { label: collection.title },
   ]}
 >
-  <h1 class="page-title">{collection.title}</h1>
-  <p class="page-lead">{collection.summary}</p>
+  <header class="browse-header">
+    <h1 class="browse-title">{collection.title}</h1>
+    <p class="browse-lead">{collection.summary}</p>
+  </header>
 
-  <div class="stat-row" style="margin-bottom: 1.5rem;">
-    <div class="stat-item">
+  <div class="stat-row">
+    <div>
       <div class="stat-value">{collection.stops.length}</div>
-      <div class="stat-label">Stops</div>
+      <div class="stat-label">Readings</div>
     </div>
     {collection.time_minutes > 0 && (
-      <div class="stat-item">
+      <div>
         <div class="stat-value">{collection.time_minutes}m</div>
-        <div class="stat-label">Estimated time</div>
+        <div class="stat-label">About</div>
       </div>
     )}
   </div>
 
-  <div class="btn-row" style="margin-bottom: 1.5rem;">
+  <div class="home-actions home-actions--spaced">
     <a href={`/exhibit/${collection.stops[0]}?path=${collection.slug}&step=0`} class="btn btn-primary">
       Start path
     </a>
   </div>
 
-  <p class="section-label">Stops</p>
-  <div class="db-table">
+  <ul class="page-rows">
     {collection.stops.map((slug, index) => {
       const exhibit = exhibitBySlug(slug);
       const href = exhibitUrl(slug, collection.slug, index);
       return (
-        <a href={href} class="db-row">
-          <div>
-            <p class="db-row-title">
-              <span style="color: var(--text-tertiary); font-weight: 500;">{index + 1}.</span>{' '}
-              {exhibit ? displayTitle(exhibit) : slug.replace(/-/g, ' ')}
-            </p>
-            {exhibit && <p class="db-row-meta">{exhibit.summary}</p>}
-          </div>
-          <span class="db-row-action">Read</span>
-        </a>
+        <li class="page-row">
+          <a href={href} class="page-row-link">
+            <span class="page-row-icon">
+              {exhibit ? (
+                <Icon name={iconForType(exhibit.type)} size={18} />
+              ) : (
+                <Icon name="page" size={18} />
+              )}
+            </span>
+            <span class="page-row-body">
+              <span class="page-row-title">{index + 1}. {exhibit ? displayTitle(exhibit) : slug.replace(/-/g, ' ')}</span>
+              {exhibit && <span class="page-row-summary">{exhibit.summary}</span>}
+            </span>
+            <Icon name="chevron-right" size={18} class="page-row-chevron" />
+          </a>
+        </li>
       );
     })}
-  </div>
+  </ul>
 
-  <footer class="path-actions">
-    <a href="/learn" class="btn btn-ghost">← All paths</a>
+  <footer class="doc-footer">
+    <a href="/learn">All paths</a>
   </footer>
 </AppLayout>

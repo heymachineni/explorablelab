@@ -1,6 +1,6 @@
 ---
+import PageList from './PageList.astro';
 import { rowsForHub } from '../lib/workspace';
-import DatabaseView from './DatabaseView.astro';
 
 interface Props {
   hubSlug: string;
@@ -12,51 +12,9 @@ const rows = rowsForHub(hubSlug);
 ---
 
 {rows.length > 0 && (
-  <section class="hub-database">
-    <div class="hub-database-head">
-      <h2 class="hub-database-title">Pages in this hub</h2>
-      <p class="hub-database-lead">{rows.length} explanations linked to {hubTitle}</p>
-    </div>
-    <DatabaseView
-      rows={rows}
-      title=""
-      defaultFilter="all"
-      defaultView="gallery"
-      showHubColumn={false}
-      showDifficultyColumn={true}
-      id={`hub-${hubSlug}`}
-    />
+  <section class="hub-pages">
+    <h2 class="hub-pages-title">In this topic</h2>
+    <p class="hub-pages-lead">{rows.length} readings in {hubTitle}</p>
+    <PageList rows={rows} id={`hub-${hubSlug}`} defaultSegment="all" compact={true} />
   </section>
 )}
-
-<style>
-  .hub-database {
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border);
-  }
-
-  .hub-database-head {
-    margin-bottom: 1rem;
-  }
-
-  .hub-database-title {
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin: 0 0 0.25rem;
-  }
-
-  .hub-database-lead {
-    margin: 0;
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-  }
-
-  .hub-database :global(.database-header) {
-    display: none;
-  }
-
-  .hub-database :global(.database-count) {
-    margin-top: 0.75rem;
-  }
-</style>

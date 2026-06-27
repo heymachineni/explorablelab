@@ -1,71 +1,40 @@
 ---
+import Icon from './Icon.astro';
+import { iconForType } from '../lib/icons';
+
 interface Props {
-  icon?: string;
+  type: string;
+  typeLabel: string;
   essence?: string;
   summary: string;
-  typeLabel: string;
-  wing: string;
-  meta: {
-    difficulty?: string;
-    confidence?: string;
-    fields: string[];
-    tags: string[];
-  };
   hub?: {
     slug: string;
     title: string;
     href: string;
   };
+  difficulty?: string;
 }
 
-const { icon = '◻', essence, summary, typeLabel, wing, meta, hub } = Astro.props;
-const callout = essence ?? summary;
+const { type, typeLabel, essence, summary, hub, difficulty } = Astro.props;
+const lead = essence ?? summary;
 ---
 
 <header class="doc-header">
-  <div class="doc-icon" aria-hidden="true">{icon}</div>
+  <p class="doc-eyebrow">
+    <Icon name={iconForType(type)} size={16} />
+    <span>{typeLabel}</span>
+    {hub && (
+      <>
+        <span>·</span>
+        <a href={hub.href}>{hub.title}</a>
+      </>
+    )}
+  </p>
   <h1 class="doc-title"><slot /></h1>
+  <p class="doc-lead">{lead}</p>
+  {(difficulty) && (
+    <div class="doc-meta">
+      <span class="doc-meta-item">{difficulty}</span>
+    </div>
+  )}
 </header>
-
-<div class="callout callout--summary">
-  <p>{callout}</p>
-</div>
-
-<dl class="properties">
-  <div class="property">
-    <dt>Type</dt>
-    <dd><span class="property-pill">{typeLabel}</span></dd>
-  </div>
-  {hub && (
-    <div class="property">
-      <dt>Topic hub</dt>
-      <dd><a href={hub.href} class="property-pill property-pill--link">{hub.title}</a></dd>
-    </div>
-  )}
-  <div class="property">
-    <dt>Collection</dt>
-    <dd><span class="property-pill property-pill--gray">{wing}</span></dd>
-  </div>
-  {meta.difficulty && (
-    <div class="property">
-      <dt>Level</dt>
-      <dd><span class="property-pill property-pill--gray">{meta.difficulty}</span></dd>
-    </div>
-  )}
-  {meta.confidence && (
-    <div class="property">
-      <dt>Confidence</dt>
-      <dd><span class="property-pill property-pill--gray">{meta.confidence}</span></dd>
-    </div>
-  )}
-  {meta.fields.length > 0 && (
-    <div class="property property--wide">
-      <dt>Fields</dt>
-      <dd class="property-tags">
-        {meta.fields.map((field) => (
-          <span class="property-pill property-pill--gray">{field}</span>
-        ))}
-      </dd>
-    </div>
-  )}
-</dl>
