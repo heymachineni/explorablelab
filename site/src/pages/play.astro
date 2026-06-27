@@ -1,134 +1,59 @@
 ---
-import MuseumLayout from '../layouts/MuseumLayout.astro';
+import AppLayout from '../layouts/AppLayout.astro';
+import { displayTitle, playableExhibits } from '../lib/museum';
 
-const nativeSims = [
-  { slug: 'petrie-multiplier', title: 'Petrie Multiplier', hook: 'Equal meanness. Unequal harm.', url: '/sims/petrie-multiplier/' },
-  { slug: 'ergodicity-street', title: 'Ergodicity Street', hook: "The average person doesn't exist.", url: '/sims/ergodicity-street/' },
-];
-
-const canonGames = [
-  { slug: 'evolution-of-trust', title: 'Evolution of Trust', hook: 'Cooperation in repeated games.' },
-  { slug: 'we-become-what-we-behold', title: 'We Become What We Behold', hook: 'News cycles and small acts of bigotry.' },
-  { slug: 'to-build-a-better-ballot', title: 'To Build a Better Ballot', hook: 'Same voters, different winners.' },
-  { slug: 'loopy', title: 'Loopy', hook: 'Draw feedback loops.' },
-  { slug: 'fireflies', title: 'Fireflies', hook: 'Synchronization from local rules.' },
-  { slug: 'wisdom-and-madness-of-crowds', title: 'Wisdom and/or Madness of Crowds', hook: 'When groups think well — and badly.' },
-  { slug: 'parable-of-polygons', title: 'Parable of the Polygons', hook: 'Segregation without villains.' },
-  { slug: 'adventures-with-anxiety', title: 'Adventures with Anxiety', hook: 'A playable story about anxiety.' },
-  { slug: 'how-to-remember-anything-forever-ish', title: 'How to Remember Anything Forever-ish', hook: 'Spaced repetition, explained.' },
-];
-
-const paradoxes = [
-  { slug: 'monty-hall', title: 'Monty Hall Problem' },
-  { slug: 'simpsons-paradox', title: "Simpson's Paradox" },
-  { slug: 'st-petersburg-paradox', title: 'St. Petersburg Paradox' },
-  { slug: 'prisoners-dilemma', title: "Prisoner's Dilemma" },
-  { slug: 'petrie-multiplier', title: 'Petrie Multiplier' },
-];
+const playable = playableExhibits();
+const native = playable.filter((e) => e.playUrl);
+const canon = playable.filter((e) => e.embedUrl);
 ---
 
-<MuseumLayout title="Play" description="Native simulations and playable exhibits." wide>
-  <header class="page-header">
-    <h1>Play</h1>
-    <p class="lead">Simulations you can run now — native builds and linked canon explorables.</p>
-  </header>
+<AppLayout
+  title="Play"
+  description="All exhibits playable today."
+  breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Play' }]}
+  wide
+>
+  <h1 class="page-title">Play</h1>
+  <p class="page-lead">
+    {playable.length} exhibits ready to run — {native.length} built here, {canon.length} canon embeds.
+    Everything on this page works today.
+  </p>
+
+  {native.length > 0 && (
+    <section class="section">
+      <p class="section-label">Built at ExplorableLab</p>
+      <div class="db-table">
+        {native.map((exhibit) => (
+          <a href={`/exhibit/${exhibit.slug}`} class="db-row">
+            <div>
+              <p class="db-row-title">{displayTitle(exhibit)}</p>
+              <p class="db-row-meta">{exhibit.summary}</p>
+            </div>
+            <div class="db-row-right">
+              <span class="pill pill--ready">Native</span>
+              <span class="db-row-action">Play</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
 
   <section class="section">
-    <h2 class="section-heading">Built at ExplorableLab</h2>
-    {nativeSims.map((sim) => (
-      <article class="sim-block">
-        <div class="sim-head">
+    <p class="section-label">Canon explorables</p>
+    <div class="db-table">
+      {canon.map((exhibit) => (
+        <a href={`/exhibit/${exhibit.slug}`} class="db-row">
           <div>
-            <h3 class="sim-title"><a href={`/exhibit/${sim.slug}`}>{sim.title}</a></h3>
-            <p class="sim-hook">{sim.hook}</p>
+            <p class="db-row-title">{displayTitle(exhibit)}</p>
+            <p class="db-row-meta">{exhibit.summary}</p>
           </div>
-          <a href={sim.url} class="btn btn-primary">Full screen</a>
-        </div>
-        <div class="embed">
-          <iframe src={sim.url} title={sim.title} loading="lazy"></iframe>
-        </div>
-      </article>
-    ))}
-  </section>
-
-  <section class="section">
-    <h2 class="section-heading">Canon explorables</h2>
-    <p class="section-note">Classic interactives — open each exhibit to play embedded.</p>
-    <div class="row-list">
-      {canonGames.map((game) => (
-        <a href={`/exhibit/${game.slug}`} class="row-link">
-          <div>
-            <p class="row-link__title">{game.title}</p>
-            <p class="row-link__meta">{game.hook}</p>
+          <div class="db-row-right">
+            <span class="pill pill--meta">Embed</span>
+            <span class="db-row-action">Play</span>
           </div>
-          <span class="row-link__action">Open →</span>
         </a>
       ))}
     </div>
   </section>
-
-  <section class="section">
-    <h2 class="section-heading">Paradox gallery</h2>
-    <div class="grid-auto">
-      {paradoxes.map((p) => (
-        <a href={`/exhibit/${p.slug}`} class="card card-interactive">
-          <p class="card-title">{p.title}</p>
-        </a>
-      ))}
-    </div>
-  </section>
-</MuseumLayout>
-
-<style>
-  .sim-block {
-    margin-bottom: 2rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .sim-block:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-    border-bottom: none;
-  }
-
-  .sim-head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .sim-title {
-    font-size: 1rem;
-    margin: 0 0 0.15rem;
-  }
-
-  .sim-title a {
-    color: var(--text);
-  }
-
-  .sim-title a:hover {
-    color: var(--accent);
-  }
-
-  .sim-hook {
-    margin: 0;
-    font-size: 0.875rem;
-    color: var(--text-muted);
-  }
-
-  .section-note {
-    margin: 0 0 0.75rem;
-    font-size: 0.875rem;
-    color: var(--text-muted);
-  }
-
-  .card-title {
-    margin: 0;
-    font-size: 0.9375rem;
-    font-weight: 500;
-  }
-</style>
+</AppLayout>

@@ -1,0 +1,129 @@
+---
+import '../styles/design-system.css';
+import CommandPalette from '../components/CommandPalette.astro';
+import { stats } from '../lib/museum';
+
+interface Props {
+  title?: string;
+  description?: string;
+  wide?: boolean;
+  full?: boolean;
+  breadcrumbs?: { label: string; href?: string }[];
+}
+
+const {
+  title = 'ExplorableLab',
+  description = 'Explore ideas that only make sense when you play with them.',
+  wide = false,
+  full = false,
+  breadcrumbs = [],
+} = Astro.props;
+
+const path = Astro.url.pathname;
+const pathContext = Astro.url.searchParams.get('path');
+
+const nav = [
+  { href: '/', label: 'Home', match: (p: string) => p === '/' },
+  {
+    href: '/play',
+    label: 'Play',
+    count: stats.playable,
+    match: (p: string) => p.startsWith('/play') || (p.startsWith('/exhibit') && !pathContext),
+  },
+  {
+    href: '/learn',
+    label: 'Paths',
+    count: stats.paths,
+    match: (p: string) =>
+      p.startsWith('/learn') ||
+      p.startsWith('/collection') ||
+      (p.startsWith('/catalog') && !!pathContext) ||
+      (p.startsWith('/exhibit') && !!pathContext),
+  },
+  { href: '/graph', label: 'Atlas', match: (p: string) => p.startsWith('/graph') || (p.startsWith('/catalog') && !pathContext) },
+];
+
+const mobileNav = nav.slice(0, 4);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title === 'ExplorableLab' ? title : `${title} · ExplorableLab`}</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar" aria-label="Sidebar">
+        <a href="/" class="sidebar-brand">ExplorableLab</a>
+        <nav class="sidebar-nav">
+          {nav.map((item) => (
+            <a href={item.href} class:list={['sidebar-link', { active: item.match(path) }]}>
+              <span>{item.label}</span>
+              {item.count !== undefined && <span class="sidebar-count">{item.count}</span>}
+            </a>
+          ))}
+        </nav>
+        <div class="sidebar-footer">
+          <a href="/contribute" class:list={['sidebar-link', { active: path.startsWith('/contribute') || path.startsWith('/studio') }]}>
+            <span>Contribute</span>
+          </a>
+          <p class="sidebar-hint">
+            <button type="button" class="sidebar-search-btn" id="sidebar-search-btn" aria-label="Search exhibits">
+              <kbd>⌘</kbd><kbd>K</kbd> search
+            </button>
+          </p>
+        </div>
+      </aside>
+
+      <div class="main">
+        <header class="topbar">
+          {breadcrumbs.length > 0 ? (
+            <nav class="breadcrumbs" aria-label="Breadcrumb">
+              {breadcrumbs.map((crumb, i) => (
+                <span class="crumb-group">
+                  {i > 0 && <span class="breadcrumbs-sep">/</span>}
+                  {crumb.href ? (
+                    <a href={crumb.href}>{crumb.label}</a>
+                  ) : (
+                    <span class="breadcrumbs-current">{crumb.label}</span>
+                  )}
+                </span>
+              ))}
+            </nav>
+          ) : (
+            <span class="topbar-title">{title === 'ExplorableLab' ? 'ExplorableLab' : title}</span>
+          )}
+          <button type="button" class="topbar-search" id="topbar-search-btn" aria-label="Search exhibits">
+            Search <kbd>⌘K</kbd>
+          </button>
+        </header>
+
+        <div class:list={['content', { 'content--wide': wide, 'content--full': full }]}>
+          <slot />
+        </div>
+      </div>
+    </div>
+
+    <nav class="mobile-nav" aria-label="Mobile">
+      {mobileNav.map((item) => (
+        <a href={item.href} class:list={[{ active: item.match(path) }]}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <CommandPalette />
+    <script is:inline>
+      document.getElementById('sidebar-search-btn')?.addEventListener('click', () => {
+        document.dispatchEvent(new CustomEvent('open-palette'));
+      });
+      document.getElementById('topbar-search-btn')?.addEventListener('click', () => {
+        document.dispatchEvent(new CustomEvent('open-palette'));
+      });
+    </script>
+  </body>
+</html>

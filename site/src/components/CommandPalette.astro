@@ -1,0 +1,121 @@
+---
+import { exhibits, displayTitle, isPlayable } from '../lib/museum';
+
+const searchItems = exhibits.map((e) => ({
+  slug: e.slug,
+  title: displayTitle(e),
+  type: e.type,
+  wing: e.wing,
+  playable: isPlayable(e),
+  href: isPlayable(e) ? `/exhibit/${e.slug}` : `/catalog/${e.slug}`,
+}));
+---
+
+<div class="palette-backdrop" id="palette-backdrop" role="dialog" aria-modal="true" aria-label="Search exhibits">
+  <div class="palette">
+    <input
+      type="search"
+      class="palette-input"
+      id="palette-input"
+      placeholder="Search exhibits and paths…"
+      autocomplete="off"
+      aria-label="Search"
+    />
+    <div class="palette-results" id="palette-results"></div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ searchItems }}>
+  const backdrop = document.getElementById('palette-backdrop');
+  const input = document.getElementById('palette-input');
+  const results = document.getElementById('palette-results');
+  let focusIndex = 0;
+  let filtered = [];
+
+  function openPalette() {
+    backdrop?.classList.add('open');
+    if (input) {
+      input.value = '';
+      input.focus();
+    }
+    render('');
+  }
+
+  function closePalette() {
+    backdrop?.classList.remove('open');
+    focusIndex = 0;
+  }
+
+  function render(query) {
+    const q = query.trim().toLowerCase();
+    filtered = q
+      ? searchItems.filter((item) =>
+          item.title.toLowerCase().includes(q) ||
+          item.slug.includes(q) ||
+          item.type.toLowerCase().includes(q)
+        )
+      : searchItems.filter((item) => item.playable).slice(0, 8);
+
+    if (!results) return;
+
+    if (!filtered.length) {
+      results.innerHTML = '<p class="palette-empty">No exhibits found</p>';
+      return;
+    }
+
+    results.innerHTML = filtered
+      .slice(0, 12)
+      .map(
+        (item, i) => `
+        <button type="button" class="palette-item${i === focusIndex ? ' focused' : ''}" data-href="${item.href}">
+          <div>
+            <p class="palette-item-title">${item.title}</p>
+            <p class="palette-item-meta">${item.type} · ${item.wing}</p>
+          </div>
+          <span class="pill ${item.playable ? 'pill--ready' : 'pill--soon'}">${item.playable ? 'Play' : 'Read'}</span>
+        </button>`
+      )
+      .join('');
+
+    results.querySelectorAll('.palette-item').forEach((btn, i) => {
+      btn.addEventListener('click', () => {
+        window.location.href = btn.getAttribute('data-href');
+      });
+      if (i === focusIndex) btn.classList.add('focused');
+    });
+  }
+
+  document.addEventListener('open-palette', openPalette);
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      openPalette();
+    }
+    if (e.key === 'Escape') closePalette();
+    if (!backdrop?.classList.contains('open')) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      focusIndex = Math.min(focusIndex + 1, filtered.length - 1);
+      render(input?.value ?? '');
+    }
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      focusIndex = Math.max(focusIndex - 1, 0);
+      render(input?.value ?? '');
+    }
+    if (e.key === 'Enter' && filtered[focusIndex]) {
+      window.location.href = filtered[focusIndex].href;
+    }
+  });
+
+  backdrop?.addEventListener('click', (e) => {
+    if (e.target === backdrop) closePalette();
+  });
+
+  input?.addEventListener('input', () => {
+    focusIndex = 0;
+    render(input.value);
+  });
+</script>

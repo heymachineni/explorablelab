@@ -1,355 +1,140 @@
 ---
-import MuseumLayout from '../layouts/MuseumLayout.astro';
-import canonicalData from '../data/canonical.json';
-import type { Exhibit } from '../types';
+import AppLayout from '../layouts/AppLayout.astro';
+import { displayTitle, exhibits, isPlayable } from '../lib/museum';
 
-const exhibits = canonicalData.exhibits as Exhibit[];
-
-interface GraphNode {
-  slug: string;
-  title: string;
-  x: number;
-  y: number;
-}
-
-interface GraphEdge {
-  from: string;
-  to: string;
-}
-
-const nodes: GraphNode[] = exhibits.map((e, i) => {
-  const angle = (i / exhibits.length) * Math.PI * 2;
-  const radius = 0.32 + (i % 3) * 0.06;
-  return {
-    slug: e.slug,
-    title: e.title,
-    x: 0.5 + Math.cos(angle) * radius,
-    y: 0.5 + Math.sin(angle) * radius,
-  };
-});
-
-const slugSet = new Set(exhibits.map((e) => e.slug));
-const edges: GraphEdge[] = [];
-
-for (const exhibit of exhibits) {
-  for (const rel of exhibit.related) {
-    if (slugSet.has(rel) && exhibit.slug < rel) {
-      edges.push({ from: exhibit.slug, to: rel });
-    }
-  }
-}
-
-const graphData = { nodes, edges };
-const exhibitOptions = exhibits.map((e) => ({ slug: e.slug, title: e.title }));
+const atlasItems = exhibits.map((e) => ({
+  slug: e.slug,
+  title: displayTitle(e),
+  type: e.type,
+  wing: e.wing,
+  playable: isPlayable(e),
+  href: isPlayable(e) ? `/exhibit/${e.slug}` : `/catalog/${e.slug}`,
+  relatedCount: e.related.length,
+}));
 ---
 
-<MuseumLayout title="Constellation" description="Canonical exhibits as a graph of related ideas." wide>
-  <header class="page-header">
-    <h1>Constellation</h1>
-    <p class="lead">Click a node to open an exhibit. Lines show related ideas.</p>
-  </header>
-
-  <div class="graph-wrap">
-    <canvas id="graph-canvas" width="960" height="480" aria-label="Constellation graph"></canvas>
-    <p class="meta graph-meta">{nodes.length} exhibits · {edges.length} connections</p>
-    <div class="btn-row graph-actions">
-      <button type="button" class="btn" id="rabbit-btn">Random path</button>
-      <button type="button" class="btn" id="trail-btn">Save to trail</button>
+<AppLayout
+  title="Atlas"
+  description="Search and browse the exhibit catalog."
+  breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Atlas' }]}
+  full
+>
+  <div class="atlas-header">
+    <div>
+      <h1 class="page-title">Atlas</h1>
+      <p class="page-lead" style="margin-bottom: 0;">
+        {exhibits.length} exhibits · search, filter, and open. Press <kbd>⌘K</kbd> anywhere.
+      </p>
     </div>
-    <p class="meta trail-note" id="trail-note" hidden></p>
   </div>
 
-  <section class="section compare-section">
-    <h2 class="section-heading">Compare</h2>
-    <div class="compare-picks">
-      <label class="field">
-        <span>Exhibit A</span>
-        <select id="compare-a" class="select">
-          {exhibitOptions.map((e) => (
-            <option value={e.slug}>{e.title}</option>
-          ))}
-        </select>
-      </label>
-      <label class="field">
-        <span>Exhibit B</span>
-        <select id="compare-b" class="select">
-          {exhibitOptions.map((e, i) => (
-            <option value={e.slug} selected={i === 1}>{e.title}</option>
-          ))}
-        </select>
-      </label>
-      <button type="button" class="btn btn-primary" id="compare-btn">Compare</button>
+  <div class="atlas-controls">
+    <input type="search" class="atlas-search" id="atlas-search" placeholder="Filter exhibits…" aria-label="Filter exhibits" />
+    <div class="btn-row">
+      <button type="button" class="btn btn-primary atlas-filter active" data-filter="all">All</button>
+      <button type="button" class="btn atlas-filter" data-filter="playable">Playable</button>
+      <button type="button" class="btn atlas-filter" data-filter="catalog">Catalog only</button>
     </div>
-    <div class="compare-panel" id="compare-panel" hidden>
-      <div class="compare-col" id="compare-col-a"></div>
-      <div class="compare-col" id="compare-col-b"></div>
-    </div>
-  </section>
+  </div>
 
-  <script is:inline define:vars={{ graphData, exhibitCatalog: exhibits }}>
-    const canvas = document.getElementById('graph-canvas');
-    if (!canvas) throw new Error('Canvas not found');
-    const ctx = canvas.getContext('2d');
-    if (!ctx) throw new Error('2D context unavailable');
+  <div class="db-table" id="atlas-list">
+    {atlasItems.map((item) => (
+      <a
+        href={item.href}
+        class="db-row atlas-row"
+        data-playable={item.playable ? '1' : '0'}
+        data-search={`${item.title} ${item.slug} ${item.type} ${item.wing}`.toLowerCase()}
+      >
+        <div>
+          <p class="db-row-title">{item.title}</p>
+          <p class="db-row-meta">{item.type} · {item.wing} · {item.relatedCount} links</p>
+        </div>
+        <div class="db-row-right">
+          <span class:list={['pill', item.playable ? 'pill--ready' : 'pill--soon']}>
+            {item.playable ? 'Play' : 'Read'}
+          </span>
+        </div>
+      </a>
+    ))}
+  </div>
+</AppLayout>
 
-    const dpr = window.devicePixelRatio || 1;
-    let width = 960;
-    let height = 480;
+<script is:inline>
+  const search = document.getElementById('atlas-search');
+  const rows = Array.from(document.querySelectorAll('.atlas-row'));
+  const filters = Array.from(document.querySelectorAll('.atlas-filter'));
+  let mode = 'all';
 
-    function resize() {
-      width = canvas.parentElement?.clientWidth ?? 960;
-      height = Math.min(480, Math.max(280, width * 0.5));
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      draw();
-    }
-
-    const nodeMap = new Map(graphData.nodes.map((n) => [n.slug, n]));
-
-    function draw() {
-      ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = '#fbfbfa';
-      ctx.fillRect(0, 0, width, height);
-
-      for (const edge of graphData.edges) {
-        const a = nodeMap.get(edge.from);
-        const b = nodeMap.get(edge.to);
-        if (!a || !b) continue;
-        ctx.beginPath();
-        ctx.moveTo(a.x * width, a.y * height);
-        ctx.lineTo(b.x * width, b.y * height);
-        ctx.strokeStyle = 'rgba(55, 53, 47, 0.08)';
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      }
-
-      for (const node of graphData.nodes) {
-        const px = node.x * width;
-        const py = node.y * height;
-        ctx.beginPath();
-        ctx.arc(px, py, 4, 0, Math.PI * 2);
-        ctx.fillStyle = '#2383e2';
-        ctx.fill();
-      }
-    }
-
-    canvas.addEventListener('click', (ev) => {
-      const rect = canvas.getBoundingClientRect();
-      const mx = ev.clientX - rect.left;
-      const my = ev.clientY - rect.top;
-      for (const node of graphData.nodes) {
-        const px = node.x * width;
-        const py = node.y * height;
-        if (Math.hypot(mx - px, my - py) < 14) {
-          window.location.href = `/exhibit/${node.slug}`;
-          return;
-        }
-      }
+  function apply() {
+    const q = (search?.value ?? '').trim().toLowerCase();
+    rows.forEach((row) => {
+      const playable = row.getAttribute('data-playable') === '1';
+      const hay = row.getAttribute('data-search') ?? '';
+      const matchQ = !q || hay.includes(q);
+      const matchF =
+        mode === 'all' ||
+        (mode === 'playable' && playable) ||
+        (mode === 'catalog' && !playable);
+      row.style.display = matchQ && matchF ? '' : 'none';
     });
+  }
 
-    canvas.addEventListener('mousemove', (ev) => {
-      const rect = canvas.getBoundingClientRect();
-      const mx = ev.clientX - rect.left;
-      const my = ev.clientY - rect.top;
-      let hovering = false;
-      for (const node of graphData.nodes) {
-        const px = node.x * width;
-        const py = node.y * height;
-        if (Math.hypot(mx - px, my - py) < 14) {
-          hovering = true;
-          canvas.title = node.title;
-          break;
-        }
-      }
-      canvas.style.cursor = hovering ? 'pointer' : 'default';
-      if (!hovering) canvas.title = '';
+  search?.addEventListener('input', apply);
+  filters.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      mode = btn.getAttribute('data-filter') ?? 'all';
+      filters.forEach((b) => b.classList.toggle('active', b === btn));
+      filters.forEach((b) => b.classList.toggle('btn-primary', b === btn));
+      apply();
     });
-
-    resize();
-    window.addEventListener('resize', resize);
-
-    document.getElementById('rabbit-btn')?.addEventListener('click', () => {
-      if (!graphData.nodes.length) return;
-      const start = graphData.nodes[Math.floor(Math.random() * graphData.nodes.length)];
-      const edge = graphData.edges.find((e) => e.from === start.slug || e.to === start.slug);
-      const next = edge ? (edge.from === start.slug ? edge.to : edge.from) : start.slug;
-      window.location.href = `/exhibit/${next}`;
-    });
-
-    document.getElementById('trail-btn')?.addEventListener('click', () => {
-      const key = 'explorablelab-trail';
-      const trail = JSON.parse(localStorage.getItem(key) || '[]');
-      const slug = graphData.nodes[Math.floor(Math.random() * graphData.nodes.length)]?.slug;
-      if (slug && !trail.includes(slug)) trail.push(slug);
-      localStorage.setItem(key, JSON.stringify(trail.slice(-20)));
-      const note = document.getElementById('trail-note');
-      if (note) {
-        note.hidden = false;
-        note.textContent = `Trail saved (${trail.length} exhibits).`;
-      }
-    });
-
-    const catalogMap = new Map(exhibitCatalog.map((e) => [e.slug, e]));
-
-    function renderCompareCol(el, exhibit) {
-      if (!exhibit) {
-        el.innerHTML = '<p class="no-play">Exhibit not found.</p>';
-        return;
-      }
-      const play = exhibit.embedUrl
-        ? `<iframe src="${exhibit.embedUrl}" title="${exhibit.title}" loading="lazy"></iframe>`
-        : exhibit.playUrl
-          ? `<iframe src="${exhibit.playUrl}" title="${exhibit.title}" loading="lazy"></iframe>`
-          : `<p class="no-play">${exhibit.summary}</p>`;
-      el.innerHTML = `
-        <p class="cmp-meta">${exhibit.type} · ${exhibit.wing}</p>
-        <h3><a href="/exhibit/${exhibit.slug}">${exhibit.title}</a></h3>
-        <p class="cmp-desc">${exhibit.hook ?? exhibit.summary}</p>
-        <div class="cmp-embed">${play}</div>
-      `;
-    }
-
-    document.getElementById('compare-btn')?.addEventListener('click', () => {
-      const a = document.getElementById('compare-a')?.value;
-      const b = document.getElementById('compare-b')?.value;
-      const panel = document.getElementById('compare-panel');
-      if (!a || !b || !panel) return;
-      renderCompareCol(document.getElementById('compare-col-a'), catalogMap.get(a));
-      renderCompareCol(document.getElementById('compare-col-b'), catalogMap.get(b));
-      panel.hidden = false;
-      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    });
-  </script>
-</MuseumLayout>
+  });
+</script>
 
 <style>
-  .graph-wrap {
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 0.75rem;
-    margin-bottom: 2rem;
+  .atlas-header {
+    max-width: var(--content-max);
+    margin: 0 auto 1.25rem;
+    padding: 0 clamp(1rem, 3vw, 1.5rem);
   }
 
-  #graph-canvas {
-    display: block;
-    width: 100%;
-    border-radius: var(--radius);
-    cursor: default;
-  }
-
-  .graph-meta {
-    margin: 0.5rem 0 0.75rem;
-    text-align: center;
-  }
-
-  .graph-actions {
-    justify-content: center;
-  }
-
-  .trail-note {
-    text-align: center;
-    margin-top: 0.5rem;
-  }
-
-  .compare-picks {
+  .atlas-controls {
+    max-width: var(--content-max);
+    margin: 0 auto 1rem;
+    padding: 0 clamp(1rem, 3vw, 1.5rem);
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
-    align-items: flex-end;
-    margin-bottom: 1rem;
+    align-items: center;
   }
 
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    font-size: 0.8125rem;
-    color: var(--text-muted);
-  }
-
-  .select {
-    min-width: min(220px, 100%);
-    padding: 0.4rem 0.5rem;
-    font-family: var(--font);
-    font-size: 0.875rem;
+  .atlas-search {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.4375rem 0.625rem;
     border: 1px solid var(--border);
     border-radius: var(--radius);
+    font-family: var(--font);
+    font-size: 0.875rem;
     background: var(--bg);
     color: var(--text);
   }
 
-  .compare-panel {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
+  .atlas-search:focus {
+    outline: none;
+    border-color: var(--accent);
   }
 
-  .compare-col {
+  #atlas-list {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+
+  .atlas-header kbd,
+  .page-lead kbd {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    padding: 0.05rem 0.3rem;
     border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 0.875rem;
-  }
-
-  .compare-col :global(.cmp-meta) {
-    margin: 0 0 0.25rem;
-    font-size: 0.75rem;
-    color: var(--text-faint);
-  }
-
-  .compare-col :global(h3) {
-    font-size: 0.9375rem;
-    margin: 0 0 0.35rem;
-  }
-
-  .compare-col :global(h3 a) {
-    color: var(--text);
-  }
-
-  .compare-col :global(.cmp-desc) {
-    margin: 0 0 0.75rem;
-    font-size: 0.8125rem;
-    color: var(--text-muted);
-  }
-
-  .compare-col :global(.cmp-embed) {
-    position: relative;
-    aspect-ratio: 16 / 10;
-    background: var(--bg-subtle);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-  }
-
-  .compare-col :global(.cmp-embed iframe) {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
-
-  .compare-col :global(.no-play) {
-    padding: 1rem;
-    margin: 0;
-    font-size: 0.8125rem;
-    color: var(--text-muted);
-  }
-
-  @media (max-width: 640px) {
-    .compare-panel {
-      grid-template-columns: 1fr;
-    }
-
-    .compare-picks {
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    .select {
-      width: 100%;
-    }
+    border-radius: 3px;
   }
 </style>

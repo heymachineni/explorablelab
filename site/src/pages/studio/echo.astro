@@ -1,66 +1,71 @@
 ---
-import MuseumLayout from '../../layouts/MuseumLayout.astro';
+import AppLayout from '../../layouts/AppLayout.astro';
 ---
 
-<MuseumLayout title="E.C.H.O. Studio" description="Design worksheet — Hook, Engine, Control, Outcome gap.">
-  <header class="page-header">
-    <h1>E.C.H.O. Studio</h1>
-    <p class="lead">Hook · Engine · Control · Outcome gap — fill before you build.</p>
-  </header>
+<AppLayout
+  title="E.C.H.O. Studio"
+  description="Design worksheet for explorable simulations."
+  breadcrumbs={[
+    { label: 'Home', href: '/' },
+    { label: 'Contribute', href: '/contribute' },
+    { label: 'E.C.H.O.' },
+  ]}
+>
+  <h1 class="page-title">E.C.H.O. Studio</h1>
+  <p class="page-lead">Hook · Engine · Control · Outcome gap — define the simulation before you build it.</p>
 
   <form class="echo-form" id="echo-form">
     <label class="field">
-      <span>Hook</span>
-      <textarea name="hook" rows="2" placeholder="One sentence that creates stakes"></textarea>
+      <span>Hook — one sentence that creates stakes</span>
+      <textarea name="hook" rows="2" placeholder="Equal meanness. Unequal harm."></textarea>
     </label>
     <label class="field">
-      <span>Engine</span>
-      <textarea name="engine" rows="3" placeholder="What system runs?"></textarea>
+      <span>Engine — what system runs</span>
+      <textarea name="engine" rows="3" placeholder="Pairwise interactions at equal rates…"></textarea>
     </label>
     <label class="field">
-      <span>Control</span>
-      <textarea name="control" rows="2" placeholder="What does the user adjust?"></textarea>
+      <span>Control — what the user adjusts</span>
+      <textarea name="control" rows="2" placeholder="Minority share, rate, population size"></textarea>
     </label>
     <label class="field">
-      <span>Outcome gap</span>
-      <textarea name="outcome" rows="3" placeholder="Predict vs reveal"></textarea>
+      <span>Outcome gap — predict vs reveal</span>
+      <textarea name="outcome" rows="3" placeholder="They predict fairness. They see 3× harm on minority."></textarea>
     </label>
-    <button type="button" class="btn btn-primary" id="save-echo">Save draft</button>
+    <button type="button" class="btn btn-primary" id="save-echo">Save draft locally</button>
   </form>
 
-  <section class="section example">
-    <h2 class="section-heading">Exemplar: Petrie Multiplier</h2>
-    <table class="table">
-      <thead><tr><th>Element</th><th>Spec</th></tr></thead>
-      <tbody>
-        <tr><td>Hook</td><td>Equal meanness. Unequal harm.</td></tr>
-        <tr><td>Engine</td><td>Pairwise harassment lottery</td></tr>
-        <tr><td>Control</td><td>Minority %, rate, N</td></tr>
-        <tr><td>Outcome gap</td><td>Fair rates → unfair totals</td></tr>
-      </tbody>
-    </table>
-    <p><a href="/exhibit/petrie-multiplier">Open exhibit →</a></p>
+  <section class="section">
+    <p class="section-label">Exemplar</p>
+    <div class="db-table">
+      <a href="/exhibit/petrie-multiplier" class="db-row">
+        <div>
+          <p class="db-row-title">Petrie Multiplier</p>
+          <p class="db-row-meta">Native sim · predict-then-reveal · combinatorics</p>
+        </div>
+        <span class="pill pill--ready">Play</span>
+      </a>
+    </div>
   </section>
+</AppLayout>
 
-  <script is:inline>
-    const form = document.getElementById('echo-form');
-    const key = 'explorablelab-echo-draft';
-    const saved = localStorage.getItem(key);
-    if (saved && form) {
-      try {
-        const data = JSON.parse(saved);
-        for (const [k, v] of Object.entries(data)) {
-          const el = form.elements.namedItem(k);
-          if (el && 'value' in el) el.value = v;
-        }
-      } catch (_) {}
+<script is:inline>
+  const form = document.getElementById('echo-form');
+  const key = 'explorablelab-echo-draft';
+  try {
+    const saved = JSON.parse(localStorage.getItem(key) || '{}');
+    for (const [k, v] of Object.entries(saved)) {
+      const el = form?.elements.namedItem(k);
+      if (el && 'value' in el) el.value = v;
     }
-    document.getElementById('save-echo')?.addEventListener('click', () => {
-      if (!form) return;
-      localStorage.setItem(key, JSON.stringify(Object.fromEntries(new FormData(form))));
-    });
-  </script>
-</MuseumLayout>
+  } catch (_) {}
+  document.getElementById('save-echo')?.addEventListener('click', () => {
+    if (!form) return;
+    localStorage.setItem(key, JSON.stringify(Object.fromEntries(new FormData(form))));
+    const btn = document.getElementById('save-echo');
+    if (btn) btn.textContent = 'Saved';
+    setTimeout(() => { if (btn) btn.textContent = 'Save draft locally'; }, 1500);
+  });
+</script>
 
 <style>
   .echo-form {
@@ -75,7 +80,7 @@ import MuseumLayout from '../../layouts/MuseumLayout.astro';
     flex-direction: column;
     gap: 0.35rem;
     font-size: 0.8125rem;
-    color: var(--text-muted);
+    color: var(--text-secondary);
   }
 
   textarea {
@@ -92,25 +97,6 @@ import MuseumLayout from '../../layouts/MuseumLayout.astro';
 
   textarea:focus {
     outline: none;
-    border-color: var(--border-strong);
-  }
-
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.875rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .table th,
-  .table td {
-    text-align: left;
-    padding: 0.5rem 0.625rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .table th {
-    color: var(--text-muted);
-    font-weight: 500;
+    border-color: var(--accent);
   }
 </style>

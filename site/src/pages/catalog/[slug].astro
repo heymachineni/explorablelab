@@ -9,7 +9,7 @@ import {
   exhibitBySlug,
   exhibitInPathUrl,
   isPlayable,
-  playerSrc,
+  playableExhibits,
   relatedPlayable,
 } from '../../lib/museum';
 import type { Exhibit } from '../../types';
@@ -17,7 +17,7 @@ import type { Exhibit } from '../../types';
 export function getStaticPaths() {
   const exhibits = canonicalData.exhibits as Exhibit[];
   return exhibits
-    .filter(isPlayable)
+    .filter((e) => !isPlayable(e))
     .map((exhibit) => ({
       params: { slug: exhibit.slug },
       props: { exhibit },
@@ -32,10 +32,11 @@ const { exhibit } = Astro.props;
 const pathSlug = Astro.url.searchParams.get('path');
 const stepParam = Astro.url.searchParams.get('step');
 const stepIndex = stepParam !== null ? Number(stepParam) : -1;
-
 const path = pathSlug ? collectionBySlug(pathSlug) : undefined;
+
 let prevHref: string | undefined;
 let nextHref: string | undefined;
+let skipHref: string | undefined;
 
 if (path && stepIndex >= 0) {
   if (stepIndex > 0) {
@@ -50,11 +51,17 @@ if (path && stepIndex >= 0) {
       ? exhibitInPathUrl(nextSlug, path.slug, stepIndex + 1)
       : `/catalog/${nextSlug}?path=${path.slug}&step=${stepIndex + 1}`;
   }
+  for (let i = stepIndex + 1; i < path.stops.length; i++) {
+    const s = path.stops[i];
+    if (isPlayable(exhibitBySlug(s))) {
+      skipHref = exhibitInPathUrl(s, path.slug, i);
+      break;
+    }
+  }
 }
 
 const related = relatedPlayable(exhibit, 3);
-const src = playerSrc(exhibit, !!exhibit.playUrl);
-const external = exhibit.embedUrl && !exhibit.playUrl;
+const playable = playableExhibits();
 ---
 
 <AppLayout
@@ -62,11 +69,10 @@ const external = exhibit.embedUrl && !exhibit.playUrl;
   description={displaySummary(exhibit)}
   breadcrumbs={[
     { label: 'Home', href: '/' },
-    { label: 'Play', href: '/play' },
+    { label: 'Atlas', href: '/graph' },
     ...(path ? [{ label: path.title, href: `/collection/${path.slug}` }] : []),
     { label: displayTitle(exhibit) },
   ]}
-  wide
 >
   {path && stepIndex >= 0 && (
     <PathBar
@@ -81,37 +87,26 @@ const external = exhibit.embedUrl && !exhibit.playUrl;
 
   <header class="exhibit-head">
     <div class="exhibit-head-top">
-      <span class="pill pill--ready">Playable</span>
+      <span class="pill pill--soon">Catalog</span>
       <span class="pill pill--meta">{exhibit.type} · {exhibit.wing}</span>
     </div>
     <h1 class="page-title">{displayTitle(exhibit)}</h1>
     <p class="page-lead">{displaySummary(exhibit)}</p>
   </header>
 
-  {src && (
-    <div class="player-wrap">
-      <div class="player-toolbar">
-        <span class="player-toolbar-title">{displayTitle(exhibit)}</span>
-        <div class="btn-row">
-          {external && (
-            <a href={exhibit.embedUrl} class="btn btn-ghost" target="_blank" rel="noopener noreferrer">
-              Open in new tab ↗
-            </a>
-          )}
-          {exhibit.playUrl && (
-            <a href={exhibit.playUrl} class="btn btn-ghost">Full screen</a>
-          )}
-        </div>
-      </div>
-      <div class="player-frame">
-        <iframe src={src} title={displayTitle(exhibit)} loading="eager" allow="fullscreen"></iframe>
-      </div>
-    </div>
-  )}
+  <div class="placeholder-box">
+    <p><strong>Not playable yet.</strong> This exhibit is in the catalog — spec and context only until a simulation ships.</p>
+    {skipHref && (
+      <a href={skipHref} class="btn btn-primary">Skip to next playable stop →</a>
+    )}
+    {!skipHref && (
+      <a href="/play" class="btn btn-primary">Browse playable exhibits</a>
+    )}
+  </div>
 
   {related.length > 0 && (
     <section class="section">
-      <p class="section-label">Related · playable</p>
+      <p class="section-label">Playable related ideas</p>
       <div class="db-table">
         {related.map((rel) => (
           <a href={`/exhibit/${rel.slug}`} class="db-row">
@@ -119,26 +114,30 @@ const external = exhibit.embedUrl && !exhibit.playUrl;
               <p class="db-row-title">{displayTitle(rel)}</p>
               <p class="db-row-meta">{rel.summary}</p>
             </div>
-            <span class="db-row-action">Open</span>
+            <span class="db-row-action">Play</span>
           </a>
         ))}
       </div>
     </section>
   )}
 
-  {!path && (
-    <footer class="path-actions">
-      <a href="/play" class="btn btn-ghost">← All playable</a>
-      <a href="/discover" class="btn">Surprise me</a>
-    </footer>
-  )}
+  <section class="section">
+    <p class="section-label">Play something now</p>
+    <div class="db-table">
+      {playable.slice(0, 4).map((p) => (
+        <a href={`/exhibit/${p.slug}`} class="db-row">
+          <div>
+            <p class="db-row-title">{displayTitle(p)}</p>
+            <p class="db-row-meta">{p.type} · {p.wing}</p>
+          </div>
+          <span class="pill pill--ready">Play</span>
+        </a>
+      ))}
+    </div>
+  </section>
 </AppLayout>
 
 <style>
-  .exhibit-head {
-    margin-bottom: 1.25rem;
-  }
-
   .exhibit-head-top {
     display: flex;
     flex-wrap: wrap;

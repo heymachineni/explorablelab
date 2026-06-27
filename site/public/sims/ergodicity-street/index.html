@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ergodicity Street — ExplorableLab</title>
   <link rel="stylesheet" href="/sims/sim.css" />
+  <script>
+    if (new URLSearchParams(location.search).get('embed') === '1') {
+      document.documentElement.classList.add('embed');
+    }
+  </script>
 </head>
 <body>
   <a class="back" href="/">← ExplorableLab</a>

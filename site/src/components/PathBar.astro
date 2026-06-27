@@ -1,0 +1,34 @@
+---
+interface Props {
+  pathSlug: string;
+  stepIndex: number;
+  pathTitle: string;
+  total: number;
+  prevHref?: string;
+  nextHref?: string;
+}
+
+const { pathSlug, stepIndex, pathTitle, total, prevHref, nextHref } = Astro.props;
+const progress = ((stepIndex + 1) / total) * 100;
+---
+
+<div class="path-bar">
+  <div class="path-bar-top">
+    <p class="path-bar-name">
+      Path · <a href={`/collection/${pathSlug}`}>{pathTitle}</a>
+    </p>
+    <span class="path-bar-step">Stop {stepIndex + 1} of {total}</span>
+  </div>
+  <div class="path-progress" role="progressbar" aria-valuenow={stepIndex + 1} aria-valuemin={1} aria-valuemax={total}>
+    <div class="path-progress-fill" style={`width: ${progress}%`}></div>
+  </div>
+</div>
+
+{(prevHref || nextHref) && (
+  <div class="path-actions">
+    {prevHref ? <a href={prevHref} class="btn btn-ghost">← Previous stop</a> : <span></span>}
+    {nextHref ? <a href={nextHref} class="btn btn-primary">Next stop →</a> : (
+      <a href={`/collection/${pathSlug}`} class="btn btn-primary">Finish path</a>
+    )}
+  </div>
+)}

@@ -1,12 +1,10 @@
 ---
-import MuseumLayout from '../../layouts/MuseumLayout.astro';
-import collectionsData from '../../data/collections.json';
-import canonicalData from '../../data/canonical.json';
-import type { Collection, Exhibit } from '../../types';
+import AppLayout from '../../layouts/AppLayout.astro';
+import { collections as allCollections, displayTitle, exhibitBySlug, exhibitInPathUrl, isPlayable, pathPlayableCount } from '../../lib/museum';
+import type { Collection } from '../../types';
 
 export function getStaticPaths() {
-  const collections = collectionsData.collections as Collection[];
-  return collections.map((collection) => ({
+  return allCollections.map((collection) => ({
     params: { slug: collection.slug },
     props: { collection },
   }));
@@ -17,68 +15,86 @@ interface Props {
 }
 
 const { collection } = Astro.props;
-const exhibits = canonicalData.exhibits as Exhibit[];
-
-function resolveStop(slug: string) {
-  return exhibits.find((e) => e.slug === slug);
-}
+const ready = pathPlayableCount(collection);
 ---
 
-<MuseumLayout title={collection.title} description={collection.summary}>
-  <header class="page-header">
-    <p class="meta">Collection</p>
-    <h1>{collection.title}</h1>
-    <p class="lead">{collection.summary}</p>
-    <p class="meta collection-meta">
-      {collection.time_minutes > 0 ? `~${collection.time_minutes} min` : 'Reference'} · {collection.stops.length} stops
-      {collection.emotional_arc ? ` · ${collection.emotional_arc}` : ''}
-    </p>
-  </header>
+<AppLayout
+  title={collection.title}
+  description={collection.summary}
+  breadcrumbs={[
+    { label: 'Home', href: '/' },
+    { label: 'Paths', href: '/learn' },
+    { label: collection.title },
+  ]}
+>
+  <h1 class="page-title">{collection.title}</h1>
+  <p class="page-lead">{collection.summary}</p>
 
-  <ol class="stops-list">
-    {collection.stops.map((slug, i) => {
-      const exhibit = resolveStop(slug);
-      return (
-        <li>
-          <a href={exhibit ? `/exhibit/${exhibit.slug}` : '#'} class="row-link stop-link">
-            <div>
-              <p class="row-link__title">
-                <span class="stop-num">{i + 1}.</span> {exhibit?.title ?? slug}
-              </p>
-              <p class="row-link__meta">
-                {exhibit ? (exhibit.hook ?? exhibit.summary) : 'Coming soon'}
-              </p>
-            </div>
-            <span class="row-link__action">{exhibit ? 'Open' : '—'}</span>
+  <div class="stat-row" style="margin-bottom: 1.5rem;">
+    <div class="stat-item">
+      <div class="stat-value">{collection.stops.length}</div>
+      <div class="stat-label">Stops</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">{ready}</div>
+      <div class="stat-label">Playable now</div>
+    </div>
+    {collection.time_minutes > 0 && (
+      <div class="stat-item">
+        <div class="stat-value">{collection.time_minutes}m</div>
+        <div class="stat-label">Estimated time</div>
+      </div>
+    )}
+  </div>
+
+  {ready > 0 ? (
+    <div class="btn-row" style="margin-bottom: 1.5rem;">
+      {(() => {
+        const firstPlayableIndex = collection.stops.findIndex((s) => isPlayable(exhibitBySlug(s)));
+        const slug = collection.stops[firstPlayableIndex];
+        return (
+          <a href={exhibitInPathUrl(slug, collection.slug, firstPlayableIndex)} class="btn btn-primary">
+            Start path
           </a>
-        </li>
+        );
+      })()}
+    </div>
+  ) : (
+    <div class="placeholder-box">
+      <p>No playable stops yet on this path. Browse <a href="/play">Play</a> for what works today.</p>
+    </div>
+  )}
+
+  <p class="section-label">Stops</p>
+  <div class="db-table">
+    {collection.stops.map((slug, index) => {
+      const exhibit = exhibitBySlug(slug);
+      const playable = isPlayable(exhibit);
+      const href = playable
+        ? exhibitInPathUrl(slug, collection.slug, index)
+        : `/catalog/${slug}?path=${collection.slug}&step=${index}`;
+      return (
+        <a href={href} class="db-row">
+          <div>
+            <p class="db-row-title">
+              <span style="color: var(--text-tertiary); font-weight: 500;">{index + 1}.</span>{' '}
+              {exhibit ? displayTitle(exhibit) : slug}
+            </p>
+            <p class="db-row-meta">{exhibit?.summary ?? 'Catalog entry'}</p>
+          </div>
+          <div class="db-row-right">
+            <span class:list={['pill', playable ? 'pill--ready' : 'pill--soon']}>
+              {playable ? 'Play' : 'Read'}
+            </span>
+            <span class="db-row-action">{playable ? 'Open' : 'Catalog'}</span>
+          </div>
+        </a>
       );
     })}
-  </ol>
+  </div>
 
-  <footer class="page-footer">
-    <a href="/learn">← All collections</a>
-    <a href="/discover">Surprise me →</a>
+  <footer class="path-actions">
+    <a href="/learn" class="btn btn-ghost">← All paths</a>
+    <a href="/discover" class="btn">Surprise me</a>
   </footer>
-</MuseumLayout>
-
-<style>
-  .collection-meta {
-    margin-top: 0.75rem;
-  }
-
-  .stops-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .stop-link {
-    display: flex;
-  }
-
-  .stop-num {
-    color: var(--text-faint);
-    font-weight: 500;
-  }
-</style>
+</AppLayout>

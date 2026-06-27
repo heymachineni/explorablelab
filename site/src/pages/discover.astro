@@ -1,64 +1,74 @@
 ---
-import MuseumLayout from '../layouts/MuseumLayout.astro';
-import canonicalData from '../data/canonical.json';
-import type { Exhibit } from '../types';
+import AppLayout from '../layouts/AppLayout.astro';
+import { displayTitle, playableExhibits } from '../lib/museum';
 
-const exhibits = canonicalData.exhibits as Exhibit[];
-const slugs = exhibits.map((e) => e.slug);
+const playable = playableExhibits();
+const items = playable.map((e) => ({
+  slug: e.slug,
+  title: displayTitle(e),
+  href: `/exhibit/${e.slug}`,
+}));
 ---
 
-<MuseumLayout title="Discover" description="Random canonical exhibit.">
-  <header class="page-header page-header--center">
-    <h1>Discover</h1>
-    <p class="lead">Pick a random exhibit from the museum floor.</p>
-  </header>
+<AppLayout
+  title="Discover"
+  description="Random playable exhibit."
+  breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Discover' }]}
+>
+  <h1 class="page-title">Discover</h1>
+  <p class="page-lead">
+    One tap — a random exhibit from the {playable.length} that work today. No catalog placeholders.
+  </p>
 
-  <section class="discover-stage">
-    <p class="discover-count">{slugs.length} exhibits</p>
-    <button type="button" class="btn btn-primary discover-btn" id="surprise-btn">
+  <section class="discover-panel">
+    <p class="discover-preview" id="discover-preview">Press the button to pick one.</p>
+    <button type="button" class="btn btn-primary discover-btn" id="discover-btn">
       Surprise me
     </button>
-    <p class="discover-hint" id="discover-hint" aria-live="polite"></p>
+    <p class="discover-meta">Only playable exhibits · <a href="/play">see all</a></p>
   </section>
+</AppLayout>
 
-  <script is:inline define:vars={{ exhibitSlugs: slugs }}>
-    const btn = document.getElementById('surprise-btn');
-    const hint = document.getElementById('discover-hint');
+<script is:inline define:vars={{ items }}>
+  const btn = document.getElementById('discover-btn');
+  const preview = document.getElementById('discover-preview');
 
-    btn?.addEventListener('click', () => {
-      if (!exhibitSlugs.length) return;
-      const slug = exhibitSlugs[Math.floor(Math.random() * exhibitSlugs.length)];
-      if (hint) hint.textContent = 'Opening…';
-      window.location.href = `/exhibit/${slug}`;
-    });
-  </script>
-</MuseumLayout>
+  btn?.addEventListener('click', () => {
+    if (!items.length) return;
+    const pick = items[Math.floor(Math.random() * items.length)];
+    if (preview) preview.textContent = `Opening ${pick.title}…`;
+    btn.disabled = true;
+    setTimeout(() => {
+      window.location.href = pick.href;
+    }, 400);
+  });
+</script>
 
 <style>
-  .discover-stage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 3rem 0;
+  .discover-panel {
+    margin-top: 2rem;
+    padding: 2rem 1.5rem;
     text-align: center;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-subtle);
   }
 
-  .discover-count {
-    margin: 0;
-    font-size: 0.875rem;
-    color: var(--text-faint);
+  .discover-preview {
+    margin: 0 0 1.25rem;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    min-height: 1.5rem;
   }
 
   .discover-btn {
-    padding: 0.625rem 1.5rem;
+    padding: 0.625rem 1.75rem;
     font-size: 0.9375rem;
   }
 
-  .discover-hint {
-    margin: 0;
-    min-height: 1.25rem;
+  .discover-meta {
+    margin: 1rem 0 0;
     font-size: 0.8125rem;
-    color: var(--text-muted);
+    color: var(--text-tertiary);
   }
 </style>

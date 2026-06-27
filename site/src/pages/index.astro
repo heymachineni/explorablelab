@@ -1,149 +1,188 @@
 ---
-import MuseumLayout from '../layouts/MuseumLayout.astro';
-import canonicalData from '../data/canonical.json';
-import collectionsData from '../data/collections.json';
-import type { Exhibit } from '../types';
+import AppLayout from '../layouts/AppLayout.astro';
+import {
+  collectionBySlug,
+  displayTitle,
+  exhibitBySlug,
+  isPlayable,
+  pathPlayableCount,
+  playableExhibits,
+  stats,
+} from '../lib/museum';
 
-const exhibits = canonicalData.exhibits as Exhibit[];
-const collections = collectionsData.collections;
-
-const nativeSims = exhibits.filter((e) => e.playUrl);
-const startCollection = collections.find((c) => c.slug === 'start-here-first-visit');
+const startPath = collectionBySlug('start-here-first-visit');
+const featured = exhibitBySlug('petrie-multiplier');
+const playable = playableExhibits();
 ---
 
-<MuseumLayout title="ExplorableLab">
-  <section class="hero">
-    <p class="hero-eyebrow">Interactive museum</p>
-    <h1>Explore ideas that only make sense when you play with them.</h1>
-    <p class="hero-desc">
-      Curated simulations, paradoxes, and paths — built to be touched, not read.
+<AppLayout title="ExplorableLab">
+  <section class="hero-block">
+    <p class="section-label">Interactive museum</p>
+    <h1 class="page-title">Ideas you have to play with to understand.</h1>
+    <p class="page-lead">
+      ExplorableLab is a curated floor of simulations and paths — not a wiki, not a link list.
+      Start with something playable, then follow a path when you're ready to go deeper.
     </p>
-    <div class="btn-row hero-actions">
-      <a href="/learn" class="btn btn-primary">Start here</a>
-      <a href="/discover" class="btn">Surprise me</a>
-      <a href="/play" class="btn">Play</a>
+
+    <div class="stat-row">
+      <div class="stat-item">
+        <div class="stat-value">{stats.playable}</div>
+        <div class="stat-label">Playable now</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">{stats.paths}</div>
+        <div class="stat-label">Curated paths</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">{stats.total}</div>
+        <div class="stat-label">Exhibits in catalog</div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      {startPath && (
+        <a href={`/collection/${startPath.slug}`} class="btn btn-primary">Begin first visit</a>
+      )}
+      <a href="/play" class="btn">Browse all playable</a>
+      <a href="/discover" class="btn btn-ghost">Surprise me</a>
     </div>
   </section>
 
-  {nativeSims.length > 0 && (
+  {featured && isPlayable(featured) && (
     <section class="section">
-      <div class="section-header">
-        <h2>Built here</h2>
-        <span class="meta">Native simulations</span>
-      </div>
-      <div class="row-list">
-        {nativeSims.map((sim) => (
-          <a href={sim.playUrl} class="row-link">
-            <div>
-              <p class="row-link__title">{sim.title}</p>
-              <p class="row-link__meta">{sim.hook ?? sim.summary}</p>
-            </div>
-            <span class="row-link__action">Play →</span>
-          </a>
-        ))}
-      </div>
-    </section>
-  )}
-
-  {startCollection && (
-    <section class="section">
-      <div class="section-header">
-        <h2>First visit</h2>
-        <a href={`/collection/${startCollection.slug}`} class="link-muted">Full path →</a>
-      </div>
-      <p class="section-note">{startCollection.time_minutes} min · {startCollection.stops.length} stops</p>
-      <div class="row-list">
-        {startCollection.stops.slice(0, 5).map((slug) => {
-          const ex = exhibits.find((e) => e.slug === slug);
-          return (
-            <a href={`/exhibit/${slug}`} class="row-link">
-              <div>
-                <p class="row-link__title">{ex?.title ?? slug}</p>
-                <p class="row-link__meta">{ex?.hook ?? ex?.summary ?? 'Exhibit'}</p>
-              </div>
-              <span class="row-link__action">Open</span>
-            </a>
-          );
-        })}
+      <p class="section-label">Featured · Built here</p>
+      <h2 class="section-title">{displayTitle(featured)}</h2>
+      <p class="page-lead" style="margin-bottom: 1rem;">{featured.summary}</p>
+      <div class="player-wrap">
+        <div class="player-toolbar">
+          <span class="player-toolbar-title">{displayTitle(featured)}</span>
+          <a href={`/exhibit/${featured.slug}`} class="btn btn-ghost">Open exhibit →</a>
+        </div>
+        <div class="player-frame">
+          <iframe src={`${featured.playUrl}?embed=1`} title={displayTitle(featured)} loading="lazy"></iframe>
+        </div>
       </div>
     </section>
   )}
 
   <section class="section">
-    <div class="section-header">
-      <h2>Collections</h2>
-      <a href="/learn" class="link-muted">All collections →</a>
+    <p class="section-label">How it works</p>
+    <div class="how-grid">
+      <div class="how-card">
+        <h3>Play</h3>
+        <p>{stats.playable} exhibits you can run today — native sims and embedded classics.</p>
+        <a href="/play">Open Play →</a>
+      </div>
+      <div class="how-card">
+        <h3>Paths</h3>
+        <p>Curated sequences with time estimates. Follow stops in order — progress is saved as you go.</p>
+        <a href="/learn">Browse paths →</a>
+      </div>
+      <div class="how-card">
+        <h3>Atlas</h3>
+        <p>See how ideas connect. Search any exhibit with <kbd>⌘K</kbd>.</p>
+        <a href="/graph">Open Atlas →</a>
+      </div>
     </div>
-    <div class="grid-auto">
-      {collections.slice(0, 6).map((col) => (
-        <a href={`/collection/${col.slug}`} class="card card-interactive">
-          <p class="card-title">{col.title}</p>
-          <p class="card-meta">{col.time_minutes > 0 ? `${col.time_minutes} min` : 'Reference'} · {col.stops.length} stops</p>
+  </section>
+
+  {startPath && (
+    <section class="section">
+      <div class="section-header-inline">
+        <div>
+          <p class="section-label">Recommended</p>
+          <h2 class="section-title">{startPath.title}</h2>
+          <p class="page-lead" style="margin: 0;">
+            {startPath.time_minutes} min · {pathPlayableCount(startPath)}/{startPath.stops.length} playable now
+          </p>
+        </div>
+        <a href={`/collection/${startPath.slug}`} class="btn">Start path</a>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <p class="section-label">Playable now</p>
+    <div class="db-table">
+      {playable.slice(0, 6).map((exhibit) => (
+        <a href={`/exhibit/${exhibit.slug}`} class="db-row">
+          <div>
+            <p class="db-row-title">{displayTitle(exhibit)}</p>
+            <p class="db-row-meta">{exhibit.type} · {exhibit.wing}</p>
+          </div>
+          <div class="db-row-right">
+            <span class="pill pill--ready">Play</span>
+            <span class="db-row-action">Open</span>
+          </div>
         </a>
       ))}
     </div>
+    {playable.length > 6 && (
+      <p style="margin-top: 0.75rem;">
+        <a href="/play">View all {playable.length} playable exhibits →</a>
+      </p>
+    )}
   </section>
-
-  <section class="section">
-    <div class="section-header">
-      <h2>Constellation</h2>
-      <a href="/graph" class="link-muted">Open graph →</a>
-    </div>
-    <p class="section-note">Browse {exhibits.length} canonical exhibits and how they connect.</p>
-    <a href="/graph" class="btn">View constellation</a>
-  </section>
-</MuseumLayout>
+</AppLayout>
 
 <style>
-  .hero {
-    margin-bottom: 2.5rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border);
+  .hero-block {
+    margin-bottom: 2rem;
   }
 
-  .hero-eyebrow {
-    margin: 0 0 0.5rem;
-    font-size: 0.8125rem;
-    color: var(--text-faint);
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
   }
 
-  .hero h1 {
-    font-size: clamp(1.75rem, 5vw, 2.25rem);
-    max-width: 18ch;
-    margin-bottom: 0.75rem;
+  .how-card {
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg);
   }
 
-  .hero-desc {
-    margin: 0 0 1.25rem;
-    color: var(--text-muted);
-    max-width: 42ch;
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-
-  .hero-actions {
-    margin-top: 0.5rem;
-  }
-
-  .section-note {
-    margin: 0 0 0.75rem;
-    font-size: 0.875rem;
-    color: var(--text-muted);
-  }
-
-  .row-list {
-    margin: 0;
-  }
-
-  .card-title {
-    margin: 0 0 0.25rem;
+  .how-card h3 {
     font-size: 0.9375rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .how-card p {
+    margin: 0 0 0.625rem;
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .how-card a {
+    font-size: 0.8125rem;
     font-weight: 500;
   }
 
-  .card-meta {
-    margin: 0;
-    font-size: 0.8125rem;
-    color: var(--text-muted);
+  .how-card kbd {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    padding: 0.05rem 0.3rem;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+  }
+
+  .section-header-inline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-subtle);
+  }
+
+  @media (max-width: 720px) {
+    .how-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
