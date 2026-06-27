@@ -46,6 +46,7 @@ def default_path(slug: str, typ: str) -> Path:
         "book": CONTENT / "books" / f"{slug}.md",
         "discipline": CONTENT / "disciplines" / f"{slug}.md",
         "designer": CONTENT / "designers" / f"{slug}.md",
+        "mental-model": CONTENT / "mental-models" / f"{slug}.md",
     }
     return mapping.get(typ, CONTENT / "disciplines" / f"{slug}.md")
 
@@ -400,6 +401,7 @@ def type_label(typ: str) -> str:
         "book": "BOK",
         "discipline": "DIS",
         "designer": "DSN",
+        "mental-model": "MOD",
     }.get(typ, typ.upper()[:3])
 
 

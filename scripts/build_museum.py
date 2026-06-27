@@ -22,6 +22,7 @@ from canonical_promote import (
     write_thy,
     write_tier_d,
 )
+from expansion_topics import write_expansion_topics
 
 ROOT = Path(__file__).resolve().parent.parent
 CONTENT = ROOT / "content"
@@ -384,6 +385,8 @@ COLLECTIONS = [
      ["agent-placement", "but-chain", "predict-then-reveal", "comparison-view", "sandbox-mode", "role-as-system", "emergence", "goodharts-law", "feedback-loops", "threshold-models"]),
     ("under-five-minutes", "Under 5 Minutes", 5, "quick hits",
      ["we-become-what-we-behold", "fireflies", "cobra-farm", "friendship-paradox-club", "how-to-remember-anything-forever-ish", "adventures-with-anxiety"]),
+    ("understanding-human-world", "Understanding the Human World", 50, "mind → bias → systems → scale",
+     ["human-behaviour-psychology", "cognitive-biases", "probability-and-risk", "systems-thinking", "scaling-and-growth", "square-cube-law", "metabolic-scaling", "domino-effect", "statistics-interpretation", "media-literacy"]),
     ("build-these-next-tier-s", "Build These Next (Tier S)", 0, "spec → build → ship",
      list(TIER_S.keys())),
 ]
@@ -668,16 +671,28 @@ def export_site_data():
     for slug, typ, title, summary, related in EVIDENCE:
         wing = "evidence" if typ == "paper" else typ
         exhibits.append(attach_content_path(build_export_entry(slug, title, summary, typ, wing, related)))
+    hub_exports, thy_expansion, mod_expansion = write_expansion_topics()
+    for slug, title, summary, related in hub_exports:
+        exhibits.append(attach_content_path(build_export_entry(slug, title, summary, "discipline", "discipline", related)))
+    for slug, title, summary, wing, related in thy_expansion:
+        exhibits.append(attach_content_path(build_export_entry(slug, title, summary, "theory", wing, related)))
+    for slug, title, summary, wing, related in mod_expansion:
+        exhibits.append(attach_content_path(build_export_entry(slug, title, summary, "mental-model", wing, related)))
     SITE_DATA.mkdir(parents=True, exist_ok=True)
     (SITE_DATA / "canonical.json").write_text(json.dumps({"exhibits": exhibits}, indent=2), encoding="utf-8")
 
 
 def write_canonical_index():
+    from expansion_topics import CONCEPTS, HUBS, MORE_CONCEPTS
+
     slugs = (
         list(EXE_PAGES.keys()) + list(TIER_S.keys()) + ["schelling-segregation"]
         + [t[0] for t in THY if t[0] != "schelling-segregation"]
         + [d[0] for d in DESIGN] + [t[0] for t in TIER_D]
         + [p[0] for p in PARADOXES] + [e[0] for e in EXPERIMENTS] + [ev[0] for ev in EVIDENCE]
+        + [h[0] for h in HUBS]
+        + [c["slug"] for c in CONCEPTS]
+        + [m[0] for m in MORE_CONCEPTS]
     )
     lines = ["# Canonical Exhibits — Museum Floor", "", f"**{len(slugs)} promoted exhibits**", ""]
     for s in slugs:
@@ -699,6 +714,7 @@ def main():
     write_collections()
     write_paths()
     write_wings()
+    write_expansion_topics()
     export_site_data()
     write_canonical_index()
     print("Museum build complete: 105 canonical slugs, collections, paths, wings, site data")

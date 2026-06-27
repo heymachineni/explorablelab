@@ -173,6 +173,25 @@
       ]
     },
     {
+      "slug": "understanding-human-world",
+      "title": "Understanding the Human World",
+      "summary": "10 exhibits \u00b7 ~50 min",
+      "time_minutes": 50,
+      "emotional_arc": "mind \u2192 bias \u2192 systems \u2192 scale",
+      "stops": [
+        "human-behaviour-psychology",
+        "cognitive-biases",
+        "probability-and-risk",
+        "systems-thinking",
+        "scaling-and-growth",
+        "square-cube-law",
+        "metabolic-scaling",
+        "domino-effect",
+        "statistics-interpretation",
+        "media-literacy"
+      ]
+    },
+    {
       "slug": "build-these-next-tier-s",
       "title": "Build These Next (Tier S)",
       "summary": "Build queue reference",

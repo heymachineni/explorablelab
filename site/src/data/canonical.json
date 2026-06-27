@@ -1638,6 +1638,1334 @@
         "we-become-what-we-behold"
       ],
       "contentPath": "content/designers/nicky-case.md"
+    },
+    {
+      "slug": "human-behaviour-psychology",
+      "title": "Human Behaviour and Psychology",
+      "summary": "Why people act against their interests and repeat familiar patterns.",
+      "hook": "Why people act against their interests and repeat familiar patterns.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "cognitive-dissonance",
+        "defense-mechanisms",
+        "psychological-projection",
+        "asch-conformity"
+      ],
+      "contentPath": "content/disciplines/human-behaviour-psychology.md"
+    },
+    {
+      "slug": "cognitive-biases",
+      "title": "Cognitive Biases",
+      "summary": "How mental shortcuts quietly shape beliefs, decisions, and debates.",
+      "hook": "How mental shortcuts quietly shape beliefs, decisions, and debates.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "confirmation-bias",
+        "availability-heuristic",
+        "hindsight-bias",
+        "dunning-kruger-effect"
+      ],
+      "contentPath": "content/disciplines/cognitive-biases.md"
+    },
+    {
+      "slug": "probability-and-risk",
+      "title": "Probability and Risk",
+      "summary": "Why rare events often matter more than averages and predictions fail.",
+      "hook": "Why rare events often matter more than averages and predictions fail.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "black-swan-events",
+        "fat-tailed-distributions",
+        "regression-to-the-mean",
+        "st-petersburg-paradox"
+      ],
+      "contentPath": "content/disciplines/probability-and-risk.md"
+    },
+    {
+      "slug": "technology-and-society",
+      "title": "Technology and Society",
+      "summary": "How tools reshape behaviour, influence, and privacy.",
+      "hook": "How tools reshape behaviour, influence, and privacy.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "surveillance-capitalism",
+        "algorithmic-bias",
+        "digital-panopticon",
+        "we-become-what-we-behold"
+      ],
+      "contentPath": "content/disciplines/technology-and-society.md"
+    },
+    {
+      "slug": "behavioural-finance",
+      "title": "Behavioural Finance",
+      "summary": "Why markets move on emotion, narratives, and fear more than logic.",
+      "hook": "Why markets move on emotion, narratives, and fear more than logic.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "loss-aversion",
+        "herd-behaviour",
+        "overconfidence-bias",
+        "goodharts-law"
+      ],
+      "contentPath": "content/disciplines/behavioural-finance.md"
+    },
+    {
+      "slug": "evolutionary-psychology",
+      "title": "Evolutionary Psychology",
+      "summary": "How ancient instincts shape modern behaviour.",
+      "hook": "How ancient instincts shape modern behaviour.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "mate-selection-theory",
+        "kin-selection",
+        "status-signaling",
+        "evolution-of-trust"
+      ],
+      "contentPath": "content/disciplines/evolutionary-psychology.md"
+    },
+    {
+      "slug": "history-of-power",
+      "title": "History of Power",
+      "summary": "How authority is earned, justified, challenged, and lost.",
+      "hook": "How authority is earned, justified, challenged, and lost.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "elite-circulation",
+        "legitimacy-and-authority",
+        "soft-power",
+        "machiavellian-realism"
+      ],
+      "contentPath": "content/disciplines/history-of-power.md"
+    },
+    {
+      "slug": "economics-incentives",
+      "title": "Economics: Incentives over Intentions",
+      "summary": "Why people respond to rewards and penalties more than good intentions.",
+      "hook": "Why people respond to rewards and penalties more than good intentions.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "principal-agent-problem",
+        "moral-hazard",
+        "unintended-consequences",
+        "cobra-farm"
+      ],
+      "contentPath": "content/disciplines/economics-incentives.md"
+    },
+    {
+      "slug": "statistics-interpretation",
+      "title": "Statistics: Interpretation",
+      "summary": "How numbers persuade, mislead, and influence narratives.",
+      "hook": "How numbers persuade, mislead, and influence narratives.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "correlation-vs-causation",
+        "survivorship-bias",
+        "base-rate-neglect",
+        "simpsons-paradox"
+      ],
+      "contentPath": "content/disciplines/statistics-interpretation.md"
+    },
+    {
+      "slug": "sociology-of-status",
+      "title": "Sociology of Status",
+      "summary": "Why prestige, class, and hierarchy shape social life.",
+      "hook": "Why prestige, class, and hierarchy shape social life.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "cultural-capital",
+        "status-anxiety",
+        "social-stratification",
+        "schelling-segregation"
+      ],
+      "contentPath": "content/disciplines/sociology-of-status.md"
+    },
+    {
+      "slug": "decision-making-uncertainty",
+      "title": "Decision-Making Under Uncertainty",
+      "summary": "Why confidence often outperforms accuracy in complex situations.",
+      "hook": "Why confidence often outperforms accuracy in complex situations.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "bounded-rationality",
+        "heuristics-decision-making",
+        "satisficing",
+        "predict-then-reveal"
+      ],
+      "contentPath": "content/disciplines/decision-making-uncertainty.md"
+    },
+    {
+      "slug": "scientific-method-skepticism",
+      "title": "Scientific Method and Skepticism",
+      "summary": "How knowledge is tested, questioned, and refined.",
+      "hook": "How knowledge is tested, questioned, and refined.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "falsifiability",
+        "replication-crisis",
+        "peer-review-process",
+        "p-hacking-lab"
+      ],
+      "contentPath": "content/disciplines/scientific-method-skepticism.md"
+    },
+    {
+      "slug": "negotiation-game-theory",
+      "title": "Negotiation and Game Theory",
+      "summary": "How cooperation, conflict, and strategy interact.",
+      "hook": "How cooperation, conflict, and strategy interact.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "prisoners-dilemma",
+        "nash-equilibrium",
+        "zero-sum-games",
+        "iterated-prisoners-dilemma"
+      ],
+      "contentPath": "content/disciplines/negotiation-game-theory.md"
+    },
+    {
+      "slug": "cultural-history",
+      "title": "Cultural History",
+      "summary": "How societies remember, forget, and reinterpret the past.",
+      "hook": "How societies remember, forget, and reinterpret the past.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "collective-memory",
+        "myth-creation",
+        "historical-storytelling",
+        "information-cascades"
+      ],
+      "contentPath": "content/disciplines/cultural-history.md"
+    },
+    {
+      "slug": "language-and-framing",
+      "title": "Language and Framing",
+      "summary": "Why how something is said often matters more than what is said.",
+      "hook": "Why how something is said often matters more than what is said.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "linguistic-relativity",
+        "euphemism-cycles",
+        "emotionally-charged-language",
+        "framing-effects-media"
+      ],
+      "contentPath": "content/disciplines/language-and-framing.md"
+    },
+    {
+      "slug": "moral-psychology",
+      "title": "Moral Psychology",
+      "summary": "Why thoughtful people strongly disagree about values.",
+      "hook": "Why thoughtful people strongly disagree about values.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "moral-foundations-theory",
+        "in-group-bias",
+        "value-diversity",
+        "ultimatum-game"
+      ],
+      "contentPath": "content/disciplines/moral-psychology.md"
+    },
+    {
+      "slug": "philosophy-of-ethics",
+      "title": "Philosophy of Ethics",
+      "summary": "How people reason about right, wrong, and moral gray areas.",
+      "hook": "How people reason about right, wrong, and moral gray areas.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "utilitarianism",
+        "deontology",
+        "virtue-ethics",
+        "moral-relativism"
+      ],
+      "contentPath": "content/disciplines/philosophy-of-ethics.md"
+    },
+    {
+      "slug": "geopolitics",
+      "title": "Geopolitics",
+      "summary": "Why countries often behave like insecure actors on a world stage.",
+      "hook": "Why countries often behave like insecure actors on a world stage.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "balance-of-power",
+        "deterrence-theory",
+        "multipolar-world-dynamics",
+        "evolution-of-trust"
+      ],
+      "contentPath": "content/disciplines/geopolitics.md"
+    },
+    {
+      "slug": "media-literacy",
+      "title": "Media Literacy",
+      "summary": "How narratives are framed, amplified, and selectively highlighted.",
+      "hook": "How narratives are framed, amplified, and selectively highlighted.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "agenda-setting",
+        "framing-effects-media",
+        "propaganda-model",
+        "echo-chambers"
+      ],
+      "contentPath": "content/disciplines/media-literacy.md"
+    },
+    {
+      "slug": "systems-thinking",
+      "title": "Systems Thinking",
+      "summary": "Why solving one problem often creates another.",
+      "hook": "Why solving one problem often creates another.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "feedback-loops",
+        "second-order-effects",
+        "unintended-system-behavior",
+        "emergence"
+      ],
+      "contentPath": "content/disciplines/systems-thinking.md"
+    },
+    {
+      "slug": "scaling-and-growth",
+      "title": "Scaling and Growth",
+      "summary": "How organisms, cities, and organisations change as they get bigger.",
+      "hook": "How organisms, cities, and organisations change as they get bigger.",
+      "type": "DIS",
+      "wing": "discipline",
+      "status": "canonical",
+      "related": [
+        "square-cube-law",
+        "metabolic-scaling",
+        "scaling-growth-life-and-organizations",
+        "domino-effect"
+      ],
+      "contentPath": "content/disciplines/scaling-and-growth.md"
+    },
+    {
+      "slug": "square-cube-law",
+      "title": "Square\u2013Cube Law",
+      "summary": "Volume grows faster than surface area as size increases \u2014 reshaping what is possible at each scale.",
+      "hook": "Volume grows faster than surface area as size increases \u2014 reshaping what is possible at each scale.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "metabolic-scaling",
+        "scaling-growth-life-and-organizations",
+        "emergence"
+      ],
+      "contentPath": "content/theories/physics/square-cube-law.md"
+    },
+    {
+      "slug": "metabolic-scaling",
+      "title": "Metabolic Scaling",
+      "summary": "Metabolic rate does not scale linearly with body mass \u2014 Kleiber's 3/4 power law links biology to networks.",
+      "hook": "Metabolic rate does not scale linearly with body mass \u2014 Kleiber's 3/4 power law links biology to networks.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "square-cube-law",
+        "scaling-growth-life-and-organizations",
+        "percolation"
+      ],
+      "contentPath": "content/theories/evolution/metabolic-scaling.md"
+    },
+    {
+      "slug": "scaling-growth-life-and-organizations",
+      "title": "Scaling Growth in Life and Organizations",
+      "summary": "Organisms and institutions grow under different constraints \u2014 biology, networks, and coordination costs shape what scales.",
+      "hook": "Organisms and institutions grow under different constraints \u2014 biology, networks, and coordination costs shape what scales.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "square-cube-law",
+        "metabolic-scaling",
+        "emergence",
+        "goodharts-law"
+      ],
+      "contentPath": "content/theories/complex-systems/scaling-growth-life-and-organizations.md"
+    },
+    {
+      "slug": "cognitive-dissonance",
+      "title": "Cognitive Dissonance",
+      "summary": "Mental discomfort when beliefs and actions conflict \u2014 often resolved by changing beliefs.",
+      "hook": "Mental discomfort when beliefs and actions conflict \u2014 often resolved by changing beliefs.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "human-behaviour-psychology",
+        "confirmation-bias",
+        "asch-conformity"
+      ],
+      "contentPath": "content/theories/cognitive-science/cognitive-dissonance.md"
+    },
+    {
+      "slug": "defense-mechanisms",
+      "title": "Defense Mechanisms",
+      "summary": "Unconscious strategies that reduce anxiety by distorting perception of threat.",
+      "hook": "Unconscious strategies that reduce anxiety by distorting perception of threat.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "psychological-projection",
+        "cognitive-dissonance",
+        "human-behaviour-psychology"
+      ],
+      "contentPath": "content/theories/cognitive-science/defense-mechanisms.md"
+    },
+    {
+      "slug": "psychological-projection",
+      "title": "Psychological Projection",
+      "summary": "Attributing one's own unacceptable feelings or motives to others.",
+      "hook": "Attributing one's own unacceptable feelings or motives to others.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "defense-mechanisms",
+        "in-group-bias",
+        "human-behaviour-psychology"
+      ],
+      "contentPath": "content/theories/cognitive-science/psychological-projection.md"
+    },
+    {
+      "slug": "confirmation-bias",
+      "title": "Confirmation Bias",
+      "summary": "Seeking and remembering evidence that supports what we already believe.",
+      "hook": "Seeking and remembering evidence that supports what we already believe.",
+      "type": "THY",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "cognitive-biases",
+        "availability-heuristic",
+        "predict-then-reveal"
+      ],
+      "contentPath": "content/theories/cognitive-science/confirmation-bias.md"
+    },
+    {
+      "slug": "availability-heuristic",
+      "title": "Availability Heuristic",
+      "summary": "Judging frequency by how easily examples come to mind.",
+      "hook": "Judging frequency by how easily examples come to mind.",
+      "type": "THY",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "confirmation-bias",
+        "hindsight-bias",
+        "cognitive-biases"
+      ],
+      "contentPath": "content/theories/cognitive-science/availability-heuristic.md"
+    },
+    {
+      "slug": "hindsight-bias",
+      "title": "Hindsight Bias",
+      "summary": "After an outcome, believing it was predictable all along.",
+      "hook": "After an outcome, believing it was predictable all along.",
+      "type": "THY",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "availability-heuristic",
+        "overconfidence-bias",
+        "cognitive-biases"
+      ],
+      "contentPath": "content/theories/cognitive-science/hindsight-bias.md"
+    },
+    {
+      "slug": "dunning-kruger-effect",
+      "title": "Dunning\u2013Kruger Effect",
+      "summary": "Low competence can impair recognition of one's own incompetence.",
+      "hook": "Low competence can impair recognition of one's own incompetence.",
+      "type": "THY",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "overconfidence-bias",
+        "cognitive-biases",
+        "scientific-method-skepticism"
+      ],
+      "contentPath": "content/theories/cognitive-science/dunning-kruger-effect.md"
+    },
+    {
+      "slug": "black-swan-events",
+      "title": "Black Swan Events",
+      "summary": "Rare, high-impact outcomes that look predictable only in retrospect.",
+      "hook": "Rare, high-impact outcomes that look predictable only in retrospect.",
+      "type": "THY",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "fat-tailed-distributions",
+        "probability-and-risk",
+        "st-petersburg-paradox"
+      ],
+      "contentPath": "content/theories/probability/black-swan-events.md"
+    },
+    {
+      "slug": "fat-tailed-distributions",
+      "title": "Fat-Tailed Distributions",
+      "summary": "Extreme outcomes occur far more often than normal curves suggest.",
+      "hook": "Extreme outcomes occur far more often than normal curves suggest.",
+      "type": "THY",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "black-swan-events",
+        "ergodicity",
+        "fat-tail-farm"
+      ],
+      "contentPath": "content/theories/probability/fat-tailed-distributions.md"
+    },
+    {
+      "slug": "regression-to-the-mean",
+      "title": "Regression to the Mean",
+      "summary": "Extreme measurements tend to be followed by less extreme ones.",
+      "hook": "Extreme measurements tend to be followed by less extreme ones.",
+      "type": "THY",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "statistics-interpretation",
+        "simpsons-paradox",
+        "base-rate-neglect"
+      ],
+      "contentPath": "content/theories/probability/regression-to-the-mean.md"
+    },
+    {
+      "slug": "surveillance-capitalism",
+      "title": "Surveillance Capitalism",
+      "summary": "Business models that extract and predict behaviour from digital traces.",
+      "hook": "Business models that extract and predict behaviour from digital traces.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "digital-panopticon",
+        "algorithmic-bias",
+        "technology-and-society"
+      ],
+      "contentPath": "content/theories/social-science/surveillance-capitalism.md"
+    },
+    {
+      "slug": "algorithmic-bias",
+      "title": "Algorithmic Bias",
+      "summary": "Systematic errors in automated decisions that disadvantage groups.",
+      "hook": "Systematic errors in automated decisions that disadvantage groups.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "surveillance-capitalism",
+        "goodharts-law",
+        "technology-and-society"
+      ],
+      "contentPath": "content/theories/social-science/algorithmic-bias.md"
+    },
+    {
+      "slug": "digital-panopticon",
+      "title": "Digital Panopticon",
+      "summary": "Visibility and perceived observation reshape behaviour at scale.",
+      "hook": "Visibility and perceived observation reshape behaviour at scale.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "surveillance-capitalism",
+        "we-become-what-we-behold",
+        "technology-and-society"
+      ],
+      "contentPath": "content/theories/social-science/digital-panopticon.md"
+    },
+    {
+      "slug": "loss-aversion",
+      "title": "Loss Aversion",
+      "summary": "Losses loom larger than equivalent gains \u2014 roughly twice as salient in many studies.",
+      "hook": "Losses loom larger than equivalent gains \u2014 roughly twice as salient in many studies.",
+      "type": "THY",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "behavioural-finance",
+        "herd-behaviour",
+        "overconfidence-bias"
+      ],
+      "contentPath": "content/theories/economics/loss-aversion.md"
+    },
+    {
+      "slug": "herd-behaviour",
+      "title": "Herd Behaviour",
+      "summary": "Following others' actions when private information is weak or costly.",
+      "hook": "Following others' actions when private information is weak or costly.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "information-cascades",
+        "loss-aversion",
+        "behavioural-finance"
+      ],
+      "contentPath": "content/theories/social-science/herd-behaviour.md"
+    },
+    {
+      "slug": "overconfidence-bias",
+      "title": "Overconfidence Bias",
+      "summary": "Systematic overestimation of one's accuracy, knowledge, or control.",
+      "hook": "Systematic overestimation of one's accuracy, knowledge, or control.",
+      "type": "THY",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "dunning-kruger-effect",
+        "behavioural-finance",
+        "predict-then-reveal"
+      ],
+      "contentPath": "content/theories/cognitive-science/overconfidence-bias.md"
+    },
+    {
+      "slug": "mate-selection-theory",
+      "title": "Mate Selection Theory",
+      "summary": "Evolutionary frameworks for partner choice, competition, and signalling.",
+      "hook": "Evolutionary frameworks for partner choice, competition, and signalling.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "status-signaling",
+        "kin-selection",
+        "evolutionary-psychology"
+      ],
+      "contentPath": "content/theories/evolution/mate-selection-theory.md"
+    },
+    {
+      "slug": "kin-selection",
+      "title": "Kin Selection",
+      "summary": "Evolution favours helping relatives when benefit weighted by relatedness exceeds cost.",
+      "hook": "Evolution favours helping relatives when benefit weighted by relatedness exceeds cost.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "mate-selection-theory",
+        "evolution-of-trust",
+        "evolutionary-psychology"
+      ],
+      "contentPath": "content/theories/evolution/kin-selection.md"
+    },
+    {
+      "slug": "status-signaling",
+      "title": "Status Signaling",
+      "summary": "Costly displays that communicate rank, fitness, or group membership.",
+      "hook": "Costly displays that communicate rank, fitness, or group membership.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "sociology-of-status",
+        "cultural-capital",
+        "evolutionary-psychology"
+      ],
+      "contentPath": "content/theories/social-science/status-signaling.md"
+    },
+    {
+      "slug": "elite-circulation",
+      "title": "Elite Circulation",
+      "summary": "How ruling groups turn over \u2014 recruitment, co-optation, or replacement.",
+      "hook": "How ruling groups turn over \u2014 recruitment, co-optation, or replacement.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "legitimacy-and-authority",
+        "history-of-power",
+        "machiavellian-realism"
+      ],
+      "contentPath": "content/theories/social-science/elite-circulation.md"
+    },
+    {
+      "slug": "legitimacy-and-authority",
+      "title": "Legitimacy and Authority",
+      "summary": "Power persists when subjects believe rulers have right to rule.",
+      "hook": "Power persists when subjects believe rulers have right to rule.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "soft-power",
+        "history-of-power",
+        "ostrom-commons-design"
+      ],
+      "contentPath": "content/theories/social-science/legitimacy-and-authority.md"
+    },
+    {
+      "slug": "soft-power",
+      "title": "Soft Power",
+      "summary": "Influence through attraction and norms rather than coercion.",
+      "hook": "Influence through attraction and norms rather than coercion.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "legitimacy-and-authority",
+        "geopolitics",
+        "history-of-power"
+      ],
+      "contentPath": "content/theories/social-science/soft-power.md"
+    },
+    {
+      "slug": "machiavellian-realism",
+      "title": "Machiavellian Realism",
+      "summary": "Political analysis stressing power, fear, and fortune over ideals.",
+      "hook": "Political analysis stressing power, fear, and fortune over ideals.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "history-of-power",
+        "prisoners-dilemma",
+        "geopolitics"
+      ],
+      "contentPath": "content/theories/social-science/machiavellian-realism.md"
+    },
+    {
+      "slug": "principal-agent-problem",
+      "title": "Principal\u2013Agent Problem",
+      "summary": "Misaligned incentives when one party acts on another's behalf.",
+      "hook": "Misaligned incentives when one party acts on another's behalf.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "moral-hazard",
+        "economics-incentives",
+        "cobra-farm"
+      ],
+      "contentPath": "content/theories/economics/principal-agent-problem.md"
+    },
+    {
+      "slug": "moral-hazard",
+      "title": "Moral Hazard",
+      "summary": "Hidden actions after a contract \u2014 agents take risks others bear.",
+      "hook": "Hidden actions after a contract \u2014 agents take risks others bear.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "principal-agent-problem",
+        "economics-incentives",
+        "goodharts-law"
+      ],
+      "contentPath": "content/theories/economics/moral-hazard.md"
+    },
+    {
+      "slug": "unintended-consequences",
+      "title": "Unintended Consequences",
+      "summary": "Interventions produce effects nobody planned \u2014 often via incentives.",
+      "hook": "Interventions produce effects nobody planned \u2014 often via incentives.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "cobra-farm",
+        "goodharts-law",
+        "second-order-effects"
+      ],
+      "contentPath": "content/theories/economics/unintended-consequences.md"
+    },
+    {
+      "slug": "correlation-vs-causation",
+      "title": "Correlation vs Causation",
+      "summary": "Association does not prove one variable produced another.",
+      "hook": "Association does not prove one variable produced another.",
+      "type": "THY",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "statistics-interpretation",
+        "simpsons-paradox",
+        "base-rate-neglect"
+      ],
+      "contentPath": "content/theories/probability/correlation-vs-causation.md"
+    },
+    {
+      "slug": "survivorship-bias",
+      "title": "Survivorship Bias",
+      "summary": "Drawing lessons from winners while ignoring silent failures.",
+      "hook": "Drawing lessons from winners while ignoring silent failures.",
+      "type": "THY",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "statistics-interpretation",
+        "goodharts-law",
+        "p-hacking-lab"
+      ],
+      "contentPath": "content/theories/probability/survivorship-bias.md"
+    },
+    {
+      "slug": "base-rate-neglect",
+      "title": "Base Rate Neglect",
+      "summary": "Ignoring how common an outcome is when interpreting evidence.",
+      "hook": "Ignoring how common an outcome is when interpreting evidence.",
+      "type": "THY",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "base-rate-hospital",
+        "statistics-interpretation",
+        "bayesian-therapy"
+      ],
+      "contentPath": "content/theories/probability/base-rate-neglect.md"
+    },
+    {
+      "slug": "cultural-capital",
+      "title": "Cultural Capital",
+      "summary": "Knowledge, taste, and credentials that confer social advantage.",
+      "hook": "Knowledge, taste, and credentials that confer social advantage.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "social-stratification",
+        "sociology-of-status",
+        "status-anxiety"
+      ],
+      "contentPath": "content/theories/social-science/cultural-capital.md"
+    },
+    {
+      "slug": "status-anxiety",
+      "title": "Status Anxiety",
+      "summary": "Distress from perceived rank relative to peers or ideals.",
+      "hook": "Distress from perceived rank relative to peers or ideals.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "sociology-of-status",
+        "social-stratification",
+        "loss-aversion"
+      ],
+      "contentPath": "content/theories/social-science/status-anxiety.md"
+    },
+    {
+      "slug": "social-stratification",
+      "title": "Social Stratification",
+      "summary": "Durable hierarchies of class, caste, or prestige.",
+      "hook": "Durable hierarchies of class, caste, or prestige.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "cultural-capital",
+        "schelling-segregation",
+        "sociology-of-status"
+      ],
+      "contentPath": "content/theories/social-science/social-stratification.md"
+    },
+    {
+      "slug": "bounded-rationality",
+      "title": "Bounded Rationality",
+      "summary": "Deciders use limited information and simplified rules \u2014 not full optimisation.",
+      "hook": "Deciders use limited information and simplified rules \u2014 not full optimisation.",
+      "type": "THY",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "heuristics-decision-making",
+        "satisficing",
+        "decision-making-uncertainty"
+      ],
+      "contentPath": "content/theories/cognitive-science/bounded-rationality.md"
+    },
+    {
+      "slug": "heuristics-decision-making",
+      "title": "Heuristics in Decision-Making",
+      "summary": "Fast rules that work well in some environments and fail in others.",
+      "hook": "Fast rules that work well in some environments and fail in others.",
+      "type": "THY",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "bounded-rationality",
+        "availability-heuristic",
+        "decision-making-uncertainty"
+      ],
+      "contentPath": "content/theories/cognitive-science/heuristics-decision-making.md"
+    },
+    {
+      "slug": "satisficing",
+      "title": "Satisficing",
+      "summary": "Choosing the first acceptable option rather than the global optimum.",
+      "hook": "Choosing the first acceptable option rather than the global optimum.",
+      "type": "THY",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "bounded-rationality",
+        "decision-making-uncertainty",
+        "predict-then-reveal"
+      ],
+      "contentPath": "content/theories/cognitive-science/satisficing.md"
+    },
+    {
+      "slug": "falsifiability",
+      "title": "Falsifiability",
+      "summary": "A claim is scientific if it could in principle be proven wrong.",
+      "hook": "A claim is scientific if it could in principle be proven wrong.",
+      "type": "THY",
+      "wing": "evidence",
+      "status": "canonical",
+      "related": [
+        "scientific-method-skepticism",
+        "replication-crisis",
+        "peer-review-process"
+      ],
+      "contentPath": "content/theories/social-science/falsifiability.md"
+    },
+    {
+      "slug": "replication-crisis",
+      "title": "Replication Crisis",
+      "summary": "Many published findings fail to reproduce \u2014 methods and incentives under scrutiny.",
+      "hook": "Many published findings fail to reproduce \u2014 methods and incentives under scrutiny.",
+      "type": "THY",
+      "wing": "evidence",
+      "status": "canonical",
+      "related": [
+        "p-hacking-lab",
+        "peer-review-process",
+        "scientific-method-skepticism"
+      ],
+      "contentPath": "content/phenomena/history-of-science-discipline/replication-crisis.md"
+    },
+    {
+      "slug": "peer-review-process",
+      "title": "Peer Review",
+      "summary": "Expert evaluation before publication \u2014 gatekeeper with known biases.",
+      "hook": "Expert evaluation before publication \u2014 gatekeeper with known biases.",
+      "type": "THY",
+      "wing": "evidence",
+      "status": "canonical",
+      "related": [
+        "scientific-method-skepticism",
+        "replication-crisis",
+        "falsifiability"
+      ],
+      "contentPath": "content/theories/social-science/peer-review-process.md"
+    },
+    {
+      "slug": "nash-equilibrium",
+      "title": "Nash Equilibrium",
+      "summary": "No player gains by unilaterally changing strategy given others' choices.",
+      "hook": "No player gains by unilaterally changing strategy given others' choices.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "prisoners-dilemma",
+        "negotiation-game-theory",
+        "iterated-prisoners-dilemma"
+      ],
+      "contentPath": "content/theories/game-theory/nash-equilibrium.md"
+    },
+    {
+      "slug": "zero-sum-games",
+      "title": "Zero-Sum vs Non-Zero-Sum Games",
+      "summary": "Whether one side's gain equals another's loss \u2014 framing cooperation.",
+      "hook": "Whether one side's gain equals another's loss \u2014 framing cooperation.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "prisoners-dilemma",
+        "negotiation-game-theory",
+        "commons-garden"
+      ],
+      "contentPath": "content/theories/game-theory/zero-sum-games.md"
+    },
+    {
+      "slug": "collective-memory",
+      "title": "Collective Memory",
+      "summary": "Groups share reconstructed pasts \u2014 monuments, rituals, media.",
+      "hook": "Groups share reconstructed pasts \u2014 monuments, rituals, media.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "myth-creation",
+        "cultural-history",
+        "information-cascades"
+      ],
+      "contentPath": "content/theories/social-science/collective-memory.md"
+    },
+    {
+      "slug": "myth-creation",
+      "title": "Myth Creation",
+      "summary": "Stories that simplify history to bind identity or justify power.",
+      "hook": "Stories that simplify history to bind identity or justify power.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "collective-memory",
+        "historical-storytelling",
+        "cultural-history"
+      ],
+      "contentPath": "content/theories/social-science/myth-creation.md"
+    },
+    {
+      "slug": "historical-storytelling",
+      "title": "Historical Storytelling",
+      "summary": "Narrative choices \u2014 heroes, villains, turning points \u2014 shape memory.",
+      "hook": "Narrative choices \u2014 heroes, villains, turning points \u2014 shape memory.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "collective-memory",
+        "myth-creation",
+        "language-and-framing"
+      ],
+      "contentPath": "content/theories/social-science/historical-storytelling.md"
+    },
+    {
+      "slug": "linguistic-relativity",
+      "title": "Linguistic Relativity",
+      "summary": "Language structure may influence habitual thought \u2014 Sapir\u2013Whorf debate.",
+      "hook": "Language structure may influence habitual thought \u2014 Sapir\u2013Whorf debate.",
+      "type": "THY",
+      "wing": "intuition",
+      "status": "canonical",
+      "related": [
+        "language-and-framing",
+        "emotionally-charged-language",
+        "framing-effects-media"
+      ],
+      "contentPath": "content/theories/cognitive-science/linguistic-relativity.md"
+    },
+    {
+      "slug": "euphemism-cycles",
+      "title": "Euphemism Cycles",
+      "summary": "Polite terms for harsh realities eventually absorb the stigma they replace.",
+      "hook": "Polite terms for harsh realities eventually absorb the stigma they replace.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "language-and-framing",
+        "emotionally-charged-language",
+        "goodharts-law"
+      ],
+      "contentPath": "content/theories/social-science/euphemism-cycles.md"
+    },
+    {
+      "slug": "emotionally-charged-language",
+      "title": "Emotionally Charged Language",
+      "summary": "Word choice triggers affect before argument \u2014 framing by connotation.",
+      "hook": "Word choice triggers affect before argument \u2014 framing by connotation.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "language-and-framing",
+        "framing-effects-media",
+        "propaganda-model"
+      ],
+      "contentPath": "content/theories/social-science/emotionally-charged-language.md"
+    },
+    {
+      "slug": "moral-foundations-theory",
+      "title": "Moral Foundations Theory",
+      "summary": "Multiple moral intuitions \u2014 care, fairness, loyalty, authority, sanctity \u2014 combine differently across cultures.",
+      "hook": "Multiple moral intuitions \u2014 care, fairness, loyalty, authority, sanctity \u2014 combine differently across cultures.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "moral-psychology",
+        "value-diversity",
+        "in-group-bias"
+      ],
+      "contentPath": "content/theories/social-science/moral-foundations-theory.md"
+    },
+    {
+      "slug": "in-group-bias",
+      "title": "In-Group Bias",
+      "summary": "Favouring members of one's own group \u2014 cooperation and conflict.",
+      "hook": "Favouring members of one's own group \u2014 cooperation and conflict.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "moral-psychology",
+        "schelling-segregation",
+        "asch-conformity"
+      ],
+      "contentPath": "content/theories/social-science/in-group-bias.md"
+    },
+    {
+      "slug": "value-diversity",
+      "title": "Value Diversity",
+      "summary": "Plausible moral outlooks disagree \u2014 pluralism vs relativism.",
+      "hook": "Plausible moral outlooks disagree \u2014 pluralism vs relativism.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "moral-psychology",
+        "moral-relativism",
+        "philosophy-of-ethics"
+      ],
+      "contentPath": "content/theories/social-science/value-diversity.md"
+    },
+    {
+      "slug": "utilitarianism",
+      "title": "Utilitarianism",
+      "summary": "Right action maximises overall welfare \u2014 greatest good for greatest number.",
+      "hook": "Right action maximises overall welfare \u2014 greatest good for greatest number.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "philosophy-of-ethics",
+        "deontology",
+        "moral-relativism"
+      ],
+      "contentPath": "content/theories/social-science/utilitarianism.md"
+    },
+    {
+      "slug": "deontology",
+      "title": "Deontology",
+      "summary": "Some duties are binding regardless of outcomes \u2014 rules and rights.",
+      "hook": "Some duties are binding regardless of outcomes \u2014 rules and rights.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "utilitarianism",
+        "virtue-ethics",
+        "philosophy-of-ethics"
+      ],
+      "contentPath": "content/theories/social-science/deontology.md"
+    },
+    {
+      "slug": "virtue-ethics",
+      "title": "Virtue Ethics",
+      "summary": "Character and flourishing matter more than isolated acts or rules.",
+      "hook": "Character and flourishing matter more than isolated acts or rules.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "philosophy-of-ethics",
+        "deontology",
+        "utilitarianism"
+      ],
+      "contentPath": "content/theories/social-science/virtue-ethics.md"
+    },
+    {
+      "slug": "moral-relativism",
+      "title": "Moral Relativism",
+      "summary": "Moral truth varies by culture or individual \u2014 descriptive vs normative claims.",
+      "hook": "Moral truth varies by culture or individual \u2014 descriptive vs normative claims.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "philosophy-of-ethics",
+        "value-diversity",
+        "moral-psychology"
+      ],
+      "contentPath": "content/theories/social-science/moral-relativism.md"
+    },
+    {
+      "slug": "balance-of-power",
+      "title": "Balance of Power",
+      "summary": "States align to prevent any single actor from dominating.",
+      "hook": "States align to prevent any single actor from dominating.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "geopolitics",
+        "deterrence-theory",
+        "multipolar-world-dynamics"
+      ],
+      "contentPath": "content/theories/social-science/balance-of-power.md"
+    },
+    {
+      "slug": "deterrence-theory",
+      "title": "Deterrence Theory",
+      "summary": "Threat of retaliation prevents attack \u2014 credibility and misperception matter.",
+      "hook": "Threat of retaliation prevents attack \u2014 credibility and misperception matter.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "geopolitics",
+        "balance-of-power",
+        "prisoners-dilemma"
+      ],
+      "contentPath": "content/theories/social-science/deterrence-theory.md"
+    },
+    {
+      "slug": "multipolar-world-dynamics",
+      "title": "Multipolar World Dynamics",
+      "summary": "Three or more great powers \u2014 shifting alliances and complexity.",
+      "hook": "Three or more great powers \u2014 shifting alliances and complexity.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "geopolitics",
+        "balance-of-power",
+        "evolution-of-trust"
+      ],
+      "contentPath": "content/theories/social-science/multipolar-world-dynamics.md"
+    },
+    {
+      "slug": "agenda-setting",
+      "title": "Agenda Setting",
+      "summary": "Media influence what people think **about** \u2014 not always what to think.",
+      "hook": "Media influence what people think **about** \u2014 not always what to think.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "media-literacy",
+        "framing-effects-media",
+        "propaganda-model"
+      ],
+      "contentPath": "content/theories/social-science/agenda-setting.md"
+    },
+    {
+      "slug": "framing-effects-media",
+      "title": "Framing Effects",
+      "summary": "Presenting the same facts in different frames changes preference and blame.",
+      "hook": "Presenting the same facts in different frames changes preference and blame.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "media-literacy",
+        "agenda-setting",
+        "language-and-framing"
+      ],
+      "contentPath": "content/theories/social-science/framing-effects-media.md"
+    },
+    {
+      "slug": "propaganda-model",
+      "title": "Propaganda Model",
+      "summary": "Structural filters \u2014 ownership, advertising, sourcing \u2014 shape news content.",
+      "hook": "Structural filters \u2014 ownership, advertising, sourcing \u2014 shape news content.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "media-literacy",
+        "agenda-setting",
+        "surveillance-capitalism"
+      ],
+      "contentPath": "content/theories/social-science/propaganda-model.md"
+    },
+    {
+      "slug": "echo-chambers",
+      "title": "Echo Chambers",
+      "summary": "Homogeneous information environments that amplify beliefs and reduce correction.",
+      "hook": "Homogeneous information environments that amplify beliefs and reduce correction.",
+      "type": "THY",
+      "wing": "networks",
+      "status": "canonical",
+      "related": [
+        "media-literacy",
+        "confirmation-bias",
+        "information-cascades"
+      ],
+      "contentPath": "content/theories/social-science/echo-chambers.md"
+    },
+    {
+      "slug": "second-order-effects",
+      "title": "Second-Order Effects",
+      "summary": "Consequences of consequences \u2014 interventions ripple beyond first intent.",
+      "hook": "Consequences of consequences \u2014 interventions ripple beyond first intent.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "systems-thinking",
+        "unintended-system-behavior",
+        "feedback-loops"
+      ],
+      "contentPath": "content/theories/complex-systems/second-order-effects.md"
+    },
+    {
+      "slug": "unintended-system-behavior",
+      "title": "Unintended System Behavior",
+      "summary": "System output nobody designed \u2014 emergence plus perverse incentives.",
+      "hook": "System output nobody designed \u2014 emergence plus perverse incentives.",
+      "type": "THY",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "systems-thinking",
+        "emergence",
+        "cobra-farm"
+      ],
+      "contentPath": "content/theories/complex-systems/unintended-system-behavior.md"
+    },
+    {
+      "slug": "domino-effect",
+      "title": "Domino Effect",
+      "summary": "A small trigger propagates through a prepared chain \u2014 order and spacing determine whether collapse is local or total.",
+      "hook": "A small trigger propagates through a prepared chain \u2014 order and spacing determine whether collapse is local or total.",
+      "type": "MOD",
+      "wing": "systems",
+      "status": "canonical",
+      "related": [
+        "threshold-models",
+        "percolation",
+        "information-cascades",
+        "feedback-loops"
+      ],
+      "contentPath": "content/mental-models/domino-effect.md"
     }
   ]
 }

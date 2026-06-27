@@ -61,8 +61,19 @@ cd site && npm run dev
 | 2 | Design patterns | 10 → 30 |
 | 3 | Paradoxes + experiments | 22 → 50 |
 | 4 | Simulation specs | 38 → 60 |
+| 5 | Topic hubs + concepts | 21 hubs, 65+ concepts (see `scripts/expansion_topics.py`) |
 
 Promote in **batches of 10–20** with full rewrites, not mass auto-export.
+
+## Expansion topics script
+
+User-requested domains (human behaviour, cognitive biases, scaling laws, etc.) live in [`scripts/expansion_topics.py`](../scripts/expansion_topics.py). Run via:
+
+```bash
+cd scripts && python3 build_museum.py
+```
+
+This writes hub pages under `content/disciplines/` and concept pages under `content/theories/` (and `content/mental-models/` where applicable), then exports them to `canonical.json`.
 
 ## Site rendering
 

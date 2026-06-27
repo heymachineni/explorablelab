@@ -21,7 +21,8 @@ export const TYPE_LABELS: Record<string, string> = {
   EXP: 'Experiment',
   PAP: 'Paper',
   BOK: 'Book',
-  DIS: 'Discipline',
+  DIS: 'Topic hub',
+  MOD: 'Mental model',
   DSN: 'Designer',
 };
 
@@ -86,4 +87,5 @@ export const stats = {
   simulations: exhibitsByType('SIM').length,
   paradoxes: exhibitsByType('PAR').length,
   experiments: exhibitsByType('EXP').length,
+  topicHubs: exhibitsByType('DIS').length,
 };
