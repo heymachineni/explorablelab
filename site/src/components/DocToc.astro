@@ -1,0 +1,22 @@
+---
+import type { TocItem } from '../lib/content';
+
+interface Props {
+  items: TocItem[];
+}
+
+const { items } = Astro.props;
+---
+
+{items.length > 1 && (
+  <nav class="doc-toc" aria-label="On this page">
+    <p class="doc-toc-label">On this page</p>
+    <ul class="doc-toc-list">
+      {items.map((item) => (
+        <li class:list={['doc-toc-item', { 'doc-toc-item--sub': item.level === 3 }]}>
+          <a href={`#${item.id}`}>{item.title}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}

@@ -8,6 +8,7 @@ interface Props {
   description?: string;
   wide?: boolean;
   full?: boolean;
+  doc?: boolean;
   breadcrumbs?: { label: string; href?: string }[];
 }
 
@@ -16,6 +17,7 @@ const {
   description = 'Read-only explanations of theories, patterns, research, and methods.',
   wide = false,
   full = false,
+  doc = false,
   breadcrumbs = [],
 } = Astro.props;
 
@@ -100,7 +102,7 @@ const mobileNav = nav;
           </button>
         </header>
 
-        <div class:list={['content', { 'content--wide': wide, 'content--full': full }]}>
+        <div class:list={['content', { 'content--wide': wide, 'content--full': full, 'content--doc': doc }]}>
           <slot />
         </div>
       </div>

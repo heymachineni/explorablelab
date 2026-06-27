@@ -1,0 +1,27 @@
+---
+import { displayTitle, typeLabel } from '../lib/museum';
+import type { Exhibit } from '../types';
+
+interface Props {
+  exhibits: Exhibit[];
+  title?: string;
+}
+
+const { exhibits, title = 'Related' } = Astro.props;
+---
+
+{exhibits.length > 0 && (
+  <aside class="related-panel">
+    <p class="related-panel-label">{title}</p>
+    <ul class="related-list">
+      {exhibits.map((exhibit) => (
+        <li>
+          <a href={`/exhibit/${exhibit.slug}`} class="related-link">
+            <span class="related-link-title">{displayTitle(exhibit)}</span>
+            <span class="related-link-meta">{typeLabel(exhibit)}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </aside>
+)}

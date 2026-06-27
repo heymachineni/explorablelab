@@ -8,8 +8,8 @@ const atlasItems = exhibits.map((e) => ({
   type: e.type,
   typeLabel: typeLabel(e),
   wing: e.wing,
+  summary: e.summary,
   href: `/exhibit/${e.slug}`,
-  relatedCount: e.related.length,
 }));
 
 const typeFilters = Object.entries(TYPE_LABELS).map(([code, label]) => ({ code, label }));
@@ -21,47 +21,55 @@ const typeFilters = Object.entries(TYPE_LABELS).map(([code, label]) => ({ code, 
   breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Atlas' }]}
   full
 >
-  <div class="atlas-header">
+  <header class="list-header atlas-header">
     <div>
-      <h1 class="page-title">Atlas</h1>
-      <p class="page-lead" style="margin-bottom: 0;">
-        {exhibits.length} explanations · search and filter by type · <kbd>⌘K</kbd>
-      </p>
+      <h1 class="list-title">Atlas</h1>
+      <p class="list-lead">{exhibits.length} explanations · filter by type · <kbd>⌘K</kbd></p>
     </div>
-  </div>
+  </header>
 
-  <div class="atlas-controls">
-    <input type="search" class="atlas-search" id="atlas-search" placeholder="Filter explanations…" aria-label="Filter explanations" />
-    <div class="btn-row atlas-filters" id="atlas-filters">
-      <button type="button" class="btn btn-primary atlas-filter active" data-filter="all">All</button>
+  <div class="atlas-toolbar">
+    <input type="search" class="atlas-search" id="atlas-search" placeholder="Search…" aria-label="Search explanations" />
+    <div class="filter-row" id="atlas-filters">
+      <button type="button" class="filter-chip active" data-filter="all">All</button>
       {typeFilters.map(({ code, label }) => (
-        <button type="button" class="btn atlas-filter" data-filter={code}>{label}</button>
+        <button type="button" class="filter-chip" data-filter={code}>{label}</button>
       ))}
     </div>
   </div>
 
-  <div class="db-table" id="atlas-list">
-    {atlasItems.map((item) => (
-      <a
-        href={item.href}
-        class="db-row atlas-row"
-        data-type={item.type}
-        data-search={`${item.title} ${item.slug} ${item.typeLabel} ${item.wing}`.toLowerCase()}
-      >
-        <div>
-          <p class="db-row-title">{item.title}</p>
-          <p class="db-row-meta">{item.typeLabel} · {item.wing} · {item.relatedCount} links</p>
-        </div>
-        <span class="pill pill--meta">{item.typeLabel}</span>
-      </a>
-    ))}
+  <div class="notion-table-wrap">
+    <table class="notion-table notion-table--interactive" id="atlas-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Summary</th>
+          <th>Type</th>
+          <th>Collection</th>
+        </tr>
+      </thead>
+      <tbody>
+        {atlasItems.map((item) => (
+          <tr
+            class="atlas-row"
+            data-type={item.type}
+            data-search={`${item.title} ${item.slug} ${item.typeLabel} ${item.wing} ${item.summary}`.toLowerCase()}
+          >
+            <td><a href={item.href} class="table-link">{item.title}</a></td>
+            <td class="table-muted">{item.summary}</td>
+            <td><span class="property-pill property-pill--gray">{item.typeLabel}</span></td>
+            <td><span class="property-pill property-pill--gray">{item.wing}</span></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   </div>
 </AppLayout>
 
 <script is:inline>
   const search = document.getElementById('atlas-search');
   const rows = Array.from(document.querySelectorAll('.atlas-row'));
-  const filters = Array.from(document.querySelectorAll('.atlas-filter'));
+  const filters = Array.from(document.querySelectorAll('.filter-chip'));
   let mode = new URLSearchParams(window.location.search).get('type') || 'all';
 
   function apply() {
@@ -78,9 +86,7 @@ const typeFilters = Object.entries(TYPE_LABELS).map(([code, label]) => ({ code, 
   function setFilter(next) {
     mode = next;
     filters.forEach((btn) => {
-      const active = (btn.getAttribute('data-filter') ?? 'all') === mode;
-      btn.classList.toggle('active', active);
-      btn.classList.toggle('btn-primary', active);
+      btn.classList.toggle('active', (btn.getAttribute('data-filter') ?? 'all') === mode);
     });
     apply();
   }
@@ -94,12 +100,37 @@ const typeFilters = Object.entries(TYPE_LABELS).map(([code, label]) => ({ code, 
 
 <style>
   .atlas-header {
-    max-width: var(--content-max);
-    margin: 0 auto 1.25rem;
+    max-width: var(--content-wide);
+    margin: 0 auto 1rem;
     padding: 0 clamp(1rem, 3vw, 1.5rem);
   }
 
-  .atlas-controls {
+  .list-header {
+    margin-bottom: 0;
+  }
+
+  .list-title {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin: 0 0 0.35rem;
+  }
+
+  .list-lead {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+  }
+
+  .list-lead kbd {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    padding: 0.05rem 0.3rem;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+  }
+
+  .atlas-toolbar {
     max-width: var(--content-wide);
     margin: 0 auto 1rem;
     padding: 0 clamp(1rem, 3vw, 1.5rem);
@@ -109,20 +140,15 @@ const typeFilters = Object.entries(TYPE_LABELS).map(([code, label]) => ({ code, 
     align-items: center;
   }
 
-  .atlas-filters {
-    flex-wrap: wrap;
-  }
-
   .atlas-search {
     flex: 1;
-    min-width: 200px;
+    min-width: 180px;
     padding: 0.4375rem 0.625rem;
     border: 1px solid var(--border);
     border-radius: var(--radius);
     font-family: var(--font);
     font-size: 0.875rem;
     background: var(--bg);
-    color: var(--text);
   }
 
   .atlas-search:focus {
@@ -130,17 +156,36 @@ const typeFilters = Object.entries(TYPE_LABELS).map(([code, label]) => ({ code, 
     border-color: var(--accent);
   }
 
-  #atlas-list {
-    max-width: var(--content-wide);
-    margin: 0 auto;
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
   }
 
-  .atlas-header kbd,
-  .page-lead kbd {
-    font-family: var(--mono);
-    font-size: 0.6875rem;
-    padding: 0.05rem 0.3rem;
+  .filter-chip {
+    padding: 0.25rem 0.625rem;
+    font-family: var(--font);
+    font-size: 0.8125rem;
     border: 1px solid var(--border);
-    border-radius: 3px;
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+
+  .filter-chip:hover {
+    background: var(--bg-hover);
+  }
+
+  .filter-chip.active {
+    background: var(--text);
+    border-color: var(--text);
+    color: #fff;
+  }
+
+  .notion-table-wrap {
+    max-width: var(--content-wide);
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 1.5rem);
   }
 </style>

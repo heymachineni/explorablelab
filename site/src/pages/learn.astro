@@ -13,25 +13,54 @@ const sorted = [...collections].sort((a, b) => {
   title="Paths"
   description="Curated reading paths through ExplorableLab."
   breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Paths' }]}
+  wide
 >
-  <h1 class="page-title">Paths</h1>
-  <p class="page-lead">
-    Curated reading sequences — each path lists stops in order with time estimates.
-    Every stop is a read-only explanation from our corpus.
-  </p>
+  <header class="list-header">
+    <h1 class="list-title">Paths</h1>
+    <p class="list-lead">Curated reading sequences — ordered stops with time estimates.</p>
+  </header>
 
-  <div class="db-table">
-    {sorted.map((path) => (
-      <a href={`/collection/${path.slug}`} class="db-row">
-        <div>
-          <p class="db-row-title">{path.title}</p>
-          <p class="db-row-meta">
-            {path.time_minutes > 0 ? `${path.time_minutes} min` : 'Reference'} · {path.stops.length} stops
-            {path.emotional_arc ? ` · ${path.emotional_arc}` : ''}
-          </p>
-        </div>
-        <span class="db-row-action">Open</span>
-      </a>
-    ))}
+  <div class="notion-table-wrap">
+    <table class="notion-table notion-table--interactive">
+      <thead>
+        <tr>
+          <th>Path</th>
+          <th>Summary</th>
+          <th>Time</th>
+          <th>Stops</th>
+        </tr>
+      </thead>
+      <tbody>
+        {sorted.map((path) => (
+          <tr>
+            <td>
+              <a href={`/collection/${path.slug}`} class="table-link">{path.title}</a>
+            </td>
+            <td class="table-muted">{path.summary}</td>
+            <td>{path.time_minutes > 0 ? `${path.time_minutes} min` : '—'}</td>
+            <td>{path.stops.length}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   </div>
 </AppLayout>
+
+<style>
+  .list-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .list-title {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin: 0 0 0.35rem;
+  }
+
+  .list-lead {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+  }
+</style>

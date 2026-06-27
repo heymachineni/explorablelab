@@ -1,8 +1,12 @@
 ---
 import AppLayout from '../../layouts/AppLayout.astro';
 import PathBar from '../../components/PathBar.astro';
+import DocHeader from '../../components/DocHeader.astro';
+import DocToc from '../../components/DocToc.astro';
+import DocBody from '../../components/DocBody.astro';
+import RelatedPanel from '../../components/RelatedPanel.astro';
 import canonicalData from '../../data/canonical.json';
-import { loadExhibitMarkdown } from '../../lib/content';
+import { loadExhibitDocument } from '../../lib/content';
 import {
   collectionBySlug,
   displaySummary,
@@ -15,21 +19,21 @@ import type { Exhibit } from '../../types';
 
 export function getStaticPaths() {
   const exhibits = canonicalData.exhibits as Exhibit[];
-  return exhibits.map((exhibit) => {
-    const html = loadExhibitMarkdown(exhibit.contentPath);
-    return {
-      params: { slug: exhibit.slug },
-      props: { exhibit, html },
-    };
-  });
+  return exhibits.map((exhibit) => ({
+    params: { slug: exhibit.slug },
+    props: {
+      exhibit,
+      document: loadExhibitDocument(exhibit.contentPath),
+    },
+  }));
 }
 
 interface Props {
   exhibit: Exhibit;
-  html: string | null;
+  document: ReturnType<typeof loadExhibitDocument>;
 }
 
-const { exhibit, html } = Astro.props;
+const { exhibit, document } = Astro.props;
 const pathSlug = Astro.url.searchParams.get('path');
 const stepParam = Astro.url.searchParams.get('step');
 const stepIndex = stepParam !== null ? Number(stepParam) : -1;
@@ -39,15 +43,12 @@ let prevHref: string | undefined;
 let nextHref: string | undefined;
 
 if (path && stepIndex >= 0) {
-  if (stepIndex > 0) {
-    prevHref = exhibitUrl(path.stops[stepIndex - 1], path.slug, stepIndex - 1);
-  }
-  if (stepIndex < path.stops.length - 1) {
-    nextHref = exhibitUrl(path.stops[stepIndex + 1], path.slug, stepIndex + 1);
-  }
+  if (stepIndex > 0) prevHref = exhibitUrl(path.stops[stepIndex - 1], path.slug, stepIndex - 1);
+  if (stepIndex < path.stops.length - 1) nextHref = exhibitUrl(path.stops[stepIndex + 1], path.slug, stepIndex + 1);
 }
 
-const related = relatedExhibits(exhibit, 6);
+const related = relatedExhibits(exhibit, 8);
+const meta = document?.meta ?? { fields: [], tags: [] };
 ---
 
 <AppLayout
@@ -59,7 +60,7 @@ const related = relatedExhibits(exhibit, 6);
     ...(path ? [{ label: path.title, href: `/collection/${path.slug}` }] : []),
     { label: displayTitle(exhibit) },
   ]}
-  wide
+  doc
 >
   {path && stepIndex >= 0 && (
     <PathBar
@@ -72,56 +73,38 @@ const related = relatedExhibits(exhibit, 6);
     />
   )}
 
-  <header class="exhibit-head">
-    <div class="exhibit-head-top">
-      <span class="pill pill--meta">{typeLabel(exhibit)} · {exhibit.wing}</span>
-    </div>
-    <h1 class="page-title">{displayTitle(exhibit)}</h1>
-    <p class="page-lead">{displaySummary(exhibit)}</p>
-  </header>
+  <div class="doc-layout">
+    <article class="doc-main">
+      <DocHeader
+        essence={document?.essence}
+        summary={displaySummary(exhibit)}
+        typeLabel={typeLabel(exhibit)}
+        wing={exhibit.wing}
+        meta={meta}
+      >
+        {displayTitle(exhibit)}
+      </DocHeader>
 
-  {html ? (
-    <article class="article-body" set:html={html} />
-  ) : (
-    <div class="placeholder-box">
-      <p>No written explanation is available for this entry yet.</p>
-    </div>
-  )}
+      {document && document.sections.length > 0 ? (
+        <DocBody sections={document.sections} />
+      ) : (
+        <div class="empty-doc">
+          <p>This explanation is being written. Check back after the next content pass.</p>
+        </div>
+      )}
 
-  {related.length > 0 && (
-    <section class="section">
-      <p class="section-label">Related</p>
-      <div class="db-table">
-        {related.map((rel) => (
-          <a href={`/exhibit/${rel.slug}`} class="db-row">
-            <div>
-              <p class="db-row-title">{displayTitle(rel)}</p>
-              <p class="db-row-meta">{typeLabel(rel)} · {rel.summary}</p>
-            </div>
-            <span class="db-row-action">Read</span>
-          </a>
-        ))}
-      </div>
-    </section>
-  )}
+      {!path && (
+        <footer class="doc-footer">
+          <a href="/graph" class="text-link">← Back to Atlas</a>
+          <span class="doc-footer-sep">·</span>
+          <a href="/learn" class="text-link">Browse paths</a>
+        </footer>
+      )}
+    </article>
 
-  {!path && (
-    <footer class="path-actions">
-      <a href="/graph" class="btn btn-ghost">← Atlas</a>
-      <a href="/learn" class="btn">Browse paths</a>
-    </footer>
-  )}
+    <aside class="doc-aside">
+      {document && <DocToc items={document.toc} />}
+      <RelatedPanel exhibits={related} />
+    </aside>
+  </div>
 </AppLayout>
-
-<style>
-  .exhibit-head {
-    margin-bottom: 1.25rem;
-  }
-
-  .exhibit-head-top {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.375rem;
-    margin-bottom: 0.625rem;
-  }
-</style>

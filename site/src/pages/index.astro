@@ -14,168 +14,322 @@ const patterns = exhibitsByType('PAT');
 ---
 
 <AppLayout title="ExplorableLab">
-  <section class="hero-block">
-    <p class="section-label">Research museum</p>
-    <h1 class="page-title">Theories, patterns, and methods — explained.</h1>
-    <p class="page-lead">
-      Read-only explanations from our corpus. No external embeds, no unfinished sims —
-      just what we know about each idea, how it connects, and why it matters.
+  <div class="home-cover">
+    <h1 class="home-title">ExplorableLab</h1>
+    <p class="home-subtitle">
+      Researched explanations of theories, patterns, paradoxes, and methods —
+      written to be read, linked, and followed in paths.
     </p>
+  </div>
 
-    <div class="stat-row">
-      <div class="stat-item">
-        <div class="stat-value">{stats.total}</div>
-        <div class="stat-label">Explanations</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-value">{stats.theories}</div>
-        <div class="stat-label">Theories</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-value">{stats.patterns}</div>
-        <div class="stat-label">Patterns</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-value">{stats.paths}</div>
-        <div class="stat-label">Paths</div>
-      </div>
+  <div class="home-actions">
+    {startPath && (
+      <a href={`/collection/${startPath.slug}`} class="btn btn-primary">Start first visit</a>
+    )}
+    <a href="/graph" class="btn">Open atlas</a>
+  </div>
+
+  <div class="home-stats">
+    <div class="home-stat">
+      <span class="home-stat-value">{stats.total}</span>
+      <span class="home-stat-label">Explanations</span>
     </div>
-
-    <div class="btn-row">
-      {startPath && (
-        <a href={`/collection/${startPath.slug}`} class="btn btn-primary">Begin first visit</a>
-      )}
-      <a href="/graph" class="btn">Browse atlas</a>
+    <div class="home-stat">
+      <span class="home-stat-value">{stats.theories}</span>
+      <span class="home-stat-label">Theories</span>
     </div>
-  </section>
+    <div class="home-stat">
+      <span class="home-stat-value">{stats.patterns}</span>
+      <span class="home-stat-label">Patterns</span>
+    </div>
+    <div class="home-stat">
+      <span class="home-stat-value">{stats.paths}</span>
+      <span class="home-stat-label">Paths</span>
+    </div>
+  </div>
 
-  <section class="section">
-    <p class="section-label">Browse by type</p>
-    <div class="how-grid">
-      <div class="how-card">
-        <h3>Theories</h3>
-        <p>{stats.theories} foundational models — emergence, ergodicity, contagion, and more.</p>
-        <a href="/graph?type=THY">Browse theories →</a>
-      </div>
-      <div class="how-card">
-        <h3>Patterns</h3>
-        <p>{stats.patterns} interaction and design patterns for explorable explanations.</p>
-        <a href="/graph?type=PAT">Browse patterns →</a>
-      </div>
-      <div class="how-card">
-        <h3>Paths</h3>
-        <p>{stats.paths} curated reading sequences with time estimates.</p>
-        <a href="/learn">Browse paths →</a>
-      </div>
+  <section class="notion-section">
+    <div class="notion-section-head">
+      <h2 class="notion-section-title">Browse by type</h2>
+    </div>
+    <div class="type-grid">
+      <a href="/graph?type=THY" class="type-card">
+        <span class="type-card-label">Theories</span>
+        <span class="type-card-count">{stats.theories}</span>
+        <span class="type-card-desc">Models, mechanisms, formal ideas</span>
+      </a>
+      <a href="/graph?type=PAT" class="type-card">
+        <span class="type-card-label">Patterns</span>
+        <span class="type-card-count">{stats.patterns}</span>
+        <span class="type-card-desc">Interaction and design vocabulary</span>
+      </a>
+      <a href="/graph?type=PAR" class="type-card">
+        <span class="type-card-label">Paradoxes</span>
+        <span class="type-card-count">{stats.paradoxes}</span>
+        <span class="type-card-desc">Counterintuitive results</span>
+      </a>
+      <a href="/graph?type=EXP" class="type-card">
+        <span class="type-card-label">Experiments</span>
+        <span class="type-card-count">{stats.experiments}</span>
+        <span class="type-card-desc">Classic empirical findings</span>
+      </a>
+      <a href="/graph?type=SIM" class="type-card">
+        <span class="type-card-label">Simulations</span>
+        <span class="type-card-count">{stats.simulations}</span>
+        <span class="type-card-desc">Concept specs and build notes</span>
+      </a>
+      <a href="/learn" class="type-card">
+        <span class="type-card-label">Paths</span>
+        <span class="type-card-count">{stats.paths}</span>
+        <span class="type-card-desc">Curated reading sequences</span>
+      </a>
     </div>
   </section>
 
   {startPath && (
-    <section class="section">
-      <div class="section-header-inline">
-        <div>
-          <p class="section-label">Recommended</p>
-          <h2 class="section-title">{startPath.title}</h2>
-          <p class="page-lead" style="margin: 0;">
-            {startPath.time_minutes} min · {startPath.stops.length} stops
-          </p>
-        </div>
-        <a href={`/collection/${startPath.slug}`} class="btn">Start path</a>
+    <section class="notion-section">
+      <div class="notion-section-head">
+        <h2 class="notion-section-title">Recommended path</h2>
+        <a href={`/collection/${startPath.slug}`} class="text-link">Open →</a>
       </div>
+      <a href={`/collection/${startPath.slug}`} class="path-card">
+        <p class="path-card-title">{startPath.title}</p>
+        <p class="path-card-meta">{startPath.time_minutes} min · {startPath.stops.length} stops</p>
+        <p class="path-card-summary">{startPath.summary}</p>
+      </a>
     </section>
   )}
 
-  <section class="section">
-    <p class="section-label">Theories</p>
-    <div class="db-table">
-      {theories.slice(0, 6).map((exhibit) => (
-        <a href={`/exhibit/${exhibit.slug}`} class="db-row">
-          <div>
-            <p class="db-row-title">{displayTitle(exhibit)}</p>
-            <p class="db-row-meta">{exhibit.summary}</p>
-          </div>
-          <span class="db-row-action">Read</span>
-        </a>
-      ))}
+  <section class="notion-section">
+    <div class="notion-section-head">
+      <h2 class="notion-section-title">Theories</h2>
+      <a href="/graph?type=THY" class="text-link">See all →</a>
     </div>
-    {theories.length > 6 && (
-      <p style="margin-top: 0.75rem;">
-        <a href="/graph?type=THY">View all {theories.length} theories →</a>
-      </p>
-    )}
+    <div class="notion-table-wrap">
+      <table class="notion-table notion-table--interactive">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Summary</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          {theories.map((exhibit) => (
+            <tr>
+              <td><a href={`/exhibit/${exhibit.slug}`} class="table-link">{displayTitle(exhibit)}</a></td>
+              <td class="table-muted">{exhibit.summary}</td>
+              <td><span class="property-pill property-pill--gray">{typeLabel(exhibit)}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   </section>
 
-  <section class="section">
-    <p class="section-label">Patterns</p>
-    <div class="db-table">
-      {patterns.slice(0, 6).map((exhibit) => (
-        <a href={`/exhibit/${exhibit.slug}`} class="db-row">
-          <div>
-            <p class="db-row-title">{displayTitle(exhibit)}</p>
-            <p class="db-row-meta">{typeLabel(exhibit)} · {exhibit.wing}</p>
-          </div>
-          <span class="db-row-action">Read</span>
-        </a>
-      ))}
+  <section class="notion-section">
+    <div class="notion-section-head">
+      <h2 class="notion-section-title">Patterns</h2>
+      <a href="/graph?type=PAT" class="text-link">See all →</a>
     </div>
-    {patterns.length > 6 && (
-      <p style="margin-top: 0.75rem;">
-        <a href="/graph?type=PAT">View all {patterns.length} patterns →</a>
-      </p>
-    )}
+    <div class="notion-table-wrap">
+      <table class="notion-table notion-table--interactive">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Summary</th>
+            <th>Collection</th>
+          </tr>
+        </thead>
+        <tbody>
+          {patterns.map((exhibit) => (
+            <tr>
+              <td><a href={`/exhibit/${exhibit.slug}`} class="table-link">{displayTitle(exhibit)}</a></td>
+              <td class="table-muted">{exhibit.summary}</td>
+              <td><span class="property-pill property-pill--gray">{exhibit.wing}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   </section>
 </AppLayout>
 
 <style>
-  .hero-block {
-    margin-bottom: 2rem;
+  .home-cover {
+    margin-bottom: 1.25rem;
   }
 
-  .how-grid {
+  .home-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin: 0 0 0.5rem;
+  }
+
+  .home-subtitle {
+    margin: 0;
+    max-width: 42rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  .home-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .home-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 1rem 0 2rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .home-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .home-stat-value {
+    font-size: 1.125rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .home-stat-label {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+  }
+
+  .notion-section {
+    margin-bottom: 2.5rem;
+  }
+
+  .notion-section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .notion-section-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  .type-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
+    gap: 0.5rem;
   }
 
-  .how-card {
-    padding: 1rem;
+  .type-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.875rem;
     border: 1px solid var(--border);
     border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--text);
     background: var(--bg);
   }
 
-  .how-card h3 {
-    font-size: 0.9375rem;
-    margin-bottom: 0.35rem;
+  .type-card:hover {
+    background: var(--bg-hover);
   }
 
-  .how-card p {
-    margin: 0 0 0.625rem;
+  .type-card-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .type-card-count {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+  }
+
+  .type-card-desc {
     font-size: 0.8125rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin-top: 0.25rem;
+  }
+
+  .path-card {
+    display: block;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--text);
+  }
+
+  .path-card:hover {
+    background: var(--bg-hover);
+  }
+
+  .path-card-title {
+    margin: 0 0 0.25rem;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .path-card-meta {
+    margin: 0 0 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--text-tertiary);
+  }
+
+  .path-card-summary {
+    margin: 0;
+    font-size: 0.875rem;
     color: var(--text-secondary);
     line-height: 1.5;
   }
 
-  .how-card a {
-    font-size: 0.8125rem;
+  .notion-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .notion-table--interactive tbody tr:hover {
+    background: var(--bg-hover);
+  }
+
+  .table-link {
+    color: var(--text);
+    text-decoration: none;
     font-weight: 500;
   }
 
-  .section-header-inline {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 1rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: var(--bg-subtle);
+  .table-link:hover {
+    color: var(--accent);
+  }
+
+  .table-muted {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
   }
 
   @media (max-width: 720px) {
-    .how-grid {
+    .type-grid {
       grid-template-columns: 1fr;
+    }
+
+    .home-title {
+      font-size: 2rem;
     }
   }
 </style>

@@ -1,0 +1,59 @@
+---
+interface Props {
+  essence?: string;
+  summary: string;
+  typeLabel: string;
+  wing: string;
+  meta: {
+    difficulty?: string;
+    confidence?: string;
+    fields: string[];
+    tags: string[];
+  };
+}
+
+const { essence, summary, typeLabel, wing, meta } = Astro.props;
+const callout = essence ?? summary;
+---
+
+<header class="doc-header">
+  <div class="doc-icon" aria-hidden="true">{typeLabel.charAt(0)}</div>
+  <h1 class="doc-title"><slot /></h1>
+</header>
+
+<div class="callout callout--summary">
+  <p>{callout}</p>
+</div>
+
+<dl class="properties">
+  <div class="property">
+    <dt>Type</dt>
+    <dd><span class="property-pill">{typeLabel}</span></dd>
+  </div>
+  <div class="property">
+    <dt>Collection</dt>
+    <dd><span class="property-pill property-pill--gray">{wing}</span></dd>
+  </div>
+  {meta.difficulty && (
+    <div class="property">
+      <dt>Level</dt>
+      <dd><span class="property-pill property-pill--gray">{meta.difficulty}</span></dd>
+    </div>
+  )}
+  {meta.confidence && (
+    <div class="property">
+      <dt>Confidence</dt>
+      <dd><span class="property-pill property-pill--gray">{meta.confidence}</span></dd>
+    </div>
+  )}
+  {meta.fields.length > 0 && (
+    <div class="property property--wide">
+      <dt>Fields</dt>
+      <dd class="property-tags">
+        {meta.fields.map((field) => (
+          <span class="property-pill property-pill--gray">{field}</span>
+        ))}
+      </dd>
+    </div>
+  )}
+</dl>
