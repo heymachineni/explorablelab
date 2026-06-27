@@ -17,7 +17,7 @@
         "sandbox-mode",
         "innocence-horror-hope"
       ],
-      "embedUrl": "https://ncase.me/polygons/"
+      "contentPath": "content/simulations/existing/parable-of-polygons.md"
     },
     {
       "slug": "evolution-of-trust",
@@ -35,7 +35,7 @@
         "parameter-slider",
         "sandbox-mode"
       ],
-      "embedUrl": "https://ncase.me/trust/"
+      "contentPath": "content/simulations/existing/evolution-of-trust.md"
     },
     {
       "slug": "we-become-what-we-behold",
@@ -51,7 +51,7 @@
         "role-as-system",
         "innocence-horror-hope"
       ],
-      "embedUrl": "https://ncase.me/social-media/"
+      "contentPath": "content/simulations/existing/we-become-what-we-behold.md"
     },
     {
       "slug": "to-build-a-better-ballot",
@@ -67,7 +67,7 @@
         "ladder-of-abstraction",
         "sandbox-mode"
       ],
-      "embedUrl": "https://ncase.me/ballot/"
+      "contentPath": "content/simulations/existing/to-build-a-better-ballot.md"
     },
     {
       "slug": "loopy",
@@ -81,7 +81,7 @@
         "feedback-loops",
         "sandbox-mode"
       ],
-      "embedUrl": "https://ncase.me/loopy/"
+      "contentPath": "content/simulations/existing/loopy.md"
     },
     {
       "slug": "fireflies",
@@ -96,7 +96,7 @@
         "parameter-slider",
         "sandbox-mode"
       ],
-      "embedUrl": "https://ncase.me/fireflies/"
+      "contentPath": "content/simulations/existing/fireflies.md"
     },
     {
       "slug": "wisdom-and-madness-of-crowds",
@@ -112,7 +112,7 @@
         "graph-rewiring",
         "comparison-view"
       ],
-      "embedUrl": "https://ncase.me/crowds/"
+      "contentPath": "content/simulations/existing/wisdom-and-madness-of-crowds.md"
     },
     {
       "slug": "adventures-with-anxiety",
@@ -127,7 +127,7 @@
         "role-as-system",
         "innocence-horror-hope"
       ],
-      "embedUrl": "https://ncase.me/anxiety/"
+      "contentPath": "content/simulations/existing/adventures-with-anxiety.md"
     },
     {
       "slug": "how-to-remember-anything-forever-ish",
@@ -141,7 +141,7 @@
         "predict-then-reveal",
         "sandbox-mode"
       ],
-      "embedUrl": "https://ncase.me/remember/"
+      "contentPath": "content/simulations/existing/how-to-remember-anything-forever-ish.md"
     },
     {
       "slug": "petrie-multiplier",
@@ -154,9 +154,9 @@
       "related": [
         "schelling-segregation",
         "agent-placement",
-        "parable-of-polygons"
+        "parameter-slider"
       ],
-      "playUrl": "/sims/petrie-multiplier/"
+      "contentPath": "content/simulations/concepts/petrie-multiplier.md"
     },
     {
       "slug": "ergodicity-street",
@@ -169,9 +169,9 @@
       "related": [
         "schelling-segregation",
         "agent-placement",
-        "parable-of-polygons"
+        "parameter-slider"
       ],
-      "playUrl": "/sims/ergodicity-street/"
+      "contentPath": "content/simulations/concepts/ergodicity-street.md"
     },
     {
       "slug": "percolation-city",
@@ -184,8 +184,9 @@
       "related": [
         "schelling-segregation",
         "agent-placement",
-        "parable-of-polygons"
-      ]
+        "parameter-slider"
+      ],
+      "contentPath": "content/simulations/concepts/percolation-city.md"
     },
     {
       "slug": "majority-illusion",
@@ -198,8 +199,9 @@
       "related": [
         "schelling-segregation",
         "agent-placement",
-        "parable-of-polygons"
-      ]
+        "parameter-slider"
+      ],
+      "contentPath": "content/simulations/concepts/majority-illusion.md"
     },
     {
       "slug": "goodhart-school",
@@ -212,8 +214,9 @@
       "related": [
         "schelling-segregation",
         "agent-placement",
-        "parable-of-polygons"
-      ]
+        "parameter-slider"
+      ],
+      "contentPath": "content/simulations/concepts/goodhart-school.md"
     },
     {
       "slug": "simpsons-paradox-university",
@@ -226,8 +229,9 @@
       "related": [
         "schelling-segregation",
         "agent-placement",
-        "parable-of-polygons"
-      ]
+        "parameter-slider"
+      ],
+      "contentPath": "content/simulations/concepts/simpsons-paradox-university.md"
     },
     {
       "slug": "complex-contagion-protest",
@@ -240,8 +244,9 @@
       "related": [
         "schelling-segregation",
         "agent-placement",
-        "parable-of-polygons"
-      ]
+        "parameter-slider"
+      ],
+      "contentPath": "content/simulations/concepts/complex-contagion-protest.md"
     },
     {
       "slug": "base-rate-hospital",
@@ -254,8 +259,9 @@
       "related": [
         "schelling-segregation",
         "agent-placement",
-        "parable-of-polygons"
-      ]
+        "parameter-slider"
+      ],
+      "contentPath": "content/simulations/concepts/base-rate-hospital.md"
     },
     {
       "slug": "braess-roads",
@@ -268,8 +274,9 @@
       "related": [
         "schelling-segregation",
         "agent-placement",
-        "parable-of-polygons"
-      ]
+        "parameter-slider"
+      ],
+      "contentPath": "content/simulations/concepts/braess-roads.md"
     },
     {
       "slug": "pluralistic-ignorance-pool",
@@ -282,8 +289,9 @@
       "related": [
         "schelling-segregation",
         "agent-placement",
-        "parable-of-polygons"
-      ]
+        "parameter-slider"
+      ],
+      "contentPath": "content/simulations/concepts/pluralistic-ignorance-pool.md"
     },
     {
       "slug": "sandpile-avalanche",
@@ -296,8 +304,9 @@
       "related": [
         "schelling-segregation",
         "agent-placement",
-        "parable-of-polygons"
-      ]
+        "parameter-slider"
+      ],
+      "contentPath": "content/simulations/concepts/sandpile-avalanche.md"
     },
     {
       "slug": "commons-garden",
@@ -310,8 +319,9 @@
       "related": [
         "schelling-segregation",
         "agent-placement",
-        "parable-of-polygons"
-      ]
+        "parameter-slider"
+      ],
+      "contentPath": "content/simulations/concepts/commons-garden.md"
     },
     {
       "slug": "maxwells-demon-box",
@@ -324,8 +334,9 @@
       "related": [
         "schelling-segregation",
         "agent-placement",
-        "parable-of-polygons"
-      ]
+        "parameter-slider"
+      ],
+      "contentPath": "content/simulations/concepts/maxwells-demon-box.md"
     },
     {
       "slug": "jane-jacobs-corner",
@@ -338,8 +349,9 @@
       "related": [
         "schelling-segregation",
         "agent-placement",
-        "parable-of-polygons"
-      ]
+        "parameter-slider"
+      ],
+      "contentPath": "content/simulations/concepts/jane-jacobs-corner.md"
     },
     {
       "slug": "urban-percolation-equity",
@@ -352,8 +364,9 @@
       "related": [
         "schelling-segregation",
         "agent-placement",
-        "parable-of-polygons"
-      ]
+        "parameter-slider"
+      ],
+      "contentPath": "content/simulations/concepts/urban-percolation-equity.md"
     },
     {
       "slug": "contagion-of-courage",
@@ -366,8 +379,9 @@
       "related": [
         "schelling-segregation",
         "agent-placement",
-        "parable-of-polygons"
-      ]
+        "parameter-slider"
+      ],
+      "contentPath": "content/simulations/concepts/contagion-of-courage.md"
     },
     {
       "slug": "ergodic-inequality",
@@ -380,8 +394,9 @@
       "related": [
         "schelling-segregation",
         "agent-placement",
-        "parable-of-polygons"
-      ]
+        "parameter-slider"
+      ],
+      "contentPath": "content/simulations/concepts/ergodic-inequality.md"
     },
     {
       "slug": "krebs-cycle-of-outrage",
@@ -394,8 +409,9 @@
       "related": [
         "schelling-segregation",
         "agent-placement",
-        "parable-of-polygons"
-      ]
+        "parameter-slider"
+      ],
+      "contentPath": "content/simulations/concepts/krebs-cycle-of-outrage.md"
     },
     {
       "slug": "schelling-segregation",
@@ -406,10 +422,11 @@
       "wing": "systems",
       "status": "canonical",
       "related": [
-        "parable-of-polygons",
         "emergence",
-        "threshold-models"
-      ]
+        "threshold-models",
+        "agent-placement"
+      ],
+      "contentPath": "content/theories/complex-systems/schelling-segregation.md"
     },
     {
       "slug": "emergence",
@@ -424,7 +441,8 @@
         "fireflies",
         "sandpile-avalanche",
         "agent-placement"
-      ]
+      ],
+      "contentPath": "content/theories/complex-systems/emergence.md"
     },
     {
       "slug": "threshold-models",
@@ -439,7 +457,8 @@
         "complex-contagion-protest",
         "1978-granovetter-threshold",
         "schelling-segregation"
-      ]
+      ],
+      "contentPath": "content/theories/complex-systems/threshold-models.md"
     },
     {
       "slug": "feedback-loops",
@@ -454,7 +473,8 @@
         "we-become-what-we-behold",
         "krebs-cycle-of-outrage",
         "feedback-loop-circle"
-      ]
+      ],
+      "contentPath": "content/theories/complex-systems/feedback-loops.md"
     },
     {
       "slug": "percolation",
@@ -469,7 +489,8 @@
         "urban-percolation-equity",
         "braess-roads",
         "schelling-segregation"
-      ]
+      ],
+      "contentPath": "content/theories/network-science/percolation.md"
     },
     {
       "slug": "goodharts-law",
@@ -484,7 +505,8 @@
         "metric-hydra",
         "cobra-farm",
         "p-hacking-lab"
-      ]
+      ],
+      "contentPath": "content/theories/complex-systems/goodharts-law.md"
     },
     {
       "slug": "ostrom-commons-design",
@@ -499,7 +521,8 @@
         "2009-ostrom-commons",
         "tragedy-of-the-commons",
         "evolution-of-trust"
-      ]
+      ],
+      "contentPath": "content/theories/complex-systems/ostrom-commons-design.md"
     },
     {
       "slug": "social-choice",
@@ -514,7 +537,8 @@
         "stochastic-resonance-democracy",
         "prisoners-dilemma",
         "evolution-of-trust"
-      ]
+      ],
+      "contentPath": "content/theories/complex-systems/social-choice.md"
     },
     {
       "slug": "ergodicity",
@@ -529,7 +553,8 @@
         "ergodic-inequality",
         "st-petersburg-paradox",
         "fat-tail-farm"
-      ]
+      ],
+      "contentPath": "content/theories/probability/ergodicity.md"
     },
     {
       "slug": "complex-contagion",
@@ -544,7 +569,8 @@
         "contagion-of-courage",
         "2007-centola-complex-contagion",
         "wisdom-and-madness-of-crowds"
-      ]
+      ],
+      "contentPath": "content/theories/network-science/complex-contagion.md"
     },
     {
       "slug": "information-cascades",
@@ -559,7 +585,8 @@
         "wisdom-and-madness-of-crowds",
         "majority-illusion",
         "we-become-what-we-behold"
-      ]
+      ],
+      "contentPath": "content/theories/network-science/information-cascades.md"
     },
     {
       "slug": "iterated-prisoners-dilemma",
@@ -574,7 +601,8 @@
         "prisoners-dilemma",
         "prisoners-dilemma-tournament",
         "commons-garden"
-      ]
+      ],
+      "contentPath": "content/theories/complex-systems/iterated-prisoners-dilemma.md"
     },
     {
       "slug": "agent-placement",
@@ -588,7 +616,8 @@
         "parable-of-polygons",
         "schelling-segregation",
         "sandbox-mode"
-      ]
+      ],
+      "contentPath": "content/design/interaction-patterns/agent-placement.md"
     },
     {
       "slug": "parameter-slider",
@@ -602,7 +631,8 @@
         "fireflies",
         "evolution-of-trust",
         "parable-of-polygons"
-      ]
+      ],
+      "contentPath": "content/design/interaction-patterns/parameter-slider.md"
     },
     {
       "slug": "sandbox-mode",
@@ -616,7 +646,8 @@
         "evolution-of-trust",
         "to-build-a-better-ballot",
         "loopy"
-      ]
+      ],
+      "contentPath": "content/design/interaction-patterns/sandbox-mode.md"
     },
     {
       "slug": "but-chain",
@@ -630,7 +661,8 @@
         "evolution-of-trust",
         "we-become-what-we-behold",
         "but-chain-narrative"
-      ]
+      ],
+      "contentPath": "content/design/interaction-patterns/but-chain.md"
     },
     {
       "slug": "predict-then-reveal",
@@ -644,7 +676,8 @@
         "monty-hall-carnival",
         "petrie-multiplier",
         "how-to-remember-anything-forever-ish"
-      ]
+      ],
+      "contentPath": "content/design/interaction-patterns/predict-then-reveal.md"
     },
     {
       "slug": "comparison-view",
@@ -658,7 +691,8 @@
         "to-build-a-better-ballot",
         "wisdom-and-madness-of-crowds",
         "simpsons-paradox-university"
-      ]
+      ],
+      "contentPath": "content/design/interaction-patterns/comparison-view.md"
     },
     {
       "slug": "role-as-system",
@@ -672,7 +706,8 @@
         "adventures-with-anxiety",
         "we-become-what-we-behold",
         "innocence-horror-hope"
-      ]
+      ],
+      "contentPath": "content/design/interaction-patterns/role-as-system.md"
     },
     {
       "slug": "graph-rewiring",
@@ -686,7 +721,8 @@
         "wisdom-and-madness-of-crowds",
         "weak-tie-bridge",
         "majority-illusion"
-      ]
+      ],
+      "contentPath": "content/design/interaction-patterns/graph-rewiring.md"
     },
     {
       "slug": "ladder-of-abstraction",
@@ -700,7 +736,8 @@
         "parable-of-polygons",
         "to-build-a-better-ballot",
         "agent-placement"
-      ]
+      ],
+      "contentPath": "content/design/interaction-patterns/ladder-of-abstraction.md"
     },
     {
       "slug": "playable-game",
@@ -714,7 +751,8 @@
         "evolution-of-trust",
         "ultimatum-game",
         "newcomb-predictor"
-      ]
+      ],
+      "contentPath": "content/design/interaction-patterns/playable-game.md"
     },
     {
       "slug": "innocence-horror-hope",
@@ -728,7 +766,8 @@
         "parable-of-polygons",
         "we-become-what-we-behold",
         "goodhart-school"
-      ]
+      ],
+      "contentPath": "content/design/storytelling-structures/innocence-horror-hope.md"
     },
     {
       "slug": "echo-start-sandbox-end",
@@ -742,7 +781,8 @@
         "how-to-remember-anything-forever-ish",
         "sandbox-mode",
         "predict-then-reveal"
-      ]
+      ],
+      "contentPath": "content/design/storytelling-structures/echo-start-sandbox-end.md"
     },
     {
       "slug": "neighborhood-grid",
@@ -756,7 +796,8 @@
         "parable-of-polygons",
         "schelling-segregation",
         "urban-percolation-equity"
-      ]
+      ],
+      "contentPath": "content/design/visual-metaphors/neighborhood-grid.md"
     },
     {
       "slug": "feedback-loop-circle",
@@ -770,7 +811,8 @@
         "loopy",
         "feedback-loops",
         "krebs-cycle-of-outrage"
-      ]
+      ],
+      "contentPath": "content/design/visual-metaphors/feedback-loop-circle.md"
     },
     {
       "slug": "but-chain-narrative",
@@ -784,7 +826,8 @@
         "but-chain",
         "evolution-of-trust",
         "innocence-horror-hope"
-      ]
+      ],
+      "contentPath": "content/design/storytelling-structures/but-chain-narrative.md"
     },
     {
       "slug": "monty-hall-carnival",
@@ -798,7 +841,8 @@
         "monty-hall",
         "predict-then-reveal",
         "base-rate-hospital"
-      ]
+      ],
+      "contentPath": "content/simulations/concepts/monty-hall-carnival.md"
     },
     {
       "slug": "newcomb-predictor",
@@ -812,7 +856,8 @@
         "newcomb-paradox",
         "predict-then-reveal",
         "evolution-of-trust"
-      ]
+      ],
+      "contentPath": "content/simulations/concepts/newcomb-predictor.md"
     },
     {
       "slug": "simpsons-paradox-university",
@@ -826,7 +871,8 @@
         "simpsons-paradox",
         "base-rate-hospital",
         "p-hacking-lab"
-      ]
+      ],
+      "contentPath": "content/simulations/concepts/simpsons-paradox-university.md"
     },
     {
       "slug": "friendship-paradox-club",
@@ -840,7 +886,8 @@
         "friendship-paradox",
         "majority-illusion",
         "wisdom-and-madness-of-crowds"
-      ]
+      ],
+      "contentPath": "content/simulations/concepts/friendship-paradox-club.md"
     },
     {
       "slug": "standing-ovation",
@@ -854,7 +901,8 @@
         "threshold-models",
         "complex-contagion-protest",
         "pluralistic-ignorance-pool"
-      ]
+      ],
+      "contentPath": "content/simulations/concepts/standing-ovation.md"
     },
     {
       "slug": "weak-tie-bridge",
@@ -868,7 +916,8 @@
         "wisdom-and-madness-of-crowds",
         "information-cascade-falls",
         "complex-contagion"
-      ]
+      ],
+      "contentPath": "content/simulations/concepts/weak-tie-bridge.md"
     },
     {
       "slug": "cobra-farm",
@@ -882,7 +931,8 @@
         "goodharts-law",
         "goodhart-school",
         "metric-hydra"
-      ]
+      ],
+      "contentPath": "content/simulations/concepts/cobra-farm.md"
     },
     {
       "slug": "braess-roads",
@@ -896,7 +946,8 @@
         "braess-paradox",
         "percolation-city",
         "social-choice"
-      ]
+      ],
+      "contentPath": "content/simulations/concepts/braess-roads.md"
     },
     {
       "slug": "information-cascade-falls",
@@ -910,7 +961,8 @@
         "information-cascades",
         "wisdom-and-madness-of-crowds",
         "pluralistic-ignorance-pool"
-      ]
+      ],
+      "contentPath": "content/simulations/concepts/information-cascade-falls.md"
     },
     {
       "slug": "base-rate-hospital",
@@ -924,7 +976,8 @@
         "prosecutors-dna",
         "monty-hall-carnival",
         "bayesian-therapy"
-      ]
+      ],
+      "contentPath": "content/simulations/concepts/base-rate-hospital.md"
     },
     {
       "slug": "p-hacking-lab",
@@ -938,7 +991,8 @@
         "goodharts-law",
         "simpsons-paradox-university",
         "metric-hydra"
-      ]
+      ],
+      "contentPath": "content/simulations/concepts/p-hacking-lab.md"
     },
     {
       "slug": "prosecutors-dna",
@@ -952,7 +1006,8 @@
         "base-rate-hospital",
         "monty-hall",
         "bayesian-therapy"
-      ]
+      ],
+      "contentPath": "content/simulations/concepts/prosecutors-dna.md"
     },
     {
       "slug": "fat-tail-farm",
@@ -966,7 +1021,8 @@
         "ergodicity-street",
         "st-petersburg-paradox",
         "ergodicity"
-      ]
+      ],
+      "contentPath": "content/simulations/concepts/fat-tail-farm.md"
     },
     {
       "slug": "galton-board",
@@ -980,7 +1036,8 @@
         "birthday-paradox",
         "probability-statistics",
         "base-rate-hospital"
-      ]
+      ],
+      "contentPath": "content/simulations/concepts/galton-board.md"
     },
     {
       "slug": "parrondo-casino",
@@ -994,7 +1051,8 @@
         "st-petersburg-paradox",
         "prisoners-dilemma",
         "evolution-of-trust"
-      ]
+      ],
+      "contentPath": "content/simulations/concepts/parrondo-casino.md"
     },
     {
       "slug": "bayesian-therapy",
@@ -1008,7 +1066,8 @@
         "base-rate-hospital",
         "prosecutors-dna",
         "monty-hall-carnival"
-      ]
+      ],
+      "contentPath": "content/simulations/concepts/bayesian-therapy.md"
     },
     {
       "slug": "metric-hydra",
@@ -1022,7 +1081,8 @@
         "goodhart-school",
         "cobra-farm",
         "goodharts-law"
-      ]
+      ],
+      "contentPath": "content/simulations/concepts/metric-hydra.md"
     },
     {
       "slug": "stochastic-resonance-democracy",
@@ -1036,7 +1096,8 @@
         "social-choice",
         "to-build-a-better-ballot",
         "information-cascades"
-      ]
+      ],
+      "contentPath": "content/simulations/concepts/stochastic-resonance-democracy.md"
     },
     {
       "slug": "polya-culture-wars",
@@ -1050,7 +1111,8 @@
         "complex-contagion",
         "wisdom-and-madness-of-crowds",
         "schelling-segregation"
-      ]
+      ],
+      "contentPath": "content/simulations/concepts/polya-culture-wars.md"
     },
     {
       "slug": "deffuant-polarization",
@@ -1064,7 +1126,8 @@
         "wisdom-and-madness-of-crowds",
         "krebs-cycle-of-outrage",
         "we-become-what-we-behold"
-      ]
+      ],
+      "contentPath": "content/simulations/concepts/deffuant-polarization.md"
     },
     {
       "slug": "monty-hall",
@@ -1078,7 +1141,8 @@
         "monty-hall-carnival",
         "predict-then-reveal",
         "base-rate-hospital"
-      ]
+      ],
+      "contentPath": "content/paradoxes/probability/monty-hall.md"
     },
     {
       "slug": "simpsons-paradox",
@@ -1092,7 +1156,8 @@
         "simpsons-paradox-university",
         "p-hacking-lab",
         "base-rate-hospital"
-      ]
+      ],
+      "contentPath": "content/paradoxes/probability/simpsons-paradox.md"
     },
     {
       "slug": "st-petersburg-paradox",
@@ -1106,7 +1171,8 @@
         "fat-tail-farm",
         "ergodicity",
         "ergodicity-street"
-      ]
+      ],
+      "contentPath": "content/paradoxes/probability/st-petersburg-paradox.md"
     },
     {
       "slug": "two-envelope-paradox",
@@ -1120,7 +1186,8 @@
         "st-petersburg-paradox",
         "newcomb-paradox",
         "bayesian-therapy"
-      ]
+      ],
+      "contentPath": "content/paradoxes/probability/two-envelope-paradox.md"
     },
     {
       "slug": "sleeping-beauty",
@@ -1134,7 +1201,8 @@
         "newcomb-paradox",
         "bayesian-therapy",
         "predict-then-reveal"
-      ]
+      ],
+      "contentPath": "content/paradoxes/probability/sleeping-beauty.md"
     },
     {
       "slug": "newcomb-paradox",
@@ -1148,7 +1216,8 @@
         "newcomb-predictor",
         "predict-then-reveal",
         "evolution-of-trust"
-      ]
+      ],
+      "contentPath": "content/paradoxes/probability/newcomb-paradox.md"
     },
     {
       "slug": "prisoners-dilemma",
@@ -1162,7 +1231,8 @@
         "evolution-of-trust",
         "iterated-prisoners-dilemma",
         "commons-garden"
-      ]
+      ],
+      "contentPath": "content/paradoxes/probability/prisoners-dilemma.md"
     },
     {
       "slug": "tragedy-of-the-commons",
@@ -1176,7 +1246,8 @@
         "commons-garden",
         "ostrom-commons-design",
         "2009-ostrom-commons"
-      ]
+      ],
+      "contentPath": "content/paradoxes/probability/tragedy-of-the-commons.md"
     },
     {
       "slug": "braess-paradox",
@@ -1190,7 +1261,8 @@
         "braess-roads",
         "percolation-city",
         "social-choice"
-      ]
+      ],
+      "contentPath": "content/paradoxes/probability/braess-paradox.md"
     },
     {
       "slug": "friendship-paradox",
@@ -1204,7 +1276,8 @@
         "friendship-paradox-club",
         "majority-illusion",
         "wisdom-and-madness-of-crowds"
-      ]
+      ],
+      "contentPath": "content/paradoxes/probability/friendship-paradox.md"
     },
     {
       "slug": "birthday-paradox",
@@ -1218,7 +1291,8 @@
         "galton-board",
         "probability-statistics",
         "monty-hall"
-      ]
+      ],
+      "contentPath": "content/paradoxes/probability/birthday-paradox.md"
     },
     {
       "slug": "unexpected-hanging",
@@ -1232,7 +1306,8 @@
         "predict-then-reveal",
         "newcomb-paradox",
         "sleeping-beauty"
-      ]
+      ],
+      "contentPath": "content/paradoxes/probability/unexpected-hanging.md"
     },
     {
       "slug": "milgram-obedience",
@@ -1246,7 +1321,8 @@
         "asch-conformity",
         "stanford-prison-experiment",
         "pluralistic-ignorance-pool"
-      ]
+      ],
+      "contentPath": "content/experiments/milgram-obedience.md"
     },
     {
       "slug": "asch-conformity",
@@ -1260,7 +1336,8 @@
         "milgram-obedience",
         "pluralistic-ignorance-pool",
         "standing-ovation"
-      ]
+      ],
+      "contentPath": "content/experiments/asch-conformity.md"
     },
     {
       "slug": "stanford-prison-experiment",
@@ -1274,7 +1351,8 @@
         "milgram-obedience",
         "role-as-system",
         "we-become-what-we-behold"
-      ]
+      ],
+      "contentPath": "content/experiments/stanford-prison-experiment.md"
     },
     {
       "slug": "wason-selection-task",
@@ -1288,7 +1366,8 @@
         "invisible-gorilla",
         "cognitive-science",
         "base-rate-hospital"
-      ]
+      ],
+      "contentPath": "content/experiments/wason-selection-task.md"
     },
     {
       "slug": "invisible-gorilla",
@@ -1302,7 +1381,8 @@
         "wason-selection-task",
         "cognitive-science",
         "we-become-what-we-behold"
-      ]
+      ],
+      "contentPath": "content/experiments/invisible-gorilla.md"
     },
     {
       "slug": "ultimatum-game",
@@ -1316,7 +1396,8 @@
         "evolution-of-trust",
         "prisoners-dilemma-tournament",
         "commons-garden"
-      ]
+      ],
+      "contentPath": "content/experiments/ultimatum-game.md"
     },
     {
       "slug": "marshmallow-test",
@@ -1330,7 +1411,8 @@
         "feedback-loops",
         "cognitive-science",
         "evolution-of-trust"
-      ]
+      ],
+      "contentPath": "content/experiments/marshmallow-test.md"
     },
     {
       "slug": "stroop-experiment",
@@ -1344,7 +1426,8 @@
         "cognitive-science",
         "invisible-gorilla",
         "wason-selection-task"
-      ]
+      ],
+      "contentPath": "content/experiments/stroop-experiment.md"
     },
     {
       "slug": "centola-complex-contagion",
@@ -1358,7 +1441,8 @@
         "complex-contagion",
         "2007-centola-complex-contagion",
         "complex-contagion-protest"
-      ]
+      ],
+      "contentPath": "content/experiments/centola-complex-contagion.md"
     },
     {
       "slug": "prisoners-dilemma-tournament",
@@ -1372,7 +1456,8 @@
         "evolution-of-trust",
         "iterated-prisoners-dilemma",
         "prisoners-dilemma"
-      ]
+      ],
+      "contentPath": "content/experiments/prisoners-dilemma-tournament.md"
     },
     {
       "slug": "2013-petrie-harassment-multiplier",
@@ -1386,7 +1471,8 @@
         "petrie-multiplier",
         "complex-systems",
         "social-science"
-      ]
+      ],
+      "contentPath": "content/papers/2013-petrie-harassment-multiplier.md"
     },
     {
       "slug": "1978-granovetter-threshold",
@@ -1400,7 +1486,8 @@
         "threshold-models",
         "standing-ovation",
         "complex-contagion-protest"
-      ]
+      ],
+      "contentPath": "content/papers/1978-granovetter-threshold.md"
     },
     {
       "slug": "2007-centola-complex-contagion",
@@ -1414,7 +1501,8 @@
         "complex-contagion",
         "centola-complex-contagion",
         "complex-contagion-protest"
-      ]
+      ],
+      "contentPath": "content/papers/2007-centola-complex-contagion.md"
     },
     {
       "slug": "schelling-1971-dynamic-models",
@@ -1428,7 +1516,8 @@
         "schelling-segregation",
         "parable-of-polygons",
         "micromotives-and-macrobehavior"
-      ]
+      ],
+      "contentPath": "content/papers/schelling-1971-dynamic-models.md"
     },
     {
       "slug": "2009-ostrom-commons",
@@ -1442,7 +1531,8 @@
         "ostrom-commons-design",
         "commons-garden",
         "tragedy-of-the-commons"
-      ]
+      ],
+      "contentPath": "content/papers/2009-ostrom-commons.md"
     },
     {
       "slug": "micromotives-and-macrobehavior",
@@ -1456,7 +1546,8 @@
         "schelling-segregation",
         "schelling-1971-dynamic-models",
         "parable-of-polygons"
-      ]
+      ],
+      "contentPath": "content/publications/books/micromotives-and-macrobehavior.md"
     },
     {
       "slug": "explorable-explanations",
@@ -1470,7 +1561,8 @@
         "nicky-case",
         "agent-placement",
         "predict-then-reveal"
-      ]
+      ],
+      "contentPath": "content/disciplines/explorable-explanations.md"
     },
     {
       "slug": "complex-systems",
@@ -1484,7 +1576,8 @@
         "emergence",
         "schelling-segregation",
         "feedback-loops"
-      ]
+      ],
+      "contentPath": "content/disciplines/complex-systems.md"
     },
     {
       "slug": "game-theory",
@@ -1498,7 +1591,8 @@
         "evolution-of-trust",
         "prisoners-dilemma",
         "social-choice"
-      ]
+      ],
+      "contentPath": "content/disciplines/game-theory.md"
     },
     {
       "slug": "probability-statistics",
@@ -1512,7 +1606,8 @@
         "monty-hall",
         "base-rate-hospital",
         "birthday-paradox"
-      ]
+      ],
+      "contentPath": "content/disciplines/probability-statistics.md"
     },
     {
       "slug": "cognitive-science",
@@ -1526,7 +1621,8 @@
         "invisible-gorilla",
         "wason-selection-task",
         "adventures-with-anxiety"
-      ]
+      ],
+      "contentPath": "content/disciplines/cognitive-science.md"
     },
     {
       "slug": "nicky-case",
@@ -1540,7 +1636,8 @@
         "parable-of-polygons",
         "evolution-of-trust",
         "we-become-what-we-behold"
-      ]
+      ],
+      "contentPath": "content/designers/nicky-case.md"
     }
   ]
 }

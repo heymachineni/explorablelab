@@ -1,23 +1,22 @@
 ---
-import { exhibits, displayTitle, isPlayable } from '../lib/museum';
+import { exhibits, displayTitle, typeLabel } from '../lib/museum';
 
 const searchItems = exhibits.map((e) => ({
   slug: e.slug,
   title: displayTitle(e),
-  type: e.type,
+  type: typeLabel(e),
   wing: e.wing,
-  playable: isPlayable(e),
-  href: isPlayable(e) ? `/exhibit/${e.slug}` : `/catalog/${e.slug}`,
+  href: `/exhibit/${e.slug}`,
 }));
 ---
 
-<div class="palette-backdrop" id="palette-backdrop" role="dialog" aria-modal="true" aria-label="Search exhibits">
+<div class="palette-backdrop" id="palette-backdrop" role="dialog" aria-modal="true" aria-label="Search explanations">
   <div class="palette">
     <input
       type="search"
       class="palette-input"
       id="palette-input"
-      placeholder="Search exhibits and paths…"
+      placeholder="Search theories, patterns, methods…"
       autocomplete="off"
       aria-label="Search"
     />
@@ -52,14 +51,15 @@ const searchItems = exhibits.map((e) => ({
       ? searchItems.filter((item) =>
           item.title.toLowerCase().includes(q) ||
           item.slug.includes(q) ||
-          item.type.toLowerCase().includes(q)
+          item.type.toLowerCase().includes(q) ||
+          item.wing.toLowerCase().includes(q)
         )
-      : searchItems.filter((item) => item.playable).slice(0, 8);
+      : searchItems.slice(0, 10);
 
     if (!results) return;
 
     if (!filtered.length) {
-      results.innerHTML = '<p class="palette-empty">No exhibits found</p>';
+      results.innerHTML = '<p class="palette-empty">No results found</p>';
       return;
     }
 
@@ -72,7 +72,6 @@ const searchItems = exhibits.map((e) => ({
             <p class="palette-item-title">${item.title}</p>
             <p class="palette-item-meta">${item.type} · ${item.wing}</p>
           </div>
-          <span class="pill ${item.playable ? 'pill--ready' : 'pill--soon'}">${item.playable ? 'Play' : 'Read'}</span>
         </button>`
       )
       .join('');

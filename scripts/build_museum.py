@@ -616,44 +616,58 @@ EXE_TITLES = {
 }
 
 
+def find_content_path(slug: str) -> str | None:
+    for p in CONTENT.rglob("*.md"):
+        if p.name == "README.md":
+            continue
+        t = p.read_text(encoding="utf-8", errors="replace")
+        if re.search(rf'^slug:\s*"?{re.escape(slug)}"?\s*$', t, re.M):
+            return str(p.relative_to(ROOT))
+    return None
+
+
+def attach_content_path(entry: dict) -> dict:
+    path = find_content_path(entry["slug"])
+    if path:
+        entry["contentPath"] = path
+    return entry
+
+
 def export_site_data():
     exhibits = []
     for slug, data in EXE_PAGES.items():
         title = EXE_TITLES.get(slug, slug.replace("-", " ").title())
-        exhibits.append(build_export_entry(
+        exhibits.append(attach_content_path(build_export_entry(
             slug, title, data["summary"], "existing-explorable", "canon",
             data.get("theories", []) + data.get("patterns", []),
-            embed_url=data["url"],
-        ))
+        )))
     for slug, (tagline, _, wing, _comp) in TIER_S.items():
         title = tagline.split(".")[0] if "." in tagline else slug.replace("-", " ").title()
-        play = NATIVE_SIMS.get(slug)
-        exhibits.append(build_export_entry(
+        exhibits.append(attach_content_path(build_export_entry(
             slug, title, tagline, "simulation-concept", wing,
-            ["schelling-segregation", "agent-placement", "parable-of-polygons"],
-            play_url=play,
-        ))
-    exhibits.append(build_export_entry(
+            ["schelling-segregation", "agent-placement", "parameter-slider"],
+        )))
+    exhibits.append(attach_content_path(build_export_entry(
         "schelling-segregation", "Schelling Segregation Model",
         "Mild individual preference for similar neighbors produces dramatic macro-segregation.",
         "theory", "systems",
-        ["parable-of-polygons", "emergence", "threshold-models"],
-    ))
+        ["emergence", "threshold-models", "agent-placement"],
+    )))
     for slug, title, wing, hook, _body, related in THY:
         if slug == "schelling-segregation":
             continue
-        exhibits.append(build_export_entry(slug, title, hook, "theory", wing, related))
+        exhibits.append(attach_content_path(build_export_entry(slug, title, hook, "theory", wing, related)))
     for slug, typ, title, hook, _body, related in DESIGN:
-        exhibits.append(build_export_entry(slug, title, hook, typ, "design", related))
+        exhibits.append(attach_content_path(build_export_entry(slug, title, hook, typ, "design", related)))
     for slug, title, tagline, wing, related in TIER_D:
-        exhibits.append(build_export_entry(slug, title, tagline, "simulation-concept", wing, related))
+        exhibits.append(attach_content_path(build_export_entry(slug, title, tagline, "simulation-concept", wing, related)))
     for slug, title, hook, related in PARADOXES:
-        exhibits.append(build_export_entry(slug, title, hook, "paradox", "paradox", related))
+        exhibits.append(attach_content_path(build_export_entry(slug, title, hook, "paradox", "paradox", related)))
     for slug, title, hook, related in EXPERIMENTS:
-        exhibits.append(build_export_entry(slug, title, hook, "experiment", "systems", related))
+        exhibits.append(attach_content_path(build_export_entry(slug, title, hook, "experiment", "systems", related)))
     for slug, typ, title, summary, related in EVIDENCE:
         wing = "evidence" if typ == "paper" else typ
-        exhibits.append(build_export_entry(slug, title, summary, typ, wing, related))
+        exhibits.append(attach_content_path(build_export_entry(slug, title, summary, typ, wing, related)))
     SITE_DATA.mkdir(parents=True, exist_ok=True)
     (SITE_DATA / "canonical.json").write_text(json.dumps({"exhibits": exhibits}, indent=2), encoding="utf-8")
 

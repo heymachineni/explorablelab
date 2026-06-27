@@ -1,21 +1,23 @@
 ---
 import AppLayout from '../layouts/AppLayout.astro';
-import { displayTitle, exhibits, isPlayable } from '../lib/museum';
+import { displayTitle, exhibits, typeLabel, TYPE_LABELS } from '../lib/museum';
 
 const atlasItems = exhibits.map((e) => ({
   slug: e.slug,
   title: displayTitle(e),
   type: e.type,
+  typeLabel: typeLabel(e),
   wing: e.wing,
-  playable: isPlayable(e),
-  href: isPlayable(e) ? `/exhibit/${e.slug}` : `/catalog/${e.slug}`,
+  href: `/exhibit/${e.slug}`,
   relatedCount: e.related.length,
 }));
+
+const typeFilters = Object.entries(TYPE_LABELS).map(([code, label]) => ({ code, label }));
 ---
 
 <AppLayout
   title="Atlas"
-  description="Search and browse the exhibit catalog."
+  description="Search and browse all explanations."
   breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Atlas' }]}
   full
 >
@@ -23,17 +25,18 @@ const atlasItems = exhibits.map((e) => ({
     <div>
       <h1 class="page-title">Atlas</h1>
       <p class="page-lead" style="margin-bottom: 0;">
-        {exhibits.length} exhibits · search, filter, and open. Press <kbd>⌘K</kbd> anywhere.
+        {exhibits.length} explanations · search and filter by type · <kbd>⌘K</kbd>
       </p>
     </div>
   </div>
 
   <div class="atlas-controls">
-    <input type="search" class="atlas-search" id="atlas-search" placeholder="Filter exhibits…" aria-label="Filter exhibits" />
-    <div class="btn-row">
+    <input type="search" class="atlas-search" id="atlas-search" placeholder="Filter explanations…" aria-label="Filter explanations" />
+    <div class="btn-row atlas-filters" id="atlas-filters">
       <button type="button" class="btn btn-primary atlas-filter active" data-filter="all">All</button>
-      <button type="button" class="btn atlas-filter" data-filter="playable">Playable</button>
-      <button type="button" class="btn atlas-filter" data-filter="catalog">Catalog only</button>
+      {typeFilters.map(({ code, label }) => (
+        <button type="button" class="btn atlas-filter" data-filter={code}>{label}</button>
+      ))}
     </div>
   </div>
 
@@ -42,18 +45,14 @@ const atlasItems = exhibits.map((e) => ({
       <a
         href={item.href}
         class="db-row atlas-row"
-        data-playable={item.playable ? '1' : '0'}
-        data-search={`${item.title} ${item.slug} ${item.type} ${item.wing}`.toLowerCase()}
+        data-type={item.type}
+        data-search={`${item.title} ${item.slug} ${item.typeLabel} ${item.wing}`.toLowerCase()}
       >
         <div>
           <p class="db-row-title">{item.title}</p>
-          <p class="db-row-meta">{item.type} · {item.wing} · {item.relatedCount} links</p>
+          <p class="db-row-meta">{item.typeLabel} · {item.wing} · {item.relatedCount} links</p>
         </div>
-        <div class="db-row-right">
-          <span class:list={['pill', item.playable ? 'pill--ready' : 'pill--soon']}>
-            {item.playable ? 'Play' : 'Read'}
-          </span>
-        </div>
+        <span class="pill pill--meta">{item.typeLabel}</span>
       </a>
     ))}
   </div>
@@ -63,31 +62,34 @@ const atlasItems = exhibits.map((e) => ({
   const search = document.getElementById('atlas-search');
   const rows = Array.from(document.querySelectorAll('.atlas-row'));
   const filters = Array.from(document.querySelectorAll('.atlas-filter'));
-  let mode = 'all';
+  let mode = new URLSearchParams(window.location.search).get('type') || 'all';
 
   function apply() {
     const q = (search?.value ?? '').trim().toLowerCase();
     rows.forEach((row) => {
-      const playable = row.getAttribute('data-playable') === '1';
+      const type = row.getAttribute('data-type') ?? '';
       const hay = row.getAttribute('data-search') ?? '';
       const matchQ = !q || hay.includes(q);
-      const matchF =
-        mode === 'all' ||
-        (mode === 'playable' && playable) ||
-        (mode === 'catalog' && !playable);
+      const matchF = mode === 'all' || type === mode;
       row.style.display = matchQ && matchF ? '' : 'none';
     });
   }
 
+  function setFilter(next) {
+    mode = next;
+    filters.forEach((btn) => {
+      const active = (btn.getAttribute('data-filter') ?? 'all') === mode;
+      btn.classList.toggle('active', active);
+      btn.classList.toggle('btn-primary', active);
+    });
+    apply();
+  }
+
   search?.addEventListener('input', apply);
   filters.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      mode = btn.getAttribute('data-filter') ?? 'all';
-      filters.forEach((b) => b.classList.toggle('active', b === btn));
-      filters.forEach((b) => b.classList.toggle('btn-primary', b === btn));
-      apply();
-    });
+    btn.addEventListener('click', () => setFilter(btn.getAttribute('data-filter') ?? 'all'));
   });
+  setFilter(mode);
 </script>
 
 <style>
@@ -98,13 +100,17 @@ const atlasItems = exhibits.map((e) => ({
   }
 
   .atlas-controls {
-    max-width: var(--content-max);
+    max-width: var(--content-wide);
     margin: 0 auto 1rem;
     padding: 0 clamp(1rem, 3vw, 1.5rem);
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
     align-items: center;
+  }
+
+  .atlas-filters {
+    flex-wrap: wrap;
   }
 
   .atlas-search {
@@ -125,7 +131,7 @@ const atlasItems = exhibits.map((e) => ({
   }
 
   #atlas-list {
-    max-width: var(--content-max);
+    max-width: var(--content-wide);
     margin: 0 auto;
   }
 

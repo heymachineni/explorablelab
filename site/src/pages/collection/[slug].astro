@@ -1,10 +1,10 @@
 ---
 import AppLayout from '../../layouts/AppLayout.astro';
-import { collections as allCollections, displayTitle, exhibitBySlug, exhibitInPathUrl, isPlayable, pathPlayableCount } from '../../lib/museum';
+import { collections, displayTitle, exhibitBySlug, exhibitUrl } from '../../lib/museum';
 import type { Collection } from '../../types';
 
 export function getStaticPaths() {
-  return allCollections.map((collection) => ({
+  return collections.map((collection) => ({
     params: { slug: collection.slug },
     props: { collection },
   }));
@@ -15,7 +15,6 @@ interface Props {
 }
 
 const { collection } = Astro.props;
-const ready = pathPlayableCount(collection);
 ---
 
 <AppLayout
@@ -35,10 +34,6 @@ const ready = pathPlayableCount(collection);
       <div class="stat-value">{collection.stops.length}</div>
       <div class="stat-label">Stops</div>
     </div>
-    <div class="stat-item">
-      <div class="stat-value">{ready}</div>
-      <div class="stat-label">Playable now</div>
-    </div>
     {collection.time_minutes > 0 && (
       <div class="stat-item">
         <div class="stat-value">{collection.time_minutes}m</div>
@@ -47,47 +42,27 @@ const ready = pathPlayableCount(collection);
     )}
   </div>
 
-  {ready > 0 ? (
-    <div class="btn-row" style="margin-bottom: 1.5rem;">
-      {(() => {
-        const firstPlayableIndex = collection.stops.findIndex((s) => isPlayable(exhibitBySlug(s)));
-        const slug = collection.stops[firstPlayableIndex];
-        return (
-          <a href={exhibitInPathUrl(slug, collection.slug, firstPlayableIndex)} class="btn btn-primary">
-            Start path
-          </a>
-        );
-      })()}
-    </div>
-  ) : (
-    <div class="placeholder-box">
-      <p>No playable stops yet on this path. Browse <a href="/play">Play</a> for what works today.</p>
-    </div>
-  )}
+  <div class="btn-row" style="margin-bottom: 1.5rem;">
+    <a href={`/exhibit/${collection.stops[0]}?path=${collection.slug}&step=0`} class="btn btn-primary">
+      Start path
+    </a>
+  </div>
 
   <p class="section-label">Stops</p>
   <div class="db-table">
     {collection.stops.map((slug, index) => {
       const exhibit = exhibitBySlug(slug);
-      const playable = isPlayable(exhibit);
-      const href = playable
-        ? exhibitInPathUrl(slug, collection.slug, index)
-        : `/catalog/${slug}?path=${collection.slug}&step=${index}`;
+      const href = exhibitUrl(slug, collection.slug, index);
       return (
         <a href={href} class="db-row">
           <div>
             <p class="db-row-title">
               <span style="color: var(--text-tertiary); font-weight: 500;">{index + 1}.</span>{' '}
-              {exhibit ? displayTitle(exhibit) : slug}
+              {exhibit ? displayTitle(exhibit) : slug.replace(/-/g, ' ')}
             </p>
-            <p class="db-row-meta">{exhibit?.summary ?? 'Catalog entry'}</p>
+            {exhibit && <p class="db-row-meta">{exhibit.summary}</p>}
           </div>
-          <div class="db-row-right">
-            <span class:list={['pill', playable ? 'pill--ready' : 'pill--soon']}>
-              {playable ? 'Play' : 'Read'}
-            </span>
-            <span class="db-row-action">{playable ? 'Open' : 'Catalog'}</span>
-          </div>
+          <span class="db-row-action">Read</span>
         </a>
       );
     })}
@@ -95,6 +70,5 @@ const ready = pathPlayableCount(collection);
 
   <footer class="path-actions">
     <a href="/learn" class="btn btn-ghost">← All paths</a>
-    <a href="/discover" class="btn">Surprise me</a>
   </footer>
 </AppLayout>

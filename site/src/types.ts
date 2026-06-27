@@ -5,10 +5,9 @@ export interface Exhibit {
   type: string;
   wing: string;
   status: string;
-  embedUrl?: string;
-  playUrl?: string;
   hook?: string;
   related: string[];
+  contentPath?: string;
 }
 
 export interface Collection {

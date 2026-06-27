@@ -4,37 +4,26 @@ import type { Collection, Exhibit } from '../types';
 
 export const exhibits = canonicalData.exhibits as Exhibit[];
 
-/** Public paths only — hide internal build queue from visitor IA */
 export const collections = (collectionsData.collections as Collection[]).filter(
   (c) => c.slug !== 'build-these-next-tier-s',
 );
 
 const PUBLIC_COLLECTION_SLUGS = new Set(collections.map((c) => c.slug));
 
-export const DISPLAY_TITLES: Record<string, string> = {
-  'parable-of-polygons': 'Parable of the Polygons',
-  'evolution-of-trust': 'Evolution of Trust',
-  'we-become-what-we-behold': 'We Become What We Behold',
-  'to-build-a-better-ballot': 'To Build a Better Ballot',
-  'loopy': 'Loopy',
-  'fireflies': 'Fireflies',
-  'wisdom-and-madness-of-crowds': 'Wisdom and/or Madness of Crowds',
-  'adventures-with-anxiety': 'Adventures with Anxiety',
-  'how-to-remember-anything-forever-ish': 'How to Remember Anything Forever-ish',
-  'petrie-multiplier': 'Petrie Multiplier',
-  'ergodicity-street': 'Ergodicity Street',
-  'schelling-segregation': 'Schelling Segregation Model',
-  'start-here-first-visit': 'Start Here: First Visit',
+export const TYPE_LABELS: Record<string, string> = {
+  THY: 'Theory',
+  PAT: 'Pattern',
+  MET: 'Metaphor',
+  STR: 'Structure',
+  SIM: 'Simulation',
+  EXE: 'Explorable',
+  PAR: 'Paradox',
+  EXP: 'Experiment',
+  PAP: 'Paper',
+  BOK: 'Book',
+  DIS: 'Discipline',
+  DSN: 'Designer',
 };
-
-export function isPlayable(exhibit: Exhibit | undefined): boolean {
-  if (!exhibit) return false;
-  return !!(exhibit.embedUrl || exhibit.playUrl);
-}
-
-export function playableExhibits(): Exhibit[] {
-  return exhibits.filter(isPlayable);
-}
 
 export function exhibitBySlug(slug: string): Exhibit | undefined {
   return exhibits.find((e) => e.slug === slug);
@@ -46,7 +35,7 @@ export function collectionBySlug(slug: string): Collection | undefined {
 }
 
 export function displayTitle(exhibit: Exhibit): string {
-  return DISPLAY_TITLES[exhibit.slug] ?? exhibit.title;
+  return exhibit.title;
 }
 
 export function displaySummary(exhibit: Exhibit): string {
@@ -54,25 +43,16 @@ export function displaySummary(exhibit: Exhibit): string {
   return exhibit.summary;
 }
 
-export function playerSrc(exhibit: Exhibit, embed = false): string | undefined {
-  const src = exhibit.playUrl ?? exhibit.embedUrl;
-  if (!src) return undefined;
-  if (exhibit.playUrl && embed) {
-    return `${exhibit.playUrl}${exhibit.playUrl.includes('?') ? '&' : '?'}embed=1`;
+export function typeLabel(exhibit: Exhibit): string {
+  return TYPE_LABELS[exhibit.type] ?? exhibit.type;
+}
+
+export function exhibitUrl(slug: string, pathSlug?: string | null, stepIndex?: number): string {
+  const base = `/exhibit/${slug}`;
+  if (pathSlug != null && stepIndex != null && stepIndex >= 0) {
+    return `${base}?path=${pathSlug}&step=${stepIndex}`;
   }
-  return src;
-}
-
-export function pathPlayableCount(collection: Collection): number {
-  return collection.stops.filter((slug) => isPlayable(exhibitBySlug(slug))).length;
-}
-
-export function exhibitInPathUrl(
-  exhibitSlug: string,
-  pathSlug: string,
-  stepIndex: number,
-): string {
-  return `/exhibit/${exhibitSlug}?path=${pathSlug}&step=${stepIndex}`;
+  return base;
 }
 
 export function pathStepMeta(pathSlug: string, stepIndex: number) {
@@ -84,20 +64,26 @@ export function pathStepMeta(pathSlug: string, stepIndex: number) {
   return { path, stepIndex, slug, exhibit, total: path.stops.length };
 }
 
-export function relatedPlayable(exhibit: Exhibit, limit = 3): Exhibit[] {
+export function relatedExhibits(exhibit: Exhibit, limit = 6): Exhibit[] {
   const out: Exhibit[] = [];
   for (const slug of exhibit.related) {
     const rel = exhibitBySlug(slug);
-    if (rel && isPlayable(rel) && rel.slug !== exhibit.slug) {
-      out.push(rel);
-    }
+    if (rel && rel.slug !== exhibit.slug) out.push(rel);
     if (out.length >= limit) break;
   }
   return out;
 }
 
+export function exhibitsByType(type: string): Exhibit[] {
+  return exhibits.filter((e) => e.type === type);
+}
+
 export const stats = {
   total: exhibits.length,
-  playable: playableExhibits().length,
   paths: collections.length,
+  theories: exhibitsByType('THY').length,
+  patterns: exhibitsByType('PAT').length,
+  simulations: exhibitsByType('SIM').length,
+  paradoxes: exhibitsByType('PAR').length,
+  experiments: exhibitsByType('EXP').length,
 };

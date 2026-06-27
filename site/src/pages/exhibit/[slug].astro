@@ -2,59 +2,52 @@
 import AppLayout from '../../layouts/AppLayout.astro';
 import PathBar from '../../components/PathBar.astro';
 import canonicalData from '../../data/canonical.json';
+import { loadExhibitMarkdown } from '../../lib/content';
 import {
   collectionBySlug,
   displaySummary,
   displayTitle,
-  exhibitBySlug,
-  exhibitInPathUrl,
-  isPlayable,
-  playerSrc,
-  relatedPlayable,
+  exhibitUrl,
+  relatedExhibits,
+  typeLabel,
 } from '../../lib/museum';
 import type { Exhibit } from '../../types';
 
 export function getStaticPaths() {
   const exhibits = canonicalData.exhibits as Exhibit[];
-  return exhibits
-    .filter(isPlayable)
-    .map((exhibit) => ({
+  return exhibits.map((exhibit) => {
+    const html = loadExhibitMarkdown(exhibit.contentPath);
+    return {
       params: { slug: exhibit.slug },
-      props: { exhibit },
-    }));
+      props: { exhibit, html },
+    };
+  });
 }
 
 interface Props {
   exhibit: Exhibit;
+  html: string | null;
 }
 
-const { exhibit } = Astro.props;
+const { exhibit, html } = Astro.props;
 const pathSlug = Astro.url.searchParams.get('path');
 const stepParam = Astro.url.searchParams.get('step');
 const stepIndex = stepParam !== null ? Number(stepParam) : -1;
-
 const path = pathSlug ? collectionBySlug(pathSlug) : undefined;
+
 let prevHref: string | undefined;
 let nextHref: string | undefined;
 
 if (path && stepIndex >= 0) {
   if (stepIndex > 0) {
-    const prevSlug = path.stops[stepIndex - 1];
-    prevHref = isPlayable(exhibitBySlug(prevSlug))
-      ? exhibitInPathUrl(prevSlug, path.slug, stepIndex - 1)
-      : `/catalog/${prevSlug}?path=${path.slug}&step=${stepIndex - 1}`;
+    prevHref = exhibitUrl(path.stops[stepIndex - 1], path.slug, stepIndex - 1);
   }
   if (stepIndex < path.stops.length - 1) {
-    const nextSlug = path.stops[stepIndex + 1];
-    nextHref = isPlayable(exhibitBySlug(nextSlug))
-      ? exhibitInPathUrl(nextSlug, path.slug, stepIndex + 1)
-      : `/catalog/${nextSlug}?path=${path.slug}&step=${stepIndex + 1}`;
+    nextHref = exhibitUrl(path.stops[stepIndex + 1], path.slug, stepIndex + 1);
   }
 }
 
-const related = relatedPlayable(exhibit, 3);
-const src = playerSrc(exhibit, !!exhibit.playUrl);
-const external = exhibit.embedUrl && !exhibit.playUrl;
+const related = relatedExhibits(exhibit, 6);
 ---
 
 <AppLayout
@@ -62,7 +55,7 @@ const external = exhibit.embedUrl && !exhibit.playUrl;
   description={displaySummary(exhibit)}
   breadcrumbs={[
     { label: 'Home', href: '/' },
-    { label: 'Play', href: '/play' },
+    { label: 'Atlas', href: '/graph' },
     ...(path ? [{ label: path.title, href: `/collection/${path.slug}` }] : []),
     { label: displayTitle(exhibit) },
   ]}
@@ -81,45 +74,31 @@ const external = exhibit.embedUrl && !exhibit.playUrl;
 
   <header class="exhibit-head">
     <div class="exhibit-head-top">
-      <span class="pill pill--ready">Playable</span>
-      <span class="pill pill--meta">{exhibit.type} · {exhibit.wing}</span>
+      <span class="pill pill--meta">{typeLabel(exhibit)} · {exhibit.wing}</span>
     </div>
     <h1 class="page-title">{displayTitle(exhibit)}</h1>
     <p class="page-lead">{displaySummary(exhibit)}</p>
   </header>
 
-  {src && (
-    <div class="player-wrap">
-      <div class="player-toolbar">
-        <span class="player-toolbar-title">{displayTitle(exhibit)}</span>
-        <div class="btn-row">
-          {external && (
-            <a href={exhibit.embedUrl} class="btn btn-ghost" target="_blank" rel="noopener noreferrer">
-              Open in new tab ↗
-            </a>
-          )}
-          {exhibit.playUrl && (
-            <a href={exhibit.playUrl} class="btn btn-ghost">Full screen</a>
-          )}
-        </div>
-      </div>
-      <div class="player-frame">
-        <iframe src={src} title={displayTitle(exhibit)} loading="eager" allow="fullscreen"></iframe>
-      </div>
+  {html ? (
+    <article class="article-body" set:html={html} />
+  ) : (
+    <div class="placeholder-box">
+      <p>No written explanation is available for this entry yet.</p>
     </div>
   )}
 
   {related.length > 0 && (
     <section class="section">
-      <p class="section-label">Related · playable</p>
+      <p class="section-label">Related</p>
       <div class="db-table">
         {related.map((rel) => (
           <a href={`/exhibit/${rel.slug}`} class="db-row">
             <div>
               <p class="db-row-title">{displayTitle(rel)}</p>
-              <p class="db-row-meta">{rel.summary}</p>
+              <p class="db-row-meta">{typeLabel(rel)} · {rel.summary}</p>
             </div>
-            <span class="db-row-action">Open</span>
+            <span class="db-row-action">Read</span>
           </a>
         ))}
       </div>
@@ -128,8 +107,8 @@ const external = exhibit.embedUrl && !exhibit.playUrl;
 
   {!path && (
     <footer class="path-actions">
-      <a href="/play" class="btn btn-ghost">← All playable</a>
-      <a href="/discover" class="btn">Surprise me</a>
+      <a href="/graph" class="btn btn-ghost">← Atlas</a>
+      <a href="/learn" class="btn">Browse paths</a>
     </footer>
   )}
 </AppLayout>

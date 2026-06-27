@@ -1,6 +1,6 @@
 # ExplorableLab Site
 
-Static museum for [ExplorableLab](../README.md). Playable exhibits and curated paths are driven by `src/data/canonical.json` and `src/data/collections.json`.
+Read-only museum for [ExplorableLab](../README.md). Renders markdown explanations from `content/` for each canonical exhibit in `src/data/canonical.json`.
 
 ## Quick start
 
@@ -10,40 +10,30 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:4321](http://localhost:4321).
+Regenerate site data after corpus changes:
 
-## Scripts
+```bash
+cd scripts && python3 build_museum.py
+```
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start dev server |
-| `npm run build` | Type-check and build static site to `dist/` |
-| `npm run preview` | Preview production build |
-
-## Information architecture
+## Routes
 
 | Route | Purpose |
 |-------|---------|
-| `/` | Home — stats, featured sim, begin first visit |
-| `/play` | All **playable** exhibits (native + embeds) |
-| `/learn` | Path index with playable counts |
-| `/collection/[slug]` | Path runner — stops link to exhibit or catalog |
-| `/exhibit/[slug]` | **Playable only** — player + path prev/next |
-| `/catalog/[slug]` | Non-playable entries — honest “not built yet” + skip |
-| `/discover` | Random from playable pool only |
-| `/graph` | Atlas — searchable/filterable catalog |
+| `/` | Home — stats, browse by type |
+| `/learn` | Path index |
+| `/collection/[slug]` | Path runner |
+| `/exhibit/[slug]` | Read-only explanation (markdown from `content/`) |
+| `/graph` | Atlas — search and filter by type |
 | `/contribute` | Workshop docs |
 
-Press **⌘K** (or click Search) anywhere to open the command palette.
-
-## Data layer
-
-`src/lib/museum.ts` — `isPlayable()`, path URLs, display titles, stats.
+Press **⌘K** to search anywhere.
 
 ## Stack
 
-- [Astro](https://astro.build) 5.x static site
-- `src/styles/design-system.css` — Notion clarity × Linear density (flat, no shadows)
+- Astro 5.x static site
+- `marked` for markdown rendering
+- `src/lib/content.ts` loads `contentPath` from repo root at build time
 
 ## Deploy
 

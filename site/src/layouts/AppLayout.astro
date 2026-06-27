@@ -13,7 +13,7 @@ interface Props {
 
 const {
   title = 'ExplorableLab',
-  description = 'Explore ideas that only make sense when you play with them.',
+  description = 'Read-only explanations of theories, patterns, research, and methods.',
   wide = false,
   full = false,
   breadcrumbs = [],
@@ -25,25 +25,23 @@ const pathContext = Astro.url.searchParams.get('path');
 const nav = [
   { href: '/', label: 'Home', match: (p: string) => p === '/' },
   {
-    href: '/play',
-    label: 'Play',
-    count: stats.playable,
-    match: (p: string) => p.startsWith('/play') || (p.startsWith('/exhibit') && !pathContext),
-  },
-  {
     href: '/learn',
     label: 'Paths',
     count: stats.paths,
     match: (p: string) =>
       p.startsWith('/learn') ||
       p.startsWith('/collection') ||
-      (p.startsWith('/catalog') && !!pathContext) ||
       (p.startsWith('/exhibit') && !!pathContext),
   },
-  { href: '/graph', label: 'Atlas', match: (p: string) => p.startsWith('/graph') || (p.startsWith('/catalog') && !pathContext) },
+  {
+    href: '/graph',
+    label: 'Atlas',
+    count: stats.total,
+    match: (p: string) => p.startsWith('/graph') || (p.startsWith('/exhibit') && !pathContext),
+  },
 ];
 
-const mobileNav = nav.slice(0, 4);
+const mobileNav = nav;
 ---
 
 <!doctype html>

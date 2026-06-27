@@ -3,39 +3,41 @@ import AppLayout from '../layouts/AppLayout.astro';
 import {
   collectionBySlug,
   displayTitle,
-  exhibitBySlug,
-  isPlayable,
-  pathPlayableCount,
-  playableExhibits,
+  exhibitsByType,
   stats,
+  typeLabel,
 } from '../lib/museum';
 
 const startPath = collectionBySlug('start-here-first-visit');
-const featured = exhibitBySlug('petrie-multiplier');
-const playable = playableExhibits();
+const theories = exhibitsByType('THY');
+const patterns = exhibitsByType('PAT');
 ---
 
 <AppLayout title="ExplorableLab">
   <section class="hero-block">
-    <p class="section-label">Interactive museum</p>
-    <h1 class="page-title">Ideas you have to play with to understand.</h1>
+    <p class="section-label">Research museum</p>
+    <h1 class="page-title">Theories, patterns, and methods — explained.</h1>
     <p class="page-lead">
-      ExplorableLab is a curated floor of simulations and paths — not a wiki, not a link list.
-      Start with something playable, then follow a path when you're ready to go deeper.
+      Read-only explanations from our corpus. No external embeds, no unfinished sims —
+      just what we know about each idea, how it connects, and why it matters.
     </p>
 
     <div class="stat-row">
       <div class="stat-item">
-        <div class="stat-value">{stats.playable}</div>
-        <div class="stat-label">Playable now</div>
+        <div class="stat-value">{stats.total}</div>
+        <div class="stat-label">Explanations</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">{stats.theories}</div>
+        <div class="stat-label">Theories</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">{stats.patterns}</div>
+        <div class="stat-label">Patterns</div>
       </div>
       <div class="stat-item">
         <div class="stat-value">{stats.paths}</div>
-        <div class="stat-label">Curated paths</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-value">{stats.total}</div>
-        <div class="stat-label">Exhibits in catalog</div>
+        <div class="stat-label">Paths</div>
       </div>
     </div>
 
@@ -43,45 +45,27 @@ const playable = playableExhibits();
       {startPath && (
         <a href={`/collection/${startPath.slug}`} class="btn btn-primary">Begin first visit</a>
       )}
-      <a href="/play" class="btn">Browse all playable</a>
-      <a href="/discover" class="btn btn-ghost">Surprise me</a>
+      <a href="/graph" class="btn">Browse atlas</a>
     </div>
   </section>
 
-  {featured && isPlayable(featured) && (
-    <section class="section">
-      <p class="section-label">Featured · Built here</p>
-      <h2 class="section-title">{displayTitle(featured)}</h2>
-      <p class="page-lead" style="margin-bottom: 1rem;">{featured.summary}</p>
-      <div class="player-wrap">
-        <div class="player-toolbar">
-          <span class="player-toolbar-title">{displayTitle(featured)}</span>
-          <a href={`/exhibit/${featured.slug}`} class="btn btn-ghost">Open exhibit →</a>
-        </div>
-        <div class="player-frame">
-          <iframe src={`${featured.playUrl}?embed=1`} title={displayTitle(featured)} loading="lazy"></iframe>
-        </div>
-      </div>
-    </section>
-  )}
-
   <section class="section">
-    <p class="section-label">How it works</p>
+    <p class="section-label">Browse by type</p>
     <div class="how-grid">
       <div class="how-card">
-        <h3>Play</h3>
-        <p>{stats.playable} exhibits you can run today — native sims and embedded classics.</p>
-        <a href="/play">Open Play →</a>
+        <h3>Theories</h3>
+        <p>{stats.theories} foundational models — emergence, ergodicity, contagion, and more.</p>
+        <a href="/graph?type=THY">Browse theories →</a>
+      </div>
+      <div class="how-card">
+        <h3>Patterns</h3>
+        <p>{stats.patterns} interaction and design patterns for explorable explanations.</p>
+        <a href="/graph?type=PAT">Browse patterns →</a>
       </div>
       <div class="how-card">
         <h3>Paths</h3>
-        <p>Curated sequences with time estimates. Follow stops in order — progress is saved as you go.</p>
+        <p>{stats.paths} curated reading sequences with time estimates.</p>
         <a href="/learn">Browse paths →</a>
-      </div>
-      <div class="how-card">
-        <h3>Atlas</h3>
-        <p>See how ideas connect. Search any exhibit with <kbd>⌘K</kbd>.</p>
-        <a href="/graph">Open Atlas →</a>
       </div>
     </div>
   </section>
@@ -93,7 +77,7 @@ const playable = playableExhibits();
           <p class="section-label">Recommended</p>
           <h2 class="section-title">{startPath.title}</h2>
           <p class="page-lead" style="margin: 0;">
-            {startPath.time_minutes} min · {pathPlayableCount(startPath)}/{startPath.stops.length} playable now
+            {startPath.time_minutes} min · {startPath.stops.length} stops
           </p>
         </div>
         <a href={`/collection/${startPath.slug}`} class="btn">Start path</a>
@@ -102,24 +86,41 @@ const playable = playableExhibits();
   )}
 
   <section class="section">
-    <p class="section-label">Playable now</p>
+    <p class="section-label">Theories</p>
     <div class="db-table">
-      {playable.slice(0, 6).map((exhibit) => (
+      {theories.slice(0, 6).map((exhibit) => (
         <a href={`/exhibit/${exhibit.slug}`} class="db-row">
           <div>
             <p class="db-row-title">{displayTitle(exhibit)}</p>
-            <p class="db-row-meta">{exhibit.type} · {exhibit.wing}</p>
+            <p class="db-row-meta">{exhibit.summary}</p>
           </div>
-          <div class="db-row-right">
-            <span class="pill pill--ready">Play</span>
-            <span class="db-row-action">Open</span>
-          </div>
+          <span class="db-row-action">Read</span>
         </a>
       ))}
     </div>
-    {playable.length > 6 && (
+    {theories.length > 6 && (
       <p style="margin-top: 0.75rem;">
-        <a href="/play">View all {playable.length} playable exhibits →</a>
+        <a href="/graph?type=THY">View all {theories.length} theories →</a>
+      </p>
+    )}
+  </section>
+
+  <section class="section">
+    <p class="section-label">Patterns</p>
+    <div class="db-table">
+      {patterns.slice(0, 6).map((exhibit) => (
+        <a href={`/exhibit/${exhibit.slug}`} class="db-row">
+          <div>
+            <p class="db-row-title">{displayTitle(exhibit)}</p>
+            <p class="db-row-meta">{typeLabel(exhibit)} · {exhibit.wing}</p>
+          </div>
+          <span class="db-row-action">Read</span>
+        </a>
+      ))}
+    </div>
+    {patterns.length > 6 && (
+      <p style="margin-top: 0.75rem;">
+        <a href="/graph?type=PAT">View all {patterns.length} patterns →</a>
       </p>
     )}
   </section>
@@ -158,14 +159,6 @@ const playable = playableExhibits();
   .how-card a {
     font-size: 0.8125rem;
     font-weight: 500;
-  }
-
-  .how-card kbd {
-    font-family: var(--mono);
-    font-size: 0.6875rem;
-    padding: 0.05rem 0.3rem;
-    border: 1px solid var(--border);
-    border-radius: 3px;
   }
 
   .section-header-inline {

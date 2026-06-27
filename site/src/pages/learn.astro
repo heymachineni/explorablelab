@@ -1,6 +1,6 @@
 ---
 import AppLayout from '../layouts/AppLayout.astro';
-import { collections, pathPlayableCount } from '../lib/museum';
+import { collections } from '../lib/museum';
 
 const sorted = [...collections].sort((a, b) => {
   if (a.slug === 'start-here-first-visit') return -1;
@@ -11,36 +11,27 @@ const sorted = [...collections].sort((a, b) => {
 
 <AppLayout
   title="Paths"
-  description="Curated learning paths through ExplorableLab."
+  description="Curated reading paths through ExplorableLab."
   breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Paths' }]}
 >
   <h1 class="page-title">Paths</h1>
   <p class="page-lead">
-    Curated sequences — each path lists stops in order with time estimates.
-    Playable count shows how many stops work today; the rest are catalog entries until built.
+    Curated reading sequences — each path lists stops in order with time estimates.
+    Every stop is a read-only explanation from our corpus.
   </p>
 
   <div class="db-table">
-    {sorted.map((path) => {
-      const ready = pathPlayableCount(path);
-      const allReady = ready === path.stops.length;
-      return (
-        <a href={`/collection/${path.slug}`} class="db-row">
-          <div>
-            <p class="db-row-title">{path.title}</p>
-            <p class="db-row-meta">
-              {path.time_minutes > 0 ? `${path.time_minutes} min` : 'Reference'} · {path.stops.length} stops
-              {path.emotional_arc ? ` · ${path.emotional_arc}` : ''}
-            </p>
-          </div>
-          <div class="db-row-right">
-            <span class:list={['pill', allReady ? 'pill--ready' : 'pill--soon']}>
-              {ready}/{path.stops.length} playable
-            </span>
-            <span class="db-row-action">Open</span>
-          </div>
-        </a>
-      );
-    })}
+    {sorted.map((path) => (
+      <a href={`/collection/${path.slug}`} class="db-row">
+        <div>
+          <p class="db-row-title">{path.title}</p>
+          <p class="db-row-meta">
+            {path.time_minutes > 0 ? `${path.time_minutes} min` : 'Reference'} · {path.stops.length} stops
+            {path.emotional_arc ? ` · ${path.emotional_arc}` : ''}
+          </p>
+        </div>
+        <span class="db-row-action">Open</span>
+      </a>
+    ))}
   </div>
 </AppLayout>

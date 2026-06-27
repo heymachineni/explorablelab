@@ -403,7 +403,15 @@ def type_label(typ: str) -> str:
     }.get(typ, typ.upper()[:3])
 
 
-def build_export_entry(slug: str, title: str, summary: str, typ: str, wing: str, related: list[str], embed_url: str | None = None, play_url: str | None = None) -> dict:
+def build_export_entry(
+    slug: str,
+    title: str,
+    summary: str,
+    typ: str,
+    wing: str,
+    related: list[str],
+    content_path: str | None = None,
+) -> dict:
     entry = {
         "slug": slug,
         "title": title,
@@ -414,8 +422,6 @@ def build_export_entry(slug: str, title: str, summary: str, typ: str, wing: str,
         "status": "canonical",
         "related": related,
     }
-    if embed_url:
-        entry["embedUrl"] = embed_url
-    if play_url:
-        entry["playUrl"] = play_url
+    if content_path:
+        entry["contentPath"] = content_path
     return entry
