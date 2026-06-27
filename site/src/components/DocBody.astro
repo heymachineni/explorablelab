@@ -10,12 +10,19 @@ const { sections } = Astro.props;
 
 <div class="doc-sections">
   {sections.map((section) => (
-    <section
-      id={section.id}
-      class:list={['doc-section', { 'doc-section--sub': section.level === 3 }]}
-    >
-      <h2 class="doc-section-title">{section.title}</h2>
-      <div class="doc-section-body" set:html={section.html} />
-    </section>
+    section.collapsible ? (
+      <details class="block-toggle doc-section" id={section.id}>
+        <summary class="block-toggle-summary">{section.title}</summary>
+        <div class="doc-section-body block-toggle-body" set:html={section.html} />
+      </details>
+    ) : (
+      <section
+        id={section.id}
+        class:list={['doc-section', { 'doc-section--sub': section.level === 3 }]}
+      >
+        <h2 class="doc-section-title">{section.title}</h2>
+        <div class="doc-section-body" set:html={section.html} />
+      </section>
+    )
   ))}
 </div>

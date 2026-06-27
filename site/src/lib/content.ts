@@ -11,6 +11,14 @@ const PUBLIC_HIDDEN_SECTIONS = new Set([
   'see also',
 ]);
 
+const COLLAPSIBLE_SECTIONS = new Set([
+  'further reading',
+  'formal definition',
+  'parameters',
+  'can become',
+  'existing explorables',
+]);
+
 export interface DocMeta {
   difficulty?: string;
   confidence?: string;
@@ -30,6 +38,8 @@ export interface DocSection {
   title: string;
   level: 2 | 3;
   html: string;
+  collapsible?: boolean;
+  callout?: 'note' | 'tip' | 'warning';
 }
 
 export interface ParsedDocument {
@@ -86,6 +96,40 @@ function parseMeta(fm: string): DocMeta {
   };
 }
 
+function preprocessBlocks(body: string): string {
+  const lines = body.split('\n');
+  const out: string[] = [];
+  let i = 0;
+
+  while (i < lines.length) {
+    const calloutMatch = lines[i].match(/^>\s*\[!(\w+)\]\s*$/i);
+    if (calloutMatch) {
+      const kind = calloutMatch[1].toLowerCase();
+      const calloutLines: string[] = [];
+      i += 1;
+      while (i < lines.length && lines[i].startsWith('>')) {
+        calloutLines.push(lines[i].replace(/^>\s?/, ''));
+        i += 1;
+      }
+      out.push(`<div class="callout callout--${kind}">`);
+      out.push(marked.parseInline(calloutLines.join(' ')) as string);
+      out.push('</div>');
+      continue;
+    }
+
+    if (/^---+\s*$/.test(lines[i])) {
+      out.push('<div class="block-divider" role="separator"></div>');
+      i += 1;
+      continue;
+    }
+
+    out.push(lines[i]);
+    i += 1;
+  }
+
+  return out.join('\n');
+}
+
 function sanitizeMarkdown(body: string): string {
   return body
     .split('\n')
@@ -118,7 +162,8 @@ function postProcessHtml(html: string): string {
     .replace(/<\/table>/g, '</table></div>')
     .replace(/<blockquote>/g, '<div class="callout callout--quote">')
     .replace(/<\/blockquote>/g, '</div>')
-    .replace(/<pre>/g, '<pre class="code-block">');
+    .replace(/<pre>/g, '<pre class="code-block">')
+    .replace(/<hr\s*\/?>/g, '<div class="block-divider" role="separator"></div>');
 }
 
 function splitSections(body: string): DocSection[] {
@@ -141,7 +186,8 @@ function splitSections(body: string): DocSection[] {
       id: slugify(currentTitle),
       title: currentTitle,
       level: currentLevel,
-      html: postProcessHtml(marked.parse(md) as string),
+      collapsible: COLLAPSIBLE_SECTIONS.has(titleKey),
+      html: postProcessHtml(marked.parse(preprocessBlocks(md)) as string),
     });
     currentLines = [];
   };
@@ -168,7 +214,7 @@ function splitSections(body: string): DocSection[] {
       id: 'overview',
       title: 'Overview',
       level: 2,
-      html: postProcessHtml(marked.parse(body) as string),
+      html: postProcessHtml(marked.parse(preprocessBlocks(body)) as string),
     });
   }
 

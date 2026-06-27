@@ -1,22 +1,27 @@
 ---
 import { exhibits, displayTitle, typeLabel } from '../lib/museum';
+import { databaseRows } from '../lib/workspace';
 
-const searchItems = exhibits.map((e) => ({
-  slug: e.slug,
-  title: displayTitle(e),
-  type: typeLabel(e),
-  wing: e.wing,
-  href: `/exhibit/${e.slug}`,
-}));
+const searchItems = exhibits.map((e) => {
+  const row = databaseRows.find((r) => r.slug === e.slug);
+  return {
+    slug: e.slug,
+    title: displayTitle(e),
+    type: typeLabel(e),
+    wing: e.wing,
+    hub: row?.hubTitle ?? '',
+    href: `/exhibit/${e.slug}`,
+  };
+});
 ---
 
-<div class="palette-backdrop" id="palette-backdrop" role="dialog" aria-modal="true" aria-label="Search explanations">
+<div class="palette-backdrop" id="palette-backdrop" role="dialog" aria-modal="true" aria-label="Search pages">
   <div class="palette">
     <input
       type="search"
       class="palette-input"
       id="palette-input"
-      placeholder="Search theories, patterns, methods…"
+      placeholder="Search pages, hubs, types…"
       autocomplete="off"
       aria-label="Search"
     />
@@ -52,7 +57,8 @@ const searchItems = exhibits.map((e) => ({
           item.title.toLowerCase().includes(q) ||
           item.slug.includes(q) ||
           item.type.toLowerCase().includes(q) ||
-          item.wing.toLowerCase().includes(q)
+          item.wing.toLowerCase().includes(q) ||
+          item.hub.toLowerCase().includes(q)
         )
       : searchItems.slice(0, 10);
 
@@ -70,7 +76,7 @@ const searchItems = exhibits.map((e) => ({
         <button type="button" class="palette-item${i === focusIndex ? ' focused' : ''}" data-href="${item.href}">
           <div>
             <p class="palette-item-title">${item.title}</p>
-            <p class="palette-item-meta">${item.type} · ${item.wing}</p>
+            <p class="palette-item-meta">${item.type}${item.hub ? ` · ${item.hub}` : ` · ${item.wing}`}</p>
           </div>
         </button>`
       )

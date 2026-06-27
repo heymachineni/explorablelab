@@ -23,6 +23,7 @@ from canonical_promote import (
     write_tier_d,
 )
 from expansion_topics import write_expansion_topics
+from concept_upgrades import apply_upgrades
 
 ROOT = Path(__file__).resolve().parent.parent
 CONTENT = ROOT / "content"
@@ -636,6 +637,144 @@ def attach_content_path(entry: dict) -> dict:
     return entry
 
 
+def parse_frontmatter_fields(content_path: str | None) -> dict:
+    """Read structured page properties from markdown frontmatter."""
+    if not content_path:
+        return {}
+    file_path = ROOT / content_path
+    if not file_path.exists():
+        return {}
+    text = file_path.read_text(encoding="utf-8", errors="replace")
+    match = re.match(r"^---\r?\n([\s\S]*?)\r?\n---", text)
+    if not match:
+        return {}
+    fm = match.group(1)
+
+    def scalar(key: str) -> str | None:
+        m = re.search(rf'^{key}:\s*"?([^"\n]+)"?\s*$', fm, re.M)
+        return m.group(1).strip() if m else None
+
+    def yaml_list(key: str) -> list[str]:
+        inline = re.search(rf"{key}:\s*\[([^\]]*)\]", fm)
+        if inline:
+            return [
+                s.strip().strip('"').strip("'")
+                for s in inline.group(1).split(",")
+                if s.strip()
+            ]
+        return []
+
+    out: dict = {}
+    for key in ("difficulty", "confidence"):
+        val = scalar(key)
+        if val:
+            out[key] = val
+    fields = yaml_list("fields")
+    if fields:
+        out["fields"] = fields
+    return out
+
+
+def find_wikilinks(content_path: str | None) -> list[str]:
+    if not content_path:
+        return []
+    file_path = ROOT / content_path
+    if not file_path.exists():
+        return []
+    text = file_path.read_text(encoding="utf-8", errors="replace")
+    return list(dict.fromkeys(re.findall(r"\[\[([a-z0-9-]+)\]\]", text, re.I)))
+
+
+def build_hub_graph() -> tuple[dict[str, list[str]], dict[str, str]]:
+    """Map topic hubs to member pages and reverse lookup page → hub."""
+    from expansion_topics import CONCEPTS, HUBS, MORE_CONCEPTS
+
+    hub_slugs = {h[0] for h in HUBS}
+    hub_members: dict[str, list[str]] = {slug: list(concepts) for slug, _title, _summary, concepts in HUBS}
+
+    def assign(slug: str, related: list[str]) -> None:
+        for rel in related:
+            if rel in hub_slugs:
+                hub_members.setdefault(rel, [])
+                if slug not in hub_members[rel]:
+                    hub_members[rel].append(slug)
+                return
+
+    for c in CONCEPTS:
+        assign(c["slug"], c.get("related", []))
+    for slug, _title, _summary, _wing, _folder, related in MORE_CONCEPTS:
+        assign(slug, related)
+
+    page_hub: dict[str, str] = {}
+    for hub, members in hub_members.items():
+        for member in members:
+            page_hub[member] = hub
+
+    return hub_members, page_hub
+
+
+def enrich_exhibit(entry: dict, page_hub: dict[str, str]) -> dict:
+    meta = parse_frontmatter_fields(entry.get("contentPath"))
+    if meta.get("fields"):
+        entry["fields"] = meta["fields"]
+    if meta.get("difficulty"):
+        entry["difficulty"] = meta["difficulty"]
+    if meta.get("confidence"):
+        entry["confidence"] = meta["confidence"]
+    hub = page_hub.get(entry["slug"])
+    if hub:
+        entry["hub"] = hub
+    return entry
+
+
+def build_backlinks(exhibits: list[dict], slug_set: set[str]) -> dict[str, list[str]]:
+    backlinks: dict[str, list[str]] = {}
+    for entry in exhibits:
+        source = entry["slug"]
+        targets: set[str] = set(entry.get("related") or [])
+        for link in find_wikilinks(entry.get("contentPath")):
+            if link in slug_set and link != source:
+                targets.add(link)
+        for target in targets:
+            backlinks.setdefault(target, [])
+            if source not in backlinks[target]:
+                backlinks[target].append(source)
+    for slug in backlinks:
+        backlinks[slug].sort()
+    return backlinks
+
+
+def export_workspace(exhibits: list[dict], hub_members: dict[str, list[str]], page_hub: dict[str, str], backlinks: dict[str, list[str]]) -> None:
+    from expansion_topics import HUBS
+
+    hub_index = {slug: title for slug, title, _summary, _concepts in HUBS}
+    hubs = []
+    for slug, title, summary, _concepts in HUBS:
+        members = hub_members.get(slug, [])
+        hubs.append({
+            "slug": slug,
+            "title": title,
+            "summary": summary,
+            "memberCount": len(members),
+            "href": f"/exhibit/{slug}",
+        })
+
+    workspace = {
+        "pinnedHubs": [
+            "systems-thinking",
+            "cognitive-biases",
+            "statistics-interpretation",
+            "media-literacy",
+            "scaling-and-growth",
+        ],
+        "hubs": hubs,
+        "hubMembers": hub_members,
+        "pageHub": page_hub,
+        "backlinks": backlinks,
+    }
+    (SITE_DATA / "workspace.json").write_text(json.dumps(workspace, indent=2), encoding="utf-8")
+
+
 def export_site_data():
     exhibits = []
     for slug, data in EXE_PAGES.items():
@@ -678,8 +817,15 @@ def export_site_data():
         exhibits.append(attach_content_path(build_export_entry(slug, title, summary, "theory", wing, related)))
     for slug, title, summary, wing, related in mod_expansion:
         exhibits.append(attach_content_path(build_export_entry(slug, title, summary, "mental-model", wing, related)))
+
+    hub_members, page_hub = build_hub_graph()
+    slug_set = {e["slug"] for e in exhibits}
+    exhibits = [enrich_exhibit(e, page_hub) for e in exhibits]
+    backlinks = build_backlinks(exhibits, slug_set)
+
     SITE_DATA.mkdir(parents=True, exist_ok=True)
     (SITE_DATA / "canonical.json").write_text(json.dumps({"exhibits": exhibits}, indent=2), encoding="utf-8")
+    export_workspace(exhibits, hub_members, page_hub, backlinks)
 
 
 def write_canonical_index():
@@ -715,9 +861,10 @@ def main():
     write_paths()
     write_wings()
     write_expansion_topics()
+    upgraded = apply_upgrades()
     export_site_data()
     write_canonical_index()
-    print("Museum build complete: 105 canonical slugs, collections, paths, wings, site data")
+    print(f"Museum build complete: site data exported ({upgraded} concept pages upgraded)")
 
 
 if __name__ == "__main__":

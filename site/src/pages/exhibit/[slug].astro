@@ -5,6 +5,9 @@ import DocHeader from '../../components/DocHeader.astro';
 import DocToc from '../../components/DocToc.astro';
 import DocBody from '../../components/DocBody.astro';
 import RelatedPanel from '../../components/RelatedPanel.astro';
+import BacklinksPanel from '../../components/BacklinksPanel.astro';
+import HubDatabase from '../../components/HubDatabase.astro';
+import ReadingTracker from '../../components/ReadingTracker.astro';
 import canonicalData from '../../data/canonical.json';
 import { loadExhibitDocument } from '../../lib/content';
 import {
@@ -15,6 +18,7 @@ import {
   relatedExhibits,
   typeLabel,
 } from '../../lib/museum';
+import { backlinksFor, hubForPage, pageIcon } from '../../lib/workspace';
 import type { Exhibit } from '../../types';
 
 export function getStaticPaths() {
@@ -38,6 +42,8 @@ const pathSlug = Astro.url.searchParams.get('path');
 const stepParam = Astro.url.searchParams.get('step');
 const stepIndex = stepParam !== null ? Number(stepParam) : -1;
 const path = pathSlug ? collectionBySlug(pathSlug) : undefined;
+const hub = hubForPage(exhibit.slug);
+const isHub = exhibit.type === 'DIS';
 
 let prevHref: string | undefined;
 let nextHref: string | undefined;
@@ -48,20 +54,40 @@ if (path && stepIndex >= 0) {
 }
 
 const related = relatedExhibits(exhibit, 8);
-const meta = document?.meta ?? { fields: [], tags: [] };
+const backlinks = backlinksFor(exhibit.slug).slice(0, 8);
+const meta = document?.meta ?? { fields: exhibit.fields ?? [], tags: [] };
+const icon = pageIcon(exhibit);
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  ...(isHub
+    ? [{ label: 'Topic hubs', href: '/view/hubs' }]
+    : hub
+      ? [
+          { label: 'Topic hubs', href: '/view/hubs' },
+          { label: hub.title, href: `/exhibit/${hub.slug}` },
+        ]
+      : [{ label: 'All pages', href: '/graph' }]),
+  ...(path ? [{ label: path.title, href: `/collection/${path.slug}` }] : []),
+  { label: displayTitle(exhibit) },
+];
 ---
 
 <AppLayout
   title={displayTitle(exhibit)}
   description={displaySummary(exhibit)}
-  breadcrumbs={[
-    { label: 'Home', href: '/' },
-    { label: 'Atlas', href: '/graph' },
-    ...(path ? [{ label: path.title, href: `/collection/${path.slug}` }] : []),
-    { label: displayTitle(exhibit) },
-  ]}
+  breadcrumbs={breadcrumbs}
   doc
 >
+  <ReadingTracker
+    slug={exhibit.slug}
+    title={displayTitle(exhibit)}
+    type={typeLabel(exhibit)}
+    hub={hub?.title}
+    pathSlug={pathSlug}
+    stepIndex={stepIndex >= 0 ? stepIndex : null}
+  />
+
   {path && stepIndex >= 0 && (
     <PathBar
       pathSlug={path.slug}
@@ -76,11 +102,13 @@ const meta = document?.meta ?? { fields: [], tags: [] };
   <div class="doc-layout">
     <article class="doc-main">
       <DocHeader
+        icon={icon}
         essence={document?.essence}
         summary={displaySummary(exhibit)}
         typeLabel={typeLabel(exhibit)}
         wing={exhibit.wing}
         meta={meta}
+        hub={hub}
       >
         {displayTitle(exhibit)}
       </DocHeader>
@@ -89,22 +117,33 @@ const meta = document?.meta ?? { fields: [], tags: [] };
         <DocBody sections={document.sections} />
       ) : (
         <div class="empty-doc">
-          <p>This explanation is being written. Check back after the next content pass.</p>
+          <p>This page is being written. Check back after the next content pass.</p>
         </div>
+      )}
+
+      {isHub && (
+        <HubDatabase hubSlug={exhibit.slug} hubTitle={displayTitle(exhibit)} />
       )}
 
       {!path && (
         <footer class="doc-footer">
-          <a href="/graph" class="text-link">← Back to Atlas</a>
+          {hub && !isHub && (
+            <>
+              <a href={`/exhibit/${hub.slug}`} class="text-link">← {hub.title}</a>
+              <span class="doc-footer-sep">·</span>
+            </>
+          )}
+          <a href="/graph" class="text-link">All pages</a>
           <span class="doc-footer-sep">·</span>
-          <a href="/learn" class="text-link">Browse paths</a>
+          <a href="/learn" class="text-link">Paths</a>
         </footer>
       )}
     </article>
 
     <aside class="doc-aside">
       {document && <DocToc items={document.toc} />}
-      <RelatedPanel exhibits={related} />
+      <RelatedPanel exhibits={related} title="Related" />
+      <BacklinksPanel exhibits={backlinks} />
     </aside>
   </div>
 </AppLayout>

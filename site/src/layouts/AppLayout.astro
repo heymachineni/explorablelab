@@ -2,6 +2,7 @@
 import '../styles/design-system.css';
 import CommandPalette from '../components/CommandPalette.astro';
 import { stats } from '../lib/museum';
+import { hubs, pinnedHubs } from '../lib/workspace';
 
 interface Props {
   title?: string;
@@ -24,26 +25,45 @@ const {
 const path = Astro.url.pathname;
 const pathContext = Astro.url.searchParams.get('path');
 
-const nav = [
-  { href: '/', label: 'Home', match: (p: string) => p === '/' },
+const primaryNav = [
+  { href: '/', label: 'Home', icon: '⌂', match: (p: string) => p === '/' },
+  {
+    href: '/graph',
+    label: 'All pages',
+    icon: '▦',
+    count: stats.total,
+    match: (p: string) =>
+      p.startsWith('/graph') || (p.startsWith('/exhibit') && !pathContext && !p.startsWith('/exhibit/')),
+  },
+  {
+    href: '/view/theories',
+    label: 'Theories',
+    icon: '∑',
+    count: stats.theories,
+    match: (p: string) => p.startsWith('/view/theories'),
+  },
+  {
+    href: '/view/patterns',
+    label: 'Patterns',
+    icon: '◇',
+    count: stats.patterns,
+    match: (p: string) => p.startsWith('/view/patterns'),
+  },
   {
     href: '/learn',
     label: 'Paths',
+    icon: '→',
     count: stats.paths,
     match: (p: string) =>
       p.startsWith('/learn') ||
       p.startsWith('/collection') ||
       (p.startsWith('/exhibit') && !!pathContext),
   },
-  {
-    href: '/graph',
-    label: 'Atlas',
-    count: stats.total,
-    match: (p: string) => p.startsWith('/graph') || (p.startsWith('/exhibit') && !pathContext),
-  },
 ];
 
-const mobileNav = nav;
+const sidebarHubs = pinnedHubs.length > 0 ? pinnedHubs : hubs.slice(0, 6);
+const hubActive = (slug: string) => path === `/exhibit/${slug}`;
+const hubsSectionOpen = path.startsWith('/view/hubs') || hubs.some((h) => hubActive(h.slug));
 ---
 
 <!doctype html>
@@ -58,21 +78,54 @@ const mobileNav = nav;
   <body>
     <div class="app">
       <aside class="sidebar" aria-label="Sidebar">
-        <a href="/" class="sidebar-brand">ExplorableLab</a>
+        <a href="/" class="sidebar-brand">
+          <span class="sidebar-brand-icon" aria-hidden="true">◉</span>
+          ExplorableLab
+        </a>
+
         <nav class="sidebar-nav">
-          {nav.map((item) => (
+          <p class="sidebar-section-label">Workspace</p>
+          {primaryNav.map((item) => (
             <a href={item.href} class:list={['sidebar-link', { active: item.match(path) }]}>
-              <span>{item.label}</span>
+              <span class="sidebar-link-left">
+                <span class="sidebar-link-icon" aria-hidden="true">{item.icon}</span>
+                {item.label}
+              </span>
               {item.count !== undefined && <span class="sidebar-count">{item.count}</span>}
             </a>
           ))}
+
+          <details class="sidebar-details" open={hubsSectionOpen}>
+            <summary class="sidebar-section-toggle">
+              <span>Topic hubs</span>
+              <span class="sidebar-count">{stats.topicHubs}</span>
+            </summary>
+            <div class="sidebar-nested">
+              <a href="/view/hubs" class:list={['sidebar-link sidebar-link--nested', { active: path === '/view/hubs' }]}>
+                Browse all hubs
+              </a>
+              {sidebarHubs.map((hub) => (
+                <a
+                  href={hub.href}
+                  class:list={['sidebar-link sidebar-link--nested', { active: hubActive(hub.slug) }]}
+                >
+                  <span class="sidebar-link-left">{hub.title}</span>
+                  <span class="sidebar-count">{hub.memberCount}</span>
+                </a>
+              ))}
+            </div>
+          </details>
         </nav>
+
         <div class="sidebar-footer">
           <a href="/contribute" class:list={['sidebar-link', { active: path.startsWith('/contribute') || path.startsWith('/studio') }]}>
-            <span>Contribute</span>
+            <span class="sidebar-link-left">
+              <span class="sidebar-link-icon" aria-hidden="true">+</span>
+              Contribute
+            </span>
           </a>
           <p class="sidebar-hint">
-            <button type="button" class="sidebar-search-btn" id="sidebar-search-btn" aria-label="Search exhibits">
+            <button type="button" class="sidebar-search-btn" id="sidebar-search-btn" aria-label="Search pages">
               <kbd>⌘</kbd><kbd>K</kbd> search
             </button>
           </p>
@@ -97,7 +150,7 @@ const mobileNav = nav;
           ) : (
             <span class="topbar-title">{title === 'ExplorableLab' ? 'ExplorableLab' : title}</span>
           )}
-          <button type="button" class="topbar-search" id="topbar-search-btn" aria-label="Search exhibits">
+          <button type="button" class="topbar-search" id="topbar-search-btn" aria-label="Search pages">
             Search <kbd>⌘K</kbd>
           </button>
         </header>
@@ -109,14 +162,14 @@ const mobileNav = nav;
     </div>
 
     <nav class="mobile-nav" aria-label="Mobile">
-      {mobileNav.map((item) => (
-        <a href={item.href} class:list={[{ active: item.match(path) }]}>
-          {item.label}
-        </a>
-      ))}
+      <a href="/" class:list={[{ active: path === '/' }]}>Home</a>
+      <a href="/graph" class:list={[{ active: path.startsWith('/graph') }]}>Pages</a>
+      <a href="/view/hubs" class:list={[{ active: path.startsWith('/view/hubs') || path.includes('DIS') }]}>Hubs</a>
+      <a href="/learn" class:list={[{ active: path.startsWith('/learn') || path.startsWith('/collection') }]}>Paths</a>
     </nav>
 
     <CommandPalette />
+    <script src="/js/continue-reading.js" defer></script>
     <script is:inline>
       document.getElementById('sidebar-search-btn')?.addEventListener('click', () => {
         document.dispatchEvent(new CustomEvent('open-palette'));

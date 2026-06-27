@@ -1,0 +1,65 @@
+---
+interface Props {
+  title?: string;
+}
+
+const { title = 'Continue reading' } = Astro.props;
+---
+
+<section class="workspace-section continue-section" data-continue-section hidden>
+  <div class="workspace-section-head">
+    <h2 class="workspace-section-title">{title}</h2>
+  </div>
+  <div class="continue-list" data-continue-list></div>
+</section>
+
+<style>
+  .continue-section[hidden] {
+    display: none;
+  }
+
+  .continue-list {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  :global(.continue-row) {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.75rem 0.875rem;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    background: var(--bg);
+  }
+
+  :global(.continue-row:last-child) {
+    border-bottom: none;
+  }
+
+  :global(.continue-row:hover) {
+    background: var(--bg-hover);
+  }
+
+  :global(.continue-row-title) {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  :global(.continue-row-meta) {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    margin-top: 0.1rem;
+  }
+
+  :global(.continue-row-action) {
+    font-size: 0.8125rem;
+    color: var(--accent);
+    font-weight: 500;
+  }
+</style>

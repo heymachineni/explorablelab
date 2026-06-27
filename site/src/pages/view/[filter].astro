@@ -1,0 +1,60 @@
+---
+import AppLayout from '../../layouts/AppLayout.astro';
+import DatabaseView from '../../components/DatabaseView.astro';
+import { stats } from '../../lib/museum';
+import { databaseRows, rowsByType } from '../../lib/workspace';
+
+export function getStaticPaths() {
+  return [
+    { params: { filter: 'theories' } },
+    { params: { filter: 'patterns' } },
+    { params: { filter: 'hubs' } },
+  ];
+}
+
+const { filter } = Astro.params;
+
+const views: Record<string, { title: string; lead: string; rows: typeof databaseRows; defaultFilter: string; showHub: boolean }> = {
+  theories: {
+    title: 'Theories',
+    lead: `${stats.theories} models, mechanisms, and formal ideas`,
+    rows: rowsByType('THY'),
+    defaultFilter: 'THY',
+    showHub: true,
+  },
+  patterns: {
+    title: 'Patterns',
+    lead: `${stats.patterns} interaction and design vocabulary`,
+    rows: rowsByType('PAT'),
+    defaultFilter: 'PAT',
+    showHub: false,
+  },
+  hubs: {
+    title: 'Topic hubs',
+    lead: `${stats.topicHubs} curated entry points into human behaviour, systems, and scaling`,
+    rows: databaseRows.filter((r) => r.type === 'DIS'),
+    defaultFilter: 'DIS',
+    showHub: false,
+  },
+};
+
+const view = views[filter ?? 'theories'];
+if (!view) return Astro.redirect('/graph');
+---
+
+<AppLayout
+  title={view.title}
+  description={view.lead}
+  breadcrumbs={[{ label: 'Home', href: '/' }, { label: view.title }]}
+  full
+>
+  <DatabaseView
+    rows={view.rows}
+    title={view.title}
+    lead={view.lead}
+    defaultFilter={view.defaultFilter}
+    showHubColumn={view.showHub}
+    showDifficultyColumn={view.showHub}
+    id={`view-${filter}`}
+  />
+</AppLayout>

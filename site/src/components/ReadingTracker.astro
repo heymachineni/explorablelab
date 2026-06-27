@@ -1,0 +1,33 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+  type: string;
+  hub?: string;
+  pathSlug?: string | null;
+  stepIndex?: number | null;
+}
+
+const { slug, title, type, hub = '', pathSlug = null, stepIndex = null } = Astro.props;
+const href = Astro.url.pathname + Astro.url.search;
+---
+
+<script is:inline define:vars={{ slug, title, type, hub, href, pathSlug, stepIndex }}>
+  function track() {
+    window.ExplorableLabContinue?.trackPage({
+      slug,
+      title,
+      type,
+      hub,
+      href,
+      pathSlug,
+      stepIndex,
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', track);
+  } else {
+    track();
+  }
+</script>

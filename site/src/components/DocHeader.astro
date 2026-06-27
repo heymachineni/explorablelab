@@ -1,5 +1,6 @@
 ---
 interface Props {
+  icon?: string;
   essence?: string;
   summary: string;
   typeLabel: string;
@@ -10,14 +11,19 @@ interface Props {
     fields: string[];
     tags: string[];
   };
+  hub?: {
+    slug: string;
+    title: string;
+    href: string;
+  };
 }
 
-const { essence, summary, typeLabel, wing, meta } = Astro.props;
+const { icon = '◻', essence, summary, typeLabel, wing, meta, hub } = Astro.props;
 const callout = essence ?? summary;
 ---
 
 <header class="doc-header">
-  <div class="doc-icon" aria-hidden="true">{typeLabel.charAt(0)}</div>
+  <div class="doc-icon" aria-hidden="true">{icon}</div>
   <h1 class="doc-title"><slot /></h1>
 </header>
 
@@ -30,6 +36,12 @@ const callout = essence ?? summary;
     <dt>Type</dt>
     <dd><span class="property-pill">{typeLabel}</span></dd>
   </div>
+  {hub && (
+    <div class="property">
+      <dt>Topic hub</dt>
+      <dd><a href={hub.href} class="property-pill property-pill--link">{hub.title}</a></dd>
+    </div>
+  )}
   <div class="property">
     <dt>Collection</dt>
     <dd><span class="property-pill property-pill--gray">{wing}</span></dd>

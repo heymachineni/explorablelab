@@ -35,7 +35,8 @@
         "parameter-slider",
         "sandbox-mode"
       ],
-      "contentPath": "content/simulations/existing/evolution-of-trust.md"
+      "contentPath": "content/simulations/existing/evolution-of-trust.md",
+      "hub": "geopolitics"
     },
     {
       "slug": "we-become-what-we-behold",
@@ -51,7 +52,8 @@
         "role-as-system",
         "innocence-horror-hope"
       ],
-      "contentPath": "content/simulations/existing/we-become-what-we-behold.md"
+      "contentPath": "content/simulations/existing/we-become-what-we-behold.md",
+      "hub": "technology-and-society"
     },
     {
       "slug": "to-build-a-better-ballot",
@@ -426,7 +428,14 @@
         "threshold-models",
         "agent-placement"
       ],
-      "contentPath": "content/theories/complex-systems/schelling-segregation.md"
+      "contentPath": "content/theories/complex-systems/schelling-segregation.md",
+      "fields": [
+        "social-science",
+        "complex-systems"
+      ],
+      "difficulty": "introductory",
+      "confidence": "high",
+      "hub": "sociology-of-status"
     },
     {
       "slug": "emergence",
@@ -442,7 +451,8 @@
         "sandpile-avalanche",
         "agent-placement"
       ],
-      "contentPath": "content/theories/complex-systems/emergence.md"
+      "contentPath": "content/theories/complex-systems/emergence.md",
+      "hub": "systems-thinking"
     },
     {
       "slug": "threshold-models",
@@ -474,7 +484,8 @@
         "krebs-cycle-of-outrage",
         "feedback-loop-circle"
       ],
-      "contentPath": "content/theories/complex-systems/feedback-loops.md"
+      "contentPath": "content/theories/complex-systems/feedback-loops.md",
+      "hub": "systems-thinking"
     },
     {
       "slug": "percolation",
@@ -490,7 +501,12 @@
         "braess-roads",
         "schelling-segregation"
       ],
-      "contentPath": "content/theories/network-science/percolation.md"
+      "contentPath": "content/theories/network-science/percolation.md",
+      "fields": [
+        "network-science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium"
     },
     {
       "slug": "goodharts-law",
@@ -506,7 +522,8 @@
         "cobra-farm",
         "p-hacking-lab"
       ],
-      "contentPath": "content/theories/complex-systems/goodharts-law.md"
+      "contentPath": "content/theories/complex-systems/goodharts-law.md",
+      "hub": "behavioural-finance"
     },
     {
       "slug": "ostrom-commons-design",
@@ -554,7 +571,12 @@
         "st-petersburg-paradox",
         "fat-tail-farm"
       ],
-      "contentPath": "content/theories/probability/ergodicity.md"
+      "contentPath": "content/theories/probability/ergodicity.md",
+      "fields": [
+        "probability"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium"
     },
     {
       "slug": "complex-contagion",
@@ -570,7 +592,12 @@
         "2007-centola-complex-contagion",
         "wisdom-and-madness-of-crowds"
       ],
-      "contentPath": "content/theories/network-science/complex-contagion.md"
+      "contentPath": "content/theories/network-science/complex-contagion.md",
+      "fields": [
+        "network-science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium"
     },
     {
       "slug": "information-cascades",
@@ -586,7 +613,13 @@
         "majority-illusion",
         "we-become-what-we-behold"
       ],
-      "contentPath": "content/theories/network-science/information-cascades.md"
+      "contentPath": "content/theories/network-science/information-cascades.md",
+      "fields": [
+        "network-science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "cultural-history"
     },
     {
       "slug": "iterated-prisoners-dilemma",
@@ -602,7 +635,8 @@
         "prisoners-dilemma-tournament",
         "commons-garden"
       ],
-      "contentPath": "content/theories/complex-systems/iterated-prisoners-dilemma.md"
+      "contentPath": "content/theories/complex-systems/iterated-prisoners-dilemma.md",
+      "hub": "negotiation-game-theory"
     },
     {
       "slug": "agent-placement",
@@ -677,7 +711,8 @@
         "petrie-multiplier",
         "how-to-remember-anything-forever-ish"
       ],
-      "contentPath": "content/design/interaction-patterns/predict-then-reveal.md"
+      "contentPath": "content/design/interaction-patterns/predict-then-reveal.md",
+      "hub": "decision-making-uncertainty"
     },
     {
       "slug": "comparison-view",
@@ -932,7 +967,8 @@
         "goodhart-school",
         "metric-hydra"
       ],
-      "contentPath": "content/simulations/concepts/cobra-farm.md"
+      "contentPath": "content/simulations/concepts/cobra-farm.md",
+      "hub": "economics-incentives"
     },
     {
       "slug": "braess-roads",
@@ -992,7 +1028,8 @@
         "simpsons-paradox-university",
         "metric-hydra"
       ],
-      "contentPath": "content/simulations/concepts/p-hacking-lab.md"
+      "contentPath": "content/simulations/concepts/p-hacking-lab.md",
+      "hub": "scientific-method-skepticism"
     },
     {
       "slug": "prosecutors-dna",
@@ -1157,7 +1194,8 @@
         "p-hacking-lab",
         "base-rate-hospital"
       ],
-      "contentPath": "content/paradoxes/probability/simpsons-paradox.md"
+      "contentPath": "content/paradoxes/probability/simpsons-paradox.md",
+      "hub": "statistics-interpretation"
     },
     {
       "slug": "st-petersburg-paradox",
@@ -1172,7 +1210,8 @@
         "ergodicity",
         "ergodicity-street"
       ],
-      "contentPath": "content/paradoxes/probability/st-petersburg-paradox.md"
+      "contentPath": "content/paradoxes/probability/st-petersburg-paradox.md",
+      "hub": "probability-and-risk"
     },
     {
       "slug": "two-envelope-paradox",
@@ -1232,7 +1271,8 @@
         "iterated-prisoners-dilemma",
         "commons-garden"
       ],
-      "contentPath": "content/paradoxes/probability/prisoners-dilemma.md"
+      "contentPath": "content/paradoxes/probability/prisoners-dilemma.md",
+      "hub": "negotiation-game-theory"
     },
     {
       "slug": "tragedy-of-the-commons",
@@ -1337,7 +1377,8 @@
         "pluralistic-ignorance-pool",
         "standing-ovation"
       ],
-      "contentPath": "content/experiments/asch-conformity.md"
+      "contentPath": "content/experiments/asch-conformity.md",
+      "hub": "human-behaviour-psychology"
     },
     {
       "slug": "stanford-prison-experiment",
@@ -1397,7 +1438,8 @@
         "prisoners-dilemma-tournament",
         "commons-garden"
       ],
-      "contentPath": "content/experiments/ultimatum-game.md"
+      "contentPath": "content/experiments/ultimatum-game.md",
+      "hub": "moral-psychology"
     },
     {
       "slug": "marshmallow-test",
@@ -1547,7 +1589,12 @@
         "schelling-1971-dynamic-models",
         "parable-of-polygons"
       ],
-      "contentPath": "content/publications/books/micromotives-and-macrobehavior.md"
+      "contentPath": "content/publications/books/micromotives-and-macrobehavior.md",
+      "fields": [
+        "complex-systems"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium"
     },
     {
       "slug": "explorable-explanations",
@@ -1988,7 +2035,13 @@
         "scaling-growth-life-and-organizations",
         "emergence"
       ],
-      "contentPath": "content/theories/physics/square-cube-law.md"
+      "contentPath": "content/theories/physics/square-cube-law.md",
+      "fields": [
+        "physics"
+      ],
+      "difficulty": "introductory",
+      "confidence": "high",
+      "hub": "scaling-and-growth"
     },
     {
       "slug": "metabolic-scaling",
@@ -2003,7 +2056,13 @@
         "scaling-growth-life-and-organizations",
         "percolation"
       ],
-      "contentPath": "content/theories/evolution/metabolic-scaling.md"
+      "contentPath": "content/theories/evolution/metabolic-scaling.md",
+      "fields": [
+        "evolution"
+      ],
+      "difficulty": "introductory",
+      "confidence": "high",
+      "hub": "scaling-and-growth"
     },
     {
       "slug": "scaling-growth-life-and-organizations",
@@ -2019,7 +2078,13 @@
         "emergence",
         "goodharts-law"
       ],
-      "contentPath": "content/theories/complex-systems/scaling-growth-life-and-organizations.md"
+      "contentPath": "content/theories/complex-systems/scaling-growth-life-and-organizations.md",
+      "fields": [
+        "complex-systems"
+      ],
+      "difficulty": "introductory",
+      "confidence": "high",
+      "hub": "scaling-and-growth"
     },
     {
       "slug": "cognitive-dissonance",
@@ -2034,7 +2099,13 @@
         "confirmation-bias",
         "asch-conformity"
       ],
-      "contentPath": "content/theories/cognitive-science/cognitive-dissonance.md"
+      "contentPath": "content/theories/cognitive-science/cognitive-dissonance.md",
+      "fields": [
+        "cognitive_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "human-behaviour-psychology"
     },
     {
       "slug": "defense-mechanisms",
@@ -2049,7 +2120,13 @@
         "cognitive-dissonance",
         "human-behaviour-psychology"
       ],
-      "contentPath": "content/theories/cognitive-science/defense-mechanisms.md"
+      "contentPath": "content/theories/cognitive-science/defense-mechanisms.md",
+      "fields": [
+        "cognitive_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "human-behaviour-psychology"
     },
     {
       "slug": "psychological-projection",
@@ -2064,7 +2141,13 @@
         "in-group-bias",
         "human-behaviour-psychology"
       ],
-      "contentPath": "content/theories/cognitive-science/psychological-projection.md"
+      "contentPath": "content/theories/cognitive-science/psychological-projection.md",
+      "fields": [
+        "cognitive_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "human-behaviour-psychology"
     },
     {
       "slug": "confirmation-bias",
@@ -2079,7 +2162,13 @@
         "availability-heuristic",
         "predict-then-reveal"
       ],
-      "contentPath": "content/theories/cognitive-science/confirmation-bias.md"
+      "contentPath": "content/theories/cognitive-science/confirmation-bias.md",
+      "fields": [
+        "cognitive_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "cognitive-biases"
     },
     {
       "slug": "availability-heuristic",
@@ -2094,7 +2183,13 @@
         "hindsight-bias",
         "cognitive-biases"
       ],
-      "contentPath": "content/theories/cognitive-science/availability-heuristic.md"
+      "contentPath": "content/theories/cognitive-science/availability-heuristic.md",
+      "fields": [
+        "cognitive_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "cognitive-biases"
     },
     {
       "slug": "hindsight-bias",
@@ -2109,7 +2204,13 @@
         "overconfidence-bias",
         "cognitive-biases"
       ],
-      "contentPath": "content/theories/cognitive-science/hindsight-bias.md"
+      "contentPath": "content/theories/cognitive-science/hindsight-bias.md",
+      "fields": [
+        "cognitive_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "cognitive-biases"
     },
     {
       "slug": "dunning-kruger-effect",
@@ -2124,7 +2225,13 @@
         "cognitive-biases",
         "scientific-method-skepticism"
       ],
-      "contentPath": "content/theories/cognitive-science/dunning-kruger-effect.md"
+      "contentPath": "content/theories/cognitive-science/dunning-kruger-effect.md",
+      "fields": [
+        "cognitive_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "cognitive-biases"
     },
     {
       "slug": "black-swan-events",
@@ -2139,7 +2246,13 @@
         "probability-and-risk",
         "st-petersburg-paradox"
       ],
-      "contentPath": "content/theories/probability/black-swan-events.md"
+      "contentPath": "content/theories/probability/black-swan-events.md",
+      "fields": [
+        "probability"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "probability-and-risk"
     },
     {
       "slug": "fat-tailed-distributions",
@@ -2154,7 +2267,13 @@
         "ergodicity",
         "fat-tail-farm"
       ],
-      "contentPath": "content/theories/probability/fat-tailed-distributions.md"
+      "contentPath": "content/theories/probability/fat-tailed-distributions.md",
+      "fields": [
+        "probability"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "probability-and-risk"
     },
     {
       "slug": "regression-to-the-mean",
@@ -2169,7 +2288,13 @@
         "simpsons-paradox",
         "base-rate-neglect"
       ],
-      "contentPath": "content/theories/probability/regression-to-the-mean.md"
+      "contentPath": "content/theories/probability/regression-to-the-mean.md",
+      "fields": [
+        "probability"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "statistics-interpretation"
     },
     {
       "slug": "surveillance-capitalism",
@@ -2184,7 +2309,13 @@
         "algorithmic-bias",
         "technology-and-society"
       ],
-      "contentPath": "content/theories/social-science/surveillance-capitalism.md"
+      "contentPath": "content/theories/social-science/surveillance-capitalism.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "technology-and-society"
     },
     {
       "slug": "algorithmic-bias",
@@ -2199,7 +2330,13 @@
         "goodharts-law",
         "technology-and-society"
       ],
-      "contentPath": "content/theories/social-science/algorithmic-bias.md"
+      "contentPath": "content/theories/social-science/algorithmic-bias.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "technology-and-society"
     },
     {
       "slug": "digital-panopticon",
@@ -2214,7 +2351,13 @@
         "we-become-what-we-behold",
         "technology-and-society"
       ],
-      "contentPath": "content/theories/social-science/digital-panopticon.md"
+      "contentPath": "content/theories/social-science/digital-panopticon.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "technology-and-society"
     },
     {
       "slug": "loss-aversion",
@@ -2229,7 +2372,13 @@
         "herd-behaviour",
         "overconfidence-bias"
       ],
-      "contentPath": "content/theories/economics/loss-aversion.md"
+      "contentPath": "content/theories/economics/loss-aversion.md",
+      "fields": [
+        "economics"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "behavioural-finance"
     },
     {
       "slug": "herd-behaviour",
@@ -2244,7 +2393,13 @@
         "loss-aversion",
         "behavioural-finance"
       ],
-      "contentPath": "content/theories/social-science/herd-behaviour.md"
+      "contentPath": "content/theories/social-science/herd-behaviour.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "behavioural-finance"
     },
     {
       "slug": "overconfidence-bias",
@@ -2259,7 +2414,13 @@
         "behavioural-finance",
         "predict-then-reveal"
       ],
-      "contentPath": "content/theories/cognitive-science/overconfidence-bias.md"
+      "contentPath": "content/theories/cognitive-science/overconfidence-bias.md",
+      "fields": [
+        "cognitive_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "behavioural-finance"
     },
     {
       "slug": "mate-selection-theory",
@@ -2274,7 +2435,13 @@
         "kin-selection",
         "evolutionary-psychology"
       ],
-      "contentPath": "content/theories/evolution/mate-selection-theory.md"
+      "contentPath": "content/theories/evolution/mate-selection-theory.md",
+      "fields": [
+        "evolution"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "evolutionary-psychology"
     },
     {
       "slug": "kin-selection",
@@ -2289,7 +2456,13 @@
         "evolution-of-trust",
         "evolutionary-psychology"
       ],
-      "contentPath": "content/theories/evolution/kin-selection.md"
+      "contentPath": "content/theories/evolution/kin-selection.md",
+      "fields": [
+        "evolution"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "evolutionary-psychology"
     },
     {
       "slug": "status-signaling",
@@ -2304,7 +2477,13 @@
         "cultural-capital",
         "evolutionary-psychology"
       ],
-      "contentPath": "content/theories/social-science/status-signaling.md"
+      "contentPath": "content/theories/social-science/status-signaling.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "sociology-of-status"
     },
     {
       "slug": "elite-circulation",
@@ -2319,7 +2498,13 @@
         "history-of-power",
         "machiavellian-realism"
       ],
-      "contentPath": "content/theories/social-science/elite-circulation.md"
+      "contentPath": "content/theories/social-science/elite-circulation.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "history-of-power"
     },
     {
       "slug": "legitimacy-and-authority",
@@ -2334,7 +2519,13 @@
         "history-of-power",
         "ostrom-commons-design"
       ],
-      "contentPath": "content/theories/social-science/legitimacy-and-authority.md"
+      "contentPath": "content/theories/social-science/legitimacy-and-authority.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "history-of-power"
     },
     {
       "slug": "soft-power",
@@ -2349,7 +2540,13 @@
         "geopolitics",
         "history-of-power"
       ],
-      "contentPath": "content/theories/social-science/soft-power.md"
+      "contentPath": "content/theories/social-science/soft-power.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "geopolitics"
     },
     {
       "slug": "machiavellian-realism",
@@ -2364,7 +2561,13 @@
         "prisoners-dilemma",
         "geopolitics"
       ],
-      "contentPath": "content/theories/social-science/machiavellian-realism.md"
+      "contentPath": "content/theories/social-science/machiavellian-realism.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "history-of-power"
     },
     {
       "slug": "principal-agent-problem",
@@ -2379,7 +2582,13 @@
         "economics-incentives",
         "cobra-farm"
       ],
-      "contentPath": "content/theories/economics/principal-agent-problem.md"
+      "contentPath": "content/theories/economics/principal-agent-problem.md",
+      "fields": [
+        "economics"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "economics-incentives"
     },
     {
       "slug": "moral-hazard",
@@ -2394,7 +2603,13 @@
         "economics-incentives",
         "goodharts-law"
       ],
-      "contentPath": "content/theories/economics/moral-hazard.md"
+      "contentPath": "content/theories/economics/moral-hazard.md",
+      "fields": [
+        "economics"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "economics-incentives"
     },
     {
       "slug": "unintended-consequences",
@@ -2409,7 +2624,13 @@
         "goodharts-law",
         "second-order-effects"
       ],
-      "contentPath": "content/theories/economics/unintended-consequences.md"
+      "contentPath": "content/theories/economics/unintended-consequences.md",
+      "fields": [
+        "economics"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "economics-incentives"
     },
     {
       "slug": "correlation-vs-causation",
@@ -2424,7 +2645,13 @@
         "simpsons-paradox",
         "base-rate-neglect"
       ],
-      "contentPath": "content/theories/probability/correlation-vs-causation.md"
+      "contentPath": "content/theories/probability/correlation-vs-causation.md",
+      "fields": [
+        "probability"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "statistics-interpretation"
     },
     {
       "slug": "survivorship-bias",
@@ -2439,7 +2666,13 @@
         "goodharts-law",
         "p-hacking-lab"
       ],
-      "contentPath": "content/theories/probability/survivorship-bias.md"
+      "contentPath": "content/theories/probability/survivorship-bias.md",
+      "fields": [
+        "probability"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "statistics-interpretation"
     },
     {
       "slug": "base-rate-neglect",
@@ -2454,7 +2687,13 @@
         "statistics-interpretation",
         "bayesian-therapy"
       ],
-      "contentPath": "content/theories/probability/base-rate-neglect.md"
+      "contentPath": "content/theories/probability/base-rate-neglect.md",
+      "fields": [
+        "probability"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "statistics-interpretation"
     },
     {
       "slug": "cultural-capital",
@@ -2469,7 +2708,13 @@
         "sociology-of-status",
         "status-anxiety"
       ],
-      "contentPath": "content/theories/social-science/cultural-capital.md"
+      "contentPath": "content/theories/social-science/cultural-capital.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "sociology-of-status"
     },
     {
       "slug": "status-anxiety",
@@ -2484,7 +2729,13 @@
         "social-stratification",
         "loss-aversion"
       ],
-      "contentPath": "content/theories/social-science/status-anxiety.md"
+      "contentPath": "content/theories/social-science/status-anxiety.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "sociology-of-status"
     },
     {
       "slug": "social-stratification",
@@ -2499,7 +2750,13 @@
         "schelling-segregation",
         "sociology-of-status"
       ],
-      "contentPath": "content/theories/social-science/social-stratification.md"
+      "contentPath": "content/theories/social-science/social-stratification.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "sociology-of-status"
     },
     {
       "slug": "bounded-rationality",
@@ -2514,7 +2771,13 @@
         "satisficing",
         "decision-making-uncertainty"
       ],
-      "contentPath": "content/theories/cognitive-science/bounded-rationality.md"
+      "contentPath": "content/theories/cognitive-science/bounded-rationality.md",
+      "fields": [
+        "cognitive_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "decision-making-uncertainty"
     },
     {
       "slug": "heuristics-decision-making",
@@ -2529,7 +2792,13 @@
         "availability-heuristic",
         "decision-making-uncertainty"
       ],
-      "contentPath": "content/theories/cognitive-science/heuristics-decision-making.md"
+      "contentPath": "content/theories/cognitive-science/heuristics-decision-making.md",
+      "fields": [
+        "cognitive_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "decision-making-uncertainty"
     },
     {
       "slug": "satisficing",
@@ -2544,7 +2813,13 @@
         "decision-making-uncertainty",
         "predict-then-reveal"
       ],
-      "contentPath": "content/theories/cognitive-science/satisficing.md"
+      "contentPath": "content/theories/cognitive-science/satisficing.md",
+      "fields": [
+        "cognitive_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "decision-making-uncertainty"
     },
     {
       "slug": "falsifiability",
@@ -2559,7 +2834,13 @@
         "replication-crisis",
         "peer-review-process"
       ],
-      "contentPath": "content/theories/social-science/falsifiability.md"
+      "contentPath": "content/theories/social-science/falsifiability.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "scientific-method-skepticism"
     },
     {
       "slug": "replication-crisis",
@@ -2574,7 +2855,13 @@
         "peer-review-process",
         "scientific-method-skepticism"
       ],
-      "contentPath": "content/phenomena/history-of-science-discipline/replication-crisis.md"
+      "contentPath": "content/phenomena/history-of-science-discipline/replication-crisis.md",
+      "fields": [
+        "history-of-science-discipline"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "scientific-method-skepticism"
     },
     {
       "slug": "peer-review-process",
@@ -2589,7 +2876,13 @@
         "replication-crisis",
         "falsifiability"
       ],
-      "contentPath": "content/theories/social-science/peer-review-process.md"
+      "contentPath": "content/theories/social-science/peer-review-process.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "scientific-method-skepticism"
     },
     {
       "slug": "nash-equilibrium",
@@ -2604,7 +2897,13 @@
         "negotiation-game-theory",
         "iterated-prisoners-dilemma"
       ],
-      "contentPath": "content/theories/game-theory/nash-equilibrium.md"
+      "contentPath": "content/theories/game-theory/nash-equilibrium.md",
+      "fields": [
+        "game_theory"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "negotiation-game-theory"
     },
     {
       "slug": "zero-sum-games",
@@ -2619,7 +2918,13 @@
         "negotiation-game-theory",
         "commons-garden"
       ],
-      "contentPath": "content/theories/game-theory/zero-sum-games.md"
+      "contentPath": "content/theories/game-theory/zero-sum-games.md",
+      "fields": [
+        "game_theory"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "negotiation-game-theory"
     },
     {
       "slug": "collective-memory",
@@ -2634,7 +2939,13 @@
         "cultural-history",
         "information-cascades"
       ],
-      "contentPath": "content/theories/social-science/collective-memory.md"
+      "contentPath": "content/theories/social-science/collective-memory.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "cultural-history"
     },
     {
       "slug": "myth-creation",
@@ -2649,7 +2960,13 @@
         "historical-storytelling",
         "cultural-history"
       ],
-      "contentPath": "content/theories/social-science/myth-creation.md"
+      "contentPath": "content/theories/social-science/myth-creation.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "cultural-history"
     },
     {
       "slug": "historical-storytelling",
@@ -2664,7 +2981,13 @@
         "myth-creation",
         "language-and-framing"
       ],
-      "contentPath": "content/theories/social-science/historical-storytelling.md"
+      "contentPath": "content/theories/social-science/historical-storytelling.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "language-and-framing"
     },
     {
       "slug": "linguistic-relativity",
@@ -2679,7 +3002,13 @@
         "emotionally-charged-language",
         "framing-effects-media"
       ],
-      "contentPath": "content/theories/cognitive-science/linguistic-relativity.md"
+      "contentPath": "content/theories/cognitive-science/linguistic-relativity.md",
+      "fields": [
+        "cognitive_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "language-and-framing"
     },
     {
       "slug": "euphemism-cycles",
@@ -2694,7 +3023,13 @@
         "emotionally-charged-language",
         "goodharts-law"
       ],
-      "contentPath": "content/theories/social-science/euphemism-cycles.md"
+      "contentPath": "content/theories/social-science/euphemism-cycles.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "language-and-framing"
     },
     {
       "slug": "emotionally-charged-language",
@@ -2709,7 +3044,13 @@
         "framing-effects-media",
         "propaganda-model"
       ],
-      "contentPath": "content/theories/social-science/emotionally-charged-language.md"
+      "contentPath": "content/theories/social-science/emotionally-charged-language.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "language-and-framing"
     },
     {
       "slug": "moral-foundations-theory",
@@ -2724,7 +3065,13 @@
         "value-diversity",
         "in-group-bias"
       ],
-      "contentPath": "content/theories/social-science/moral-foundations-theory.md"
+      "contentPath": "content/theories/social-science/moral-foundations-theory.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "moral-psychology"
     },
     {
       "slug": "in-group-bias",
@@ -2739,7 +3086,13 @@
         "schelling-segregation",
         "asch-conformity"
       ],
-      "contentPath": "content/theories/social-science/in-group-bias.md"
+      "contentPath": "content/theories/social-science/in-group-bias.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "moral-psychology"
     },
     {
       "slug": "value-diversity",
@@ -2754,7 +3107,13 @@
         "moral-relativism",
         "philosophy-of-ethics"
       ],
-      "contentPath": "content/theories/social-science/value-diversity.md"
+      "contentPath": "content/theories/social-science/value-diversity.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "moral-psychology"
     },
     {
       "slug": "utilitarianism",
@@ -2769,7 +3128,13 @@
         "deontology",
         "moral-relativism"
       ],
-      "contentPath": "content/theories/social-science/utilitarianism.md"
+      "contentPath": "content/theories/social-science/utilitarianism.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "philosophy-of-ethics"
     },
     {
       "slug": "deontology",
@@ -2784,7 +3149,13 @@
         "virtue-ethics",
         "philosophy-of-ethics"
       ],
-      "contentPath": "content/theories/social-science/deontology.md"
+      "contentPath": "content/theories/social-science/deontology.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "philosophy-of-ethics"
     },
     {
       "slug": "virtue-ethics",
@@ -2799,7 +3170,13 @@
         "deontology",
         "utilitarianism"
       ],
-      "contentPath": "content/theories/social-science/virtue-ethics.md"
+      "contentPath": "content/theories/social-science/virtue-ethics.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "philosophy-of-ethics"
     },
     {
       "slug": "moral-relativism",
@@ -2814,7 +3191,13 @@
         "value-diversity",
         "moral-psychology"
       ],
-      "contentPath": "content/theories/social-science/moral-relativism.md"
+      "contentPath": "content/theories/social-science/moral-relativism.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "philosophy-of-ethics"
     },
     {
       "slug": "balance-of-power",
@@ -2829,7 +3212,13 @@
         "deterrence-theory",
         "multipolar-world-dynamics"
       ],
-      "contentPath": "content/theories/social-science/balance-of-power.md"
+      "contentPath": "content/theories/social-science/balance-of-power.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "geopolitics"
     },
     {
       "slug": "deterrence-theory",
@@ -2844,7 +3233,13 @@
         "balance-of-power",
         "prisoners-dilemma"
       ],
-      "contentPath": "content/theories/social-science/deterrence-theory.md"
+      "contentPath": "content/theories/social-science/deterrence-theory.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "geopolitics"
     },
     {
       "slug": "multipolar-world-dynamics",
@@ -2859,7 +3254,13 @@
         "balance-of-power",
         "evolution-of-trust"
       ],
-      "contentPath": "content/theories/social-science/multipolar-world-dynamics.md"
+      "contentPath": "content/theories/social-science/multipolar-world-dynamics.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "geopolitics"
     },
     {
       "slug": "agenda-setting",
@@ -2874,7 +3275,13 @@
         "framing-effects-media",
         "propaganda-model"
       ],
-      "contentPath": "content/theories/social-science/agenda-setting.md"
+      "contentPath": "content/theories/social-science/agenda-setting.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "media-literacy"
     },
     {
       "slug": "framing-effects-media",
@@ -2889,7 +3296,13 @@
         "agenda-setting",
         "language-and-framing"
       ],
-      "contentPath": "content/theories/social-science/framing-effects-media.md"
+      "contentPath": "content/theories/social-science/framing-effects-media.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "media-literacy"
     },
     {
       "slug": "propaganda-model",
@@ -2904,7 +3317,13 @@
         "agenda-setting",
         "surveillance-capitalism"
       ],
-      "contentPath": "content/theories/social-science/propaganda-model.md"
+      "contentPath": "content/theories/social-science/propaganda-model.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "media-literacy"
     },
     {
       "slug": "echo-chambers",
@@ -2919,7 +3338,13 @@
         "confirmation-bias",
         "information-cascades"
       ],
-      "contentPath": "content/theories/social-science/echo-chambers.md"
+      "contentPath": "content/theories/social-science/echo-chambers.md",
+      "fields": [
+        "social_science"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "media-literacy"
     },
     {
       "slug": "second-order-effects",
@@ -2934,7 +3359,13 @@
         "unintended-system-behavior",
         "feedback-loops"
       ],
-      "contentPath": "content/theories/complex-systems/second-order-effects.md"
+      "contentPath": "content/theories/complex-systems/second-order-effects.md",
+      "fields": [
+        "complex_systems"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "systems-thinking"
     },
     {
       "slug": "unintended-system-behavior",
@@ -2949,7 +3380,13 @@
         "emergence",
         "cobra-farm"
       ],
-      "contentPath": "content/theories/complex-systems/unintended-system-behavior.md"
+      "contentPath": "content/theories/complex-systems/unintended-system-behavior.md",
+      "fields": [
+        "complex_systems"
+      ],
+      "difficulty": "introductory",
+      "confidence": "medium",
+      "hub": "systems-thinking"
     },
     {
       "slug": "domino-effect",
@@ -2965,7 +3402,13 @@
         "information-cascades",
         "feedback-loops"
       ],
-      "contentPath": "content/mental-models/domino-effect.md"
+      "contentPath": "content/mental-models/domino-effect.md",
+      "fields": [
+        "general"
+      ],
+      "difficulty": "introductory",
+      "confidence": "high",
+      "hub": "scaling-and-growth"
     }
   ]
 }
